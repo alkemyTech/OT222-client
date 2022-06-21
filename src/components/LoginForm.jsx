@@ -19,7 +19,7 @@ const validate = values => {
     return errors
 }
 
-export default function SignUpForm() {
+export default function LoginForm() {
 
     let form = {}
 
