@@ -1,11 +1,11 @@
 import React from "react";
-import HomePage from "../pages/HomePage";
-import ContributePage from "../pages/ContributePage";
-import LoginPage from "../pages/LoginPage";
-import StaffPage from "../pages/StaffPage";
-import NewsPage from "../pages/NewsPage";
-import TestimonialsPage from "../pages/TestimonialsPage";
-
+import HomePage from "./HomePage";
+import ContributePage from "./ContributePage";
+import LoginPage from "./LoginPage";
+import StaffPage from "./StaffPage";
+import NewsPage from "./NewsPage";
+import TestimonialsPage from "./TestimonialsPage";
+import RegisterPage from './RegisterPage'
 export const Home = () => {
   return <HomePage />;
 };
@@ -29,3 +29,7 @@ export const Testimonials = () => {
 export const Contribute = () => {
   return <ContributePage />;
 };
+
+export const Register = () => {
+  return <RegisterPage />
+}
