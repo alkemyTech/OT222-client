@@ -1,5 +1,6 @@
-import { Formik, Field, Form } from "formik"
 import React from "react"
+import { Formik, Field, Form } from "formik"
+import { Input, Button, Flex, Heading, Text } from '@chakra-ui/react'
 
 const validate = values => {
     const errors = {}
@@ -39,15 +40,17 @@ export default function LoginForm() {
                 }}
             >
                 {({ errors, touched }) => (
-                    <Form>
-                        <p>Bienvenido</p>
-                        <h3>Inicia sesión en tu cuenta!</h3>
-                        <Field id="email" name="email" type="email" placeholder="Email" />
+                    <Flex flexDirection={"column"} gap={"10px"} as={Form} >
+                        <div>
+                            <Text variant={"login"}>Bienvenido</Text>
+                            <Heading variant={"login"}>Inicia sesión en tu cuenta!</Heading>
+                        </div>
+                        <Input as={Field} id="email" name="email" type="email" placeholder="Email" variant={"login"} />
                         {errors.email && touched.email && <label htmlFor="email">{errors.email}</label>}
-                        <Field id="password" name="password" type="password" placeholder="Contraseña" autocomplete="current-password" />
+                        <Input as={Field} id="password" name="password" type="password" placeholder="Contraseña" autocomplete="current-password" variant={"login"} />
                         {errors.password && touched.password && <label htmlFor="password">{errors.password}</label>}
-                        <button type="submit">Inicia sesión</button>
-                    </Form>
+                        <Button type="submit" variant={"login"}>Inicia sesión</Button>
+                    </Flex>
                 )}
             </Formik>
         </div>
