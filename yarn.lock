@@ -1970,7 +1970,7 @@
     "lz-string" "^1.4.4"
     "pretty-format" "^27.0.2"
 
-"@testing-library/dom@^6.15.0":
+"@testing-library/dom@^6.15.0", "@testing-library/dom@>=5":
   "integrity" "sha512-lBD88ssxqEfz0wFL6MeUyyWZfV/2cjEZZV3YRpb2IoJRej/4f1jB0TzqIOznTpfR1r34CNesrubxwIlAQ8zgPA=="
   "resolved" "https://registry.npmjs.org/@testing-library/dom/-/dom-6.16.0.tgz"
   "version" "6.16.0"

@@ -1,15 +1,37 @@
-
-import React from 'react';
-import './App.css';
-import ContactForm from './component/contactForm';
-
-
+import React from "react";
+import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Home,
+  Login,
+  Staff,
+  News,
+  Testimonials,
+  Contribute,
+  Register,
+  ContactPage
+} from "./pages/index";
+import Footer from "./layouts/Footer";
+import Header from "./layouts/Header";
 
 function App() {
+  const location = useLocation().pathname;
+  
   return (
-    <div className="App">
-      <ContactForm /> 
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/staff" element={<Staff />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/contribute" element={<Contribute />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/contactPage' element={<ContactPage />} />
+      </Routes>
+      {location !== "/login" ? <Footer /> : null}
+    </>
   );
 }
 
