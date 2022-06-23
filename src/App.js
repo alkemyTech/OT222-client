@@ -12,6 +12,7 @@ import {
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
+import ChangeHomeForm from "./components/ChangeHomeForm";
 
 function App() {
   const location = useLocation().pathname;
@@ -27,6 +28,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/changeHomeForm' element={<ChangeHomeForm />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>
