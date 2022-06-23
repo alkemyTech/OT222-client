@@ -7,21 +7,9 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { colors, breakpoints, components } from './theme'
 
-const colors = {
-  primary: "#DB5752",
-  secondary: "#FAFA88",
-  tertiary: "#9AC9FB",
-};
-const breakpoints = {
-  sm: '30em',
-  md: '48em',
-  lg: '62em',
-  xl: '80em',
-  '2xl': '96em',
-}
-
-const theme = extendTheme({ colors, breakpoints });
+const theme = extendTheme({ colors, breakpoints, components });
 
 ReactDOM.render(
   <React.StrictMode>
