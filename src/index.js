@@ -6,12 +6,31 @@ import store from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+
+const colors = {
+  primary: "#DB5752",
+  secondary: "#FAFA88",
+  tertiary: "#9AC9FB",
+};
+const breakpoints = {
+  sm: '30em',
+  md: '48em',
+  lg: '62em',
+  xl: '80em',
+  '2xl': '96em',
+}
+
+const theme = extendTheme({ colors, breakpoints });
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <ChakraProvider theme={theme}>
+        <Router>
+          <App />
+        </Router>
+      </ChakraProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
