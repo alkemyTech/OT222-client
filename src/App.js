@@ -1,14 +1,24 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Home, Login, Staff, News, Testimonials, Contribute } from "./pages/index";
-import Footer from "./components/Footer";
+import {
+  Home,
+  Login,
+  Staff,
+  News,
+  Testimonials,
+  Contribute,
+  Register
+} from "./pages/index";
+import Footer from "./layouts/Footer";
+import Header from "./layouts/Header";
+
 function App() {
   const location = useLocation().pathname;
 
   return (
     <>
-      {/* Navbar */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -16,6 +26,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>
