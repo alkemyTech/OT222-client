@@ -1,9 +1,8 @@
-import React from 'react'
-
+import React from "react"
+// Components
+import Carousel from "../components/Carousel"
 const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
+  return <Carousel />
 }
 
 export default HomePage
