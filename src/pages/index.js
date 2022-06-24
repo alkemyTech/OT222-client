@@ -7,7 +7,6 @@ import NewsPage from "./NewsPage";
 import TestimonialsPage from "./TestimonialsPage";
 import RegisterPage from './RegisterPage'
 import ContactPage from "./ContactPage";
-import BackOfficePage from "./LayoutBackOfficePage";
 
 export const Home = () => {
   return <HomePage />;
@@ -41,6 +40,3 @@ export const Contact = () => {
   return <ContactPage />;
 };
 
-export const Backoffice = () => {
-  return <BackOfficePage />;
-};
