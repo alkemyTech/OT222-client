@@ -8,14 +8,15 @@ import {
   News,
   Testimonials,
   Contribute,
-  Register
+  Register,
+  Contact
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
 
 function App() {
   const location = useLocation().pathname;
-
+  
   return (
     <>
       <Header />
@@ -27,6 +28,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/contact' element={<Contact />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>
