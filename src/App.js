@@ -10,6 +10,7 @@ import {
   Contribute,
   Register,
   Contact,
+  Backoffice,
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/backoffice/changeHomeForm' element={< Backoffice/>} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>
