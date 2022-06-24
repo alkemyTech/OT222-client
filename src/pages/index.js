@@ -5,7 +5,9 @@ import LoginPage from "./LoginPage";
 import StaffPage from "./StaffPage";
 import NewsPage from "./NewsPage";
 import TestimonialsPage from "./TestimonialsPage";
-import RegisterPage from './RegisterPage'
+import RegisterPage from './RegisterPage';
+import ChangeHomeForm from "../components/ChangeHomeForm";
+
 export const Home = () => {
   return <HomePage />;
 };
@@ -32,4 +34,7 @@ export const Contribute = () => {
 
 export const Register = () => {
   return <RegisterPage />
+}
+export const HomeForm = () => {
+  return <ChangeHomeForm />
 }
