@@ -9,7 +9,7 @@ import {
   Testimonials,
   Contribute,
   Register,
-  ContactPage
+  Contact
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -28,7 +28,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/contactPage' element={<ContactPage />} />
+        <Route path='/contact' element={<Contact />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>

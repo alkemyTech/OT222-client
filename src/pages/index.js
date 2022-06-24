@@ -6,6 +6,8 @@ import StaffPage from "./StaffPage";
 import NewsPage from "./NewsPage";
 import TestimonialsPage from "./TestimonialsPage";
 import RegisterPage from './RegisterPage'
+import ContactPage from "./ContactPage";
+
 export const Home = () => {
   return <HomePage />;
 };
@@ -33,3 +35,7 @@ export const Contribute = () => {
 export const Register = () => {
   return <RegisterPage />
 }
+
+export const Contact = () => {
+  return <ContactPage />;
+};
