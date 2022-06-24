@@ -13,6 +13,7 @@ const theme = extendTheme({ colors, breakpoints, components });
 
 ReactDOM.render(
   <React.StrictMode>
+
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <Router>
