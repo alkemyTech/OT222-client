@@ -7,6 +7,9 @@ import NewsPage from "./NewsPage";
 import TestimonialsPage from "./TestimonialsPage";
 import RegisterPage from './RegisterPage';
 import BackOfficeForm from "../components/ChangeHomeForm";
+import RegisterPage from './RegisterPage'
+import ContactPage from "./ContactPage";
+import BackOfficePage from "./LayoutBackOfficePage";
 
 export const Home = () => {
   return <HomePage />;
@@ -35,6 +38,16 @@ export const Contribute = () => {
 export const Register = () => {
   return <RegisterPage />
 }
+
 export const  BackOffice = () => {
   return <BackOfficeForm />
 }
+
+
+export const Contact = () => {
+  return <ContactPage />;
+};
+
+export const Backoffice = () => {
+  return <BackOfficePage />;
+};

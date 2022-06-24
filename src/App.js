@@ -10,6 +10,8 @@ import {
   Contribute,
   Register,
   BackOffice
+  Contact,
+  Backoffice
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -17,7 +19,7 @@ import Header from "./layouts/Header";
 
 function App() {
   const location = useLocation().pathname;
-
+  
   return (
     <>
       <Header />
@@ -30,6 +32,8 @@ function App() {
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
         <Route path='/backOffice' element={< BackOffice/>} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/backOffice' element={<Backoffice />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
     </>
