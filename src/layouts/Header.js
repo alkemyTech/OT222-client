@@ -38,6 +38,7 @@ const Header = () => {
         autoFlow={"column"}
         alignContent={"center"}
         px="2vw"
+        bg='#fff'
         boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
       >
         <Image src={publicAssets.img} />
