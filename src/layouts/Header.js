@@ -40,6 +40,7 @@ const Header = () => {
         px="2vw"
         bg='#fff'
         boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
+        zIndex='1'
       >
         <Image src={publicAssets.img} />
         <Navbar mobile={false} />
@@ -58,12 +59,13 @@ const Header = () => {
       <Grid
         left={mobile === false ? "-100vw" : "0"}
         transition="all 0.4s ease"
-        position="absolute"
+        position="fixed"
         w="100vw"
-        h="auto"
+        h="100vh"
         bg="#fff"
         justifyContent={"center"}
         pb="4vh"
+        zIndex={'1'}
       >
         <Flex w="100vw" justifyContent={"center"} px="2vw">
           <Image
