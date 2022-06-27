@@ -8,6 +8,7 @@ import TestimonialsPage from "./TestimonialsPage";
 import RegisterPage from './RegisterPage'
 import ContactPage from "./ContactPage";
 import LayoutBackofficePage from "./LayoutBackofficePage";
+import ProfilePage from "./ProfilePage";
 
 export const Home = () => {
   return <HomePage />;
@@ -41,6 +42,12 @@ export const Contact = () => {
   return <ContactPage />;
 };
 
+
 export const LayoutBackoffice = () => {
   return <LayoutBackofficePage />
 };
+
+export const Profile = () => {
+  return <ProfilePage />
+}
+

@@ -1,7 +1,7 @@
 .box {
     padding: 10px 10px;
     background: #f8f9fa;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
