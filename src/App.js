@@ -10,6 +10,7 @@ import {
   Contribute,
   Register,
   Contact,
+  Backoffice,
   LayoutBackoffice,
   Profile
 } from "./pages/index";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/backoffice/changeHomeForm' element={< Backoffice/>} />
         <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
