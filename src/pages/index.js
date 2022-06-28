@@ -6,6 +6,11 @@ import StaffPage from "./StaffPage";
 import NewsPage from "./NewsPage";
 import TestimonialsPage from "./TestimonialsPage";
 import RegisterPage from './RegisterPage'
+import ContactPage from "./ContactPage";
+import BackofficePage from "./BackofficePage"
+import LayoutBackofficePage from "./LayoutBackofficePage";
+import ProfilePage from "./ProfilePage";
+
 export const Home = () => {
   return <HomePage />;
 };
@@ -32,4 +37,20 @@ export const Contribute = () => {
 
 export const Register = () => {
   return <RegisterPage />
+}
+
+export const Contact = () => {
+  return <ContactPage />;
+};
+
+export const Backoffice = () => {
+  return <BackofficePage/>;
+};
+
+export const LayoutBackoffice = () => {
+  return <LayoutBackofficePage />
+};
+
+export const Profile = () => {
+  return <ProfilePage />
 }
