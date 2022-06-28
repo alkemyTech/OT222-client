@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import { Box, Image, Text } from "@chakra-ui/react"
 // utils carousel data
 import carouselData from "../../utils/carouselData"
 // Styles
@@ -13,28 +14,38 @@ const Carousel = () => {
   }, [])
 
   return (
-    <div className="carousel">
-      <motion.div
-        ref={carousel}
-        className="carousel-warapper"
-        whileTap={{ cursor: "grabbing" }}
-      >
+    <Box m={["20px", "40px"]}>
+      <Box cursor="grab" overflow="hidden">
         <motion.div
-          drag="x"
-          dragConstraints={{ right: 0, left: -width }}
-          className="inner-carousel"
+          ref={carousel}
+          className="carousel-warapper"
+          whileTap={{ cursor: "grabbing" }}
         >
-          {carouselData.map(({ _id, imageUrl, text }) => {
-            return (
-              <motion.div key={_id} className="item">
-                <motion.h1>{text}</motion.h1>
-                <img src={imageUrl} alt="" />
-              </motion.div>
-            )
-          })}
+          <motion.div
+            drag="x"
+            dragConstraints={{ right: 0, left: -width }}
+            className="inner-carousel"
+          >
+            {carouselData.map(({ _id, imageUrl, text }) => {
+              return (
+                <motion.div key={_id} className="item">
+                  <Text>{text}</Text>
+                  <Image
+                    src={imageUrl}
+                    alt={_id}
+                    objectFit="cover"
+                    w="100%"
+                    h="100%"
+                    borderRadius="20px"
+                    pointerEvents="none"
+                  />
+                </motion.div>
+              )
+            })}
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 export default Carousel

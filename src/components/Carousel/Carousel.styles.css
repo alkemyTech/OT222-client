@@ -1,6 +1,3 @@
-.carousel {
-    margin: 20px 40px;
-}
 .item {
     margin: 0 auto;
     max-width: 1280px;
@@ -9,22 +6,15 @@
     max-height: 40rem;
     padding: 20px;
 }
-.item img {
-    object-fit: fill;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    pointer-events: none;
-}
 .inner-carousel {
     display: flex;
 }
-.carousel-warapper {
-    cursor: grab;
-    overflow: hidden;
-}
 @media screen and (max-width: 768px) {
     .item {
-        min-width: 400px;
+        min-width: 320px;
+        min-height: 200px;
+    }
+    .item img {
+        height: 200px;
     }
 }
