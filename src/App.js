@@ -16,6 +16,7 @@ import {
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
+import Dynamic_news from "./pages/Dynamic_news";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/news" element={<News />} />
+        <Route path="/news/:id" element={<Dynamic_news />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
