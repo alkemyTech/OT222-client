@@ -30,6 +30,9 @@ const Navbar = ({ mobile, setMobile }) => {
       h={mobile === true ? "60vh" : "auto"}
       ml="auto"
       w='100%'
+      zIndex="1"
+      bg={mobile && "#fff"}
+      boxShadow={mobile && "rgba(0, 0, 0, 0.35) 0px 15px 15px -15px"}
     >
       {navItems.map((element, key) => {
         return (
