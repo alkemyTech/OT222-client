@@ -39,11 +39,10 @@ const Header = () => {
         alignContent={"center"}
         px="2vw"
         boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
-        backgroundColor={"#fff"}
       >
         <Image src={publicAssets.img} />
         <Navbar mobile={false} />
-
+        
         <Icon
           as={CgMenu}
           fontSize="4xl"
