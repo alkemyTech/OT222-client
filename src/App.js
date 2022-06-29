@@ -18,6 +18,7 @@ import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
 
 
+
 function App() {
   const location = useLocation().pathname;
   
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/news" element={<News />} />
+        <Route path="/news/:id" element={<News />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
