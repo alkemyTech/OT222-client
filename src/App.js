@@ -12,7 +12,8 @@ import {
   Contact,
   Backoffice,
   LayoutBackoffice,
-  Profile
+  Profile,
+  EditOrganization
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -35,6 +36,8 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/backoffice/changeHomeForm' element={< Backoffice/>} />
         <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
+        <Route path='/backoffice/edit-organization' element={<EditOrganization />} />
+
         <Route path='/profile' element={<Profile />} />
       </Routes>
       {location !== "/login" ? <Footer /> : null}
