@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
-function CreateNewsForm() {
-  const initialValues = {
+function NewsForm({ values }) {
+  const { title, content, category, id } = values || {
     title: '',
-    image: '',
-    content: '',
     category: '',
+    content: '',
   };
+  const initialValues = {
+    title,
+    content,
+    category,
+    image: '',
+  };
+
+  const [isEditionForm, setIsEditionForm] = useState(false);
+
+  useEffect(() => {
+    setIsEditionForm(!!values);
+  }, []);
+
+  const FILE_SIZE = 200000; //100000 is 1 mb
+  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg'];
 
   const inputHandler = (event, editor) => {
     formik.setFieldValue('content', editor.getData());
@@ -19,14 +34,48 @@ function CreateNewsForm() {
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Por favor escribe un titulo'),
-    image: Yup.mixed().required('Por favor inserte una imagen relacionada'),
+    image: Yup.mixed()
+      .required('Por favor ingrese una imagen')
+      .test(
+        'fileFormat',
+        'Formato no soportado, los formatos permitidos son jpg o jpeg',
+        value => {
+          if (value) return SUPPORTED_FORMATS.includes(value.type);
+        }
+      )
+      .test(
+        'fileSize',
+        'La imagen es muy grande, el tamaño maximo es de 200 mb',
+        value => !value || (value && value.size <= FILE_SIZE)
+      ),
     content: Yup.string().required('Por favor escribe un contenido'),
     category: Yup.string().required('Por favor escribe una categoria'),
   });
 
-  const onSubmit = (values, actions) => {};
+  const onSubmit = (values, actions) => {
+    if (isEditionForm) {
+      try {
+        AuthorizationService.patch(`/news/${id}`, {
+          values,
+        });
+      } catch (error) {
+        console.log('pasa por aca');
+        alert(error);
+      }
+    } else {
+      AuthorizationService.post(`/news`, {
+        values,
+      });
+    }
+    actions.resetForm();
+  };
 
-  const formik = useFormik({ initialValues, onSubmit, validationSchema });
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
+  const editOrCreate = isEditionForm ? 'Editar' : 'Crear';
 
   return (
     <FormikProvider value={formik}>
@@ -45,7 +94,7 @@ function CreateNewsForm() {
         p={'2%'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          ¡Añadir una Novedad!
+          {`¡${editOrCreate} Novedad!`}
         </Flex>
 
         <div>
@@ -58,13 +107,13 @@ function CreateNewsForm() {
 
         <div>
           <label htmlFor="image">Imagen</label>
-          <Field
-            size={'1'}
-            as={Input}
-            id="title"
+          <br />
+          <input
             type="file"
-            name="image"
             accept="image/x-png,image/gif,image/jpeg"
+            onChange={event => {
+              formik.setFieldValue('image', event.target.files[0]);
+            }}
           />
           <Text color="red">
             <ErrorMessage name="image" />
@@ -85,6 +134,7 @@ function CreateNewsForm() {
                 'numberedList',
                 'blockQuote',
               ],
+              initialData: content,
             }}
             onChange={inputHandler}
           />
@@ -105,13 +155,13 @@ function CreateNewsForm() {
           <Button
             mt={5}
             rounded={10}
-            background={'#0038FF'}
+            background={'yellow'}
             size={['lg', 'md']}
-            color={'white'}
+            color={'black'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            Crear Novedad
+            {`${editOrCreate} Novedad`}
           </Button>
         </Stack>
       </Flex>
@@ -119,4 +169,4 @@ function CreateNewsForm() {
   );
 }
 
-export default CreateNewsForm;
+export default NewsForm;
