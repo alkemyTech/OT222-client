@@ -5,10 +5,14 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
-function CreateActivityForm() {
-  const initialValues = {
+function ActivityForm({ values }) {
+  const { name, content } = values || {
     name: '',
     content: '',
+  };
+  const initialValues = {
+    name,
+    content,
   };
 
   const inputHandler = (event, editor) => {
@@ -22,7 +26,12 @@ function CreateActivityForm() {
 
   const onSubmit = (values, actions) => {};
 
-  const formik = useFormik({ initialValues, onSubmit, validationSchema });
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
+  const editOrCreate = !!values ? 'Editar' : 'Crear';
 
   return (
     <FormikProvider value={formik}>
@@ -41,12 +50,12 @@ function CreateActivityForm() {
         p={'2%'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          ¡Añadir una Actividad!
+          {`¡${editOrCreate} Actividad!`}
         </Flex>
 
         <div>
-          <label htmlFor="name">Nombre</label>
-          <Field as={Input} id="title" type="text" name="name" />
+          <label htmlFor="name">Noembre</label>
+          <Field as={Input} id="name" type="text" name="name" />
           <Text color="red">
             <ErrorMessage name="name" />
           </Text>
@@ -66,6 +75,7 @@ function CreateActivityForm() {
                 'numberedList',
                 'blockQuote',
               ],
+              initialData: content,
             }}
             onChange={inputHandler}
           />
@@ -78,13 +88,13 @@ function CreateActivityForm() {
           <Button
             mt={5}
             rounded={10}
-            background={'#0038FF'}
+            background={'yellow'}
             size={['lg', 'md']}
-            color={'white'}
+            color={'black'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            Crear Actividad
+            {`${editOrCreate} Actividad`}
           </Button>
         </Stack>
       </Flex>
@@ -92,4 +102,4 @@ function CreateActivityForm() {
   );
 }
 
-export default CreateActivityForm;
+export default ActivityForm;
