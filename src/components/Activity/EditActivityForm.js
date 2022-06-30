@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
-function CreateActivityForm() {
+function EditActivityForm() {
   const initialValues = {
     name: '',
     content: '',
@@ -41,7 +41,7 @@ function CreateActivityForm() {
         p={'2%'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          ¡Añadir una Actividad!
+          ¡Editar Actividad!
         </Flex>
 
         <div>
@@ -78,13 +78,13 @@ function CreateActivityForm() {
           <Button
             mt={5}
             rounded={10}
-            background={'#0038FF'}
+            background={'yellow'}
             size={['lg', 'md']}
-            color={'white'}
+            color={'black'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            Crear Actividad
+            Editar Actividad
           </Button>
         </Stack>
       </Flex>
@@ -92,4 +92,4 @@ function CreateActivityForm() {
   );
 }
 
-export default CreateActivityForm;
+export default EditActivityForm;
