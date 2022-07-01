@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import * as Yup from 'yup';
@@ -22,7 +21,9 @@ function UserEditionForm({ values }) {
     name: Yup.string().required('Por favor escribe tu nombre'),
     lastName: Yup.string().required('Por favor escribe tu Apellido'),
     ...(!!isAdmin && {
-      roleId: Yup.number().required('Por favor escribe un rol'),
+      roleId: Yup.number().required(
+        'Por favor escribe un numero para rol del usuario'
+      ),
     }),
   });
 
@@ -75,7 +76,7 @@ function UserEditionForm({ values }) {
 
         {!!isAdminUser && (
           <div>
-            <label htmlFor="roleId">Role</label>
+            <label htmlFor="roleId">Rol del Usuario</label>
             <Field as={Input} id="title" type="text" name="roleId" />
             <Text color="red">
               <ErrorMessage name="roleId" />
