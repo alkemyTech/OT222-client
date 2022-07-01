@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -6,7 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
 function ActivityForm({ values }) {
-  const { name, content } = values || {
+  const { name, content, id } = values || {
     name: '',
     content: '',
   };
@@ -14,6 +15,12 @@ function ActivityForm({ values }) {
     name,
     content,
   };
+
+  const [isEditionForm, setIsEditionForm] = useState(false);
+
+  useEffect(() => {
+    setIsEditionForm(!!values);
+  }, []);
 
   const inputHandler = (event, editor) => {
     formik.setFieldValue('content', editor.getData());
@@ -24,14 +31,29 @@ function ActivityForm({ values }) {
     content: Yup.string().required('Por favor escribe un contenido'),
   });
 
-  const onSubmit = (values, actions) => {};
+  const onSubmit = (values, actions) => {
+    try {
+      if (isEditionForm) {
+        AuthorizationService.patch(`/activities/${id}`, {
+          values,
+        });
+      } else {
+        AuthorizationService.post(`/activities`, {
+          values,
+        });
+      }
+    } catch (error) {
+      alert(error);
+    }
+    actions.resetForm();
+  };
 
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
   });
-  const editOrCreate = !!values ? 'Editar' : 'Crear';
+  const editOrCreate = isEditionForm ? 'Editar' : 'Crear';
 
   return (
     <FormikProvider value={formik}>
@@ -54,8 +76,8 @@ function ActivityForm({ values }) {
         </Flex>
 
         <div>
-          <label htmlFor="name">Noembre</label>
-          <Field as={Input} id="name" type="text" name="name" />
+          <label htmlFor="name">Nombre</label>
+          <Field as={Input} id="title" type="text" name="name" />
           <Text color="red">
             <ErrorMessage name="name" />
           </Text>

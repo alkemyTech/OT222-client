@@ -1,5 +1,6 @@
 const BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
-const token = JSON.parse(localStorage.getItem('token'));
+const token = localStorage.getItem('token');
+const axios = require('axios');
 
 const AuthorizationService = axios.create({
   baseURL: BASE_URL,
