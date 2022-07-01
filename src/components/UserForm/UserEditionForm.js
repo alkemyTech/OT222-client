@@ -1,35 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
-function NewsForm({ values }) {
-  const { name, lastname, role } = values || {
-    name: '',
-    lastname: '',
-    role: '',
-  };
+function UserEditionForm({ values }) {
+  const { name, lastName, roleId, isAdmin } = values;
   const initialValues = {
-    name: '',
-    lastname: '',
-    role: '',
+    name,
+    lastName,
+    ...(isAdmin && { roleId }),
   };
 
-  const inputHandler = (event, editor) => {
-    formik.setFieldValue('content', editor.getData());
-  };
+  const [isAdminUser, setisAdminUser] = useState(false);
+
+  useEffect(() => {
+    setisAdminUser(!!isAdmin);
+  }, []);
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Por favor escribe un titulo'),
-    image: Yup.mixed().required('Por favor inserte una imagen relacionada'),
-    content: Yup.string().required('Por favor escribe un contenido'),
-    category: Yup.string().required('Por favor escribe una categoria'),
+    name: Yup.string().required('Por favor escribe tu nombre'),
+    lastName: Yup.string().required('Por favor escribe tu Apellido'),
+    ...(!!isAdmin && {
+      roleId: Yup.number().required('Por favor escribe un rol'),
+    }),
   });
 
   const onSubmit = (values, actions) => {
-    console.log(values);
+    actions.resetForm();
   };
 
   const formik = useFormik({
@@ -37,7 +35,7 @@ function NewsForm({ values }) {
     onSubmit,
     validationSchema,
   });
-  const editOrCreate = !!values ? 'Editar' : 'Crear';
+  const profileOruser = isAdminUser ? ' Usuario' : 'Mi Perfil';
 
   return (
     <FormikProvider value={formik}>
@@ -46,7 +44,7 @@ function NewsForm({ values }) {
         className="form"
         flexDirection={'column'}
         gap={'20px'}
-        width={'50%'}
+        width={'40%'}
         ml={'5%'}
         mt={'3%'}
         mb={'10%'}
@@ -56,74 +54,46 @@ function NewsForm({ values }) {
         p={'2%'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          {`¡${editOrCreate} Novedad!`}
+          {`!Editar ${profileOruser}!`}
         </Flex>
 
         <div>
-          <label htmlFor="title">Titulo</label>
-          <Field as={Input} id="title" type="text" name="title" />
+          <label htmlFor="name">Nombre</label>
+          <Field as={Input} id="title" type="text" name="name" />
           <Text color="red">
-            <ErrorMessage name="title" />
+            <ErrorMessage name="name" />
           </Text>
         </div>
 
         <div>
-          <label htmlFor="image">Imagen</label>
-          <br />
-          <input
-            type="file"
-            accept="image/x-png,image/gif,image/jpeg"
-            onChange={event => {
-              formik.setFieldValue('image', event.target.files[0]);
-            }}
-          />
+          <label htmlFor="lastName">Apellido</label>
+          <Field as={Input} id="title" type="text" name="lastName" />
           <Text color="red">
-            <ErrorMessage name="image" />
+            <ErrorMessage name="lastName" />
           </Text>
         </div>
 
-        <div>
-          <label htmlFor="content">Contenido</label>
-          <CKEditor
-            editor={ClassicEditor}
-            config={{
-              toolbar: [
-                'heading',
-                '|',
-                'bold',
-                'italic',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-              ],
-              initialData: content,
-            }}
-            onChange={inputHandler}
-          />
-          <Text color="red">
-            <ErrorMessage name="content" />
-          </Text>
-        </div>
-
-        <div>
-          <label htmlFor="category">Categoria</label>
-          <Field as={Input} id="title" type="text" name="category" />
-          <Text color="red">
-            <ErrorMessage name="category" />
-          </Text>
-        </div>
+        {!!isAdminUser && (
+          <div>
+            <label htmlFor="roleId">Role</label>
+            <Field as={Input} id="title" type="text" name="roleId" />
+            <Text color="red">
+              <ErrorMessage name="roleId" />
+            </Text>
+          </div>
+        )}
 
         <Stack width={['40%']}>
           <Button
             mt={5}
             rounded={10}
-            background={'yellow'}
+            background={'red'}
             size={['lg', 'md']}
-            color={'black'}
+            color={'white'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            {`${editOrCreate} Novedad`}
+            Editar
           </Button>
         </Stack>
       </Flex>
@@ -131,4 +101,4 @@ function NewsForm({ values }) {
   );
 }
 
-export default NewsForm;
+export default UserEditionForm;
