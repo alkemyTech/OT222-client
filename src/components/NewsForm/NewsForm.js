@@ -53,19 +53,18 @@ function NewsForm({ values }) {
   });
 
   const onSubmit = (values, actions) => {
-    if (isEditionForm) {
-      try {
+    try {
+      if (isEditionForm) {
         AuthorizationService.patch(`/news/${id}`, {
           values,
         });
-      } catch (error) {
-        console.log('pasa por aca');
-        alert(error);
+      } else {
+        AuthorizationService.post(`/news`, {
+          values,
+        });
       }
-    } else {
-      AuthorizationService.post(`/news`, {
-        values,
-      });
+    } catch (error) {
+      alert(error);
     }
     actions.resetForm();
   };
