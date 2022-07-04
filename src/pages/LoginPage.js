@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import LoginForm from '../components/LoginForm'
+import { Image, Flex, Grid, useMediaQuery } from '@chakra-ui/react'
+import hands from '../assets/hands.png'
 
 const LoginPage = () => {
+  const [isMobile] = useMediaQuery('(min-width: 768px)')
+
   return (
-    <div>LoginPage</div>
+    <Grid templateColumns={isMobile ? "1fr 1fr" : "100%"} margin={isMobile ? "none" : "1rem"}>
+      <Flex justifyContent="center" alignItems="center" >
+        <LoginForm />
+      </Flex>
+      <Image src={hands} height="85vh" width="100%" objectFit="cover" display={isMobile ? "block" : "none"} />
+    </Grid >
   )
 }
 
