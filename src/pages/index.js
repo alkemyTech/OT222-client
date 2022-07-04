@@ -10,6 +10,7 @@ import ContactPage from "./ContactPage";
 import BackofficePage from "./BackofficePage"
 import LayoutBackofficePage from "./LayoutBackofficePage";
 import ProfilePage from "./ProfilePage";
+import EditOrganizationPage from "./EditOrganizationPage";
 
 export const Home = () => {
   return <HomePage />;
@@ -53,4 +54,7 @@ export const LayoutBackoffice = () => {
 
 export const Profile = () => {
   return <ProfilePage />
+}
+export const EditOrganization = () => {
+  return <EditOrganizationPage />
 }
