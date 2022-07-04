@@ -20,6 +20,7 @@ import Header from "./layouts/Header";
 import Dynamic_news from "./pages/Dynamic_news";
 
 
+
 function App() {
   const location = useLocation().pathname;
   
