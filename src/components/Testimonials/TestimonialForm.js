@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//import AuthorizationService from '../../services/authorization';
+import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
