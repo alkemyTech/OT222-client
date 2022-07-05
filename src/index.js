@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import store from "./app/store";
@@ -10,10 +10,9 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { colors, breakpoints, components } from './theme'
 
 const theme = extendTheme({ colors, breakpoints, components });
-
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <Router>
@@ -21,8 +20,7 @@ ReactDOM.render(
         </Router>
       </ChakraProvider>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

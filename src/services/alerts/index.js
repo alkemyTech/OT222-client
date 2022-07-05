@@ -1,27 +1,26 @@
-import SweetAlert from "sweetalert2-react"
-export const confirmation = () => {
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+
+const SweetAlert = withReactContent(Swal)
+
+export const confirmation = (title, text) => {
   return SweetAlert.fire({
-    position: "top-end",
     icon: "success",
-    title: "OK",
-    showConfirmButton: false,
-    timer: 1500,
+    title,
+    text
   })
 }
-export const error = (errorTitle, errorText) => {
+export const error = (title, text) => {
   return SweetAlert.fire({
     icon: "error",
-    title: errorTitle,
-    text: errorText,
+    title,
+    text
   })
 }
-export const information = (infoTitle, infoText) => {
+export const information = (title, text) => {
   return SweetAlert.fire({
-    title: infoTitle,
-    text: infoText,
-    imageUrl: undefined,
-    imageWidth: 400,
-    imageHeight: 200,
-    imageAlt: undefined,
+    icon: "info",
+    title,
+    text,
   })
 }

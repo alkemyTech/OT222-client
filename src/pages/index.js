@@ -11,6 +11,7 @@ import BackofficePage from "./BackofficePage"
 import LayoutBackofficePage from "./LayoutBackofficePage";
 import ProfilePage from "./ProfilePage";
 import EditOrganizationPage from "./EditOrganizationPage";
+import UsersListPage from "./UsersList";
 
 export const Home = () => {
   return <HomePage />;
@@ -45,7 +46,7 @@ export const Contact = () => {
 };
 
 export const Backoffice = () => {
-  return <BackofficePage/>;
+  return <BackofficePage />;
 };
 
 export const LayoutBackoffice = () => {
@@ -57,4 +58,8 @@ export const Profile = () => {
 }
 export const EditOrganization = () => {
   return <EditOrganizationPage />
+}
+
+export const UsersList = () => {
+  return <UsersListPage />
 }

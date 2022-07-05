@@ -13,17 +13,18 @@ import {
   Backoffice,
   LayoutBackoffice,
   Profile,
-  EditOrganization
+  EditOrganization,
+  UsersList
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
-import Dynamic_news from "./pages/Dynamic_news";
+import DynamicNews from "./pages/Dynamic_news";
 
 
 
 function App() {
   const location = useLocation().pathname;
-  
+
   return (
     <>
       <Header />
@@ -32,18 +33,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/news" element={<News />} />
-        <Route path="/news/:id" element={<Dynamic_news />} />
+        <Route path="/news/:id" element={<DynamicNews />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/backoffice/changeHomeForm' element={< Backoffice/>} />
+        <Route path='/backoffice/changeHomeForm' element={< Backoffice />} />
         <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
         <Route path='/backoffice/edit-organization' element={<EditOrganization />} />
-
         <Route path='/profile' element={<Profile />} />
+        <Route path='/backoffice/users-list' element={<UsersList />} />
       </Routes>
-      {location !== "/login" ? <Footer /> : null}
+      {location !== "/login" && location !== "/register" ? <Footer /> : null}
     </>
   );
 }
