@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import LoginForm from '../components/LoginForm'
 import { Image, Flex, Grid, useMediaQuery } from '@chakra-ui/react'
 import hands from '../assets/hands.png'
