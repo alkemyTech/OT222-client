@@ -3,13 +3,14 @@ import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import NavButton from "../components/NavButton";
 
-const navItems = {
-  Inicio: "/",
-  Nosotros: "/staff",
-  Novedades: "/news",
-  Testimonios: "/testimonials",
-  Contribuye: "/contribute",
-};
+const navItems = [
+  { text: "Inicio", path: "/" },
+  { text: "Nosotros", path: "/staff" },
+  { text: "Novedades", path: "/news" },
+  { text: "Testimonios", path: "/testimonials" },
+  { text: "Contacto", path: "/contact" },
+  { text: "Contribuye", path: "/contribute" }
+]
 
 const Navbar = ({ mobile, setMobile }) => {
   const location = useLocation().pathname;
@@ -30,23 +31,19 @@ const Navbar = ({ mobile, setMobile }) => {
       ml="auto"
       w='100%'
     >
-      {Object.entries(navItems).map((item, key) => {
-        const name = item[0];
-        const path = item[1];
+      {navItems.map((element, key) => {
         return (
           <Box
-            fontWeight={location === path ? "500" : "none"}
+            fontWeight={location === element.path ? "500" : "none"}
             key={key}
             onClick={mobile === true ? () => setMobile(false) : undefined}
           >
-            <NavLink to={path}>
+            <NavLink to={element.path}>
               <Text
-                fontWeight={"600"}
-                color={location === path ? "red" : "#202020"}
-                style={{ textDecoration: "none" }}
+                fontWeight={location === element.path ? "700" : "400"}
                 key={key}
               >
-                {name}
+                {element.text}
               </Text>
             </NavLink>
           </Box>
@@ -66,7 +63,7 @@ const Navbar = ({ mobile, setMobile }) => {
           mobile={false}
         />
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 

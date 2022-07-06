@@ -1,38 +1,54 @@
 import React from "react"
+// Utils: footer content
+import footerContent from "../../utils/footerContent"
 // Styles: chacra ui
-import "./Footer.styles.css"
-// Assets: logo
-import logo from "../../assets/logoSomosMas.png"
+import { Box, Flex, Grid, Text, Image, Link, Button } from "@chakra-ui/react"
 const Footer = () => {
   return (
-    <div className="box">
-      <div className="container">
-        <div className="row">
-          <div className="column">
-            <div className="heading">ONG Somos Mas</div>
-            <img src={logo} alt="" />
-          </div>
-          <div className="column">
-            <div className="heading">Visit our page</div>
-            <div className="flinks">
-              <a href="/">Somos Mas</a>
-            </div>
-          </div>
-          <div className="column">
-            <div className="heading">Follow us</div>
-            <div className="flinks">
-              <a href="/">Facebook</a>
-            </div>
-            <div className="flinks">
-              <a href="/">Twitter</a>
-            </div>
-            <div className="flinks">
-              <a href="/">Instagram</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Box
+      p={["10px", "10px"]}
+      bgColor="#f8f9fa"
+      position="relative"
+      bottom={0}
+      w="100%"
+    >
+      <Flex direction="column" maxW="1280px" m={["0", "auto"]}>
+        <Grid templateColumns="repeat(auto-fill, minmax(185px, 1fr))">
+          {footerContent.map(({ _id, title, logo, dir, socialMedia }) => {
+            return (
+              <Flex key={_id} direction="column" textAlign="left" ml="50px">
+                <Text fontSize="18px" color="black" mb="10px" fontWeight="bold">
+                  {title}
+                </Text>
+                {logo && <Image src={logo} alt={_id} />}
+                {dir && (
+                  <Text>
+                    <Link
+                      href="/"
+                      mb="5px"
+                      fontSize="16px"
+                      _hover={{ color: "green", transition: "200ms ease-in" }}
+                    >
+                      {dir}
+                    </Link>
+                  </Text>
+                )}
+                {socialMedia &&
+                  socialMedia.map(({ _id, media, href }) => {
+                    return (
+                      <Text key={_id}>
+                        <Button m="5px" colorScheme={media}>
+                          <Link href={href}>{media}</Link>
+                        </Button>
+                      </Text>
+                    )
+                  })}
+              </Flex>
+            )
+          })}
+        </Grid>
+      </Flex>
+    </Box>
   )
 }
 
