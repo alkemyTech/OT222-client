@@ -3,10 +3,10 @@ import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
-function UserEditionForm({ values }) {
-  const { name, lastName, roleId, isAdmin } = values;
+function UserEditionForm({ user, setEditing }) {
+  const { firstName, lastName, roleId, isAdmin } = user;
   const initialValues = {
-    name,
+    firstName,
     lastName,
     ...(isAdmin && { roleId }),
   };
@@ -18,7 +18,7 @@ function UserEditionForm({ values }) {
   }, []);
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Por favor escribe tu nombre'),
+    firstName: Yup.string().required('Por favor escribe tu nombre'),
     lastName: Yup.string().required('Por favor escribe tu Apellido'),
     ...(!!isAdmin && {
       roleId: Yup.number().required(
@@ -45,24 +45,24 @@ function UserEditionForm({ values }) {
         className="form"
         flexDirection={'column'}
         gap={'20px'}
-        width={'40%'}
-        ml={'5%'}
+        width={'520px'}
+        maxWidth={'90%'}
         mt={'3%'}
         mb={'10%'}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"
-        p={'2%'}
+        p={'2rem'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          {`!Editar ${profileOruser}!`}
+          {`Editar ${profileOruser}`}
         </Flex>
 
         <div>
-          <label htmlFor="name">Nombre</label>
-          <Field as={Input} id="title" type="text" name="name" />
+          <label htmlFor="firstName">Nombre</label>
+          <Field as={Input} id="title" type="text" name="firstName" />
           <Text color="red">
-            <ErrorMessage name="name" />
+            <ErrorMessage name="firstName" />
           </Text>
         </div>
 
@@ -84,19 +84,23 @@ function UserEditionForm({ values }) {
           </div>
         )}
 
-        <Stack width={['40%']}>
+        <Flex width={['100%']} justifyContent="center" gap="1rem">
           <Button
-            mt={5}
+            onClick={() => setEditing(null)}
+            width={['100%']}
+          >
+            Volver
+          </Button>
+          <Button
             rounded={10}
             background={'red'}
-            size={['lg', 'md']}
             color={'white'}
-            fontSize={['xs', 'md']}
             type="submit"
+            width={['100%']}
           >
             Editar
           </Button>
-        </Stack>
+        </Flex>
       </Flex>
     </FormikProvider>
   );
