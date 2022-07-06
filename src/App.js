@@ -14,7 +14,8 @@ import {
   LayoutBackoffice,
   Profile,
   EditOrganization,
-  UsersList
+  UsersList,
+  SignUp
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<DynamicNews />} />

@@ -12,6 +12,7 @@ import LayoutBackofficePage from "./LayoutBackofficePage";
 import ProfilePage from "./ProfilePage";
 import EditOrganizationPage from "./EditOrganizationPage";
 import UsersListPage from "./UsersList";
+import SignUpPage from "./SignUpPage";
 
 export const Home = () => {
   return <HomePage />;
@@ -20,6 +21,10 @@ export const Home = () => {
 export const Login = () => {
   return <LoginPage />;
 };
+
+export const SignUp = () => {
+  return <SignUpPage />
+}
 
 export const Staff = () => {
   return <StaffPage />;
