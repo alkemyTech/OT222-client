@@ -11,7 +11,7 @@ const Dynamic_news = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:4000/news/${path}`);
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/news/${path}`);
       const data = res.data;
       setData(data);
     };
@@ -26,8 +26,8 @@ const Dynamic_news = () => {
           justifyContent={"center"}
           alignContent="center"
         >
-          <Icon as={TbError404} w={['100px','200px']} h={['100px','200px']}justifySelf={'center'}/>
-          <Text fontSize={["3xl","6xl"]}>ERROR 404: New Not Founded!.</Text>
+          <Icon as={TbError404} w={['100px', '200px']} h={['100px', '200px']} justifySelf={'center'} />
+          <Text fontSize={["3xl", "6xl"]}>ERROR 404: New Not Founded!.</Text>
         </Grid>
       ) : (
         <Flex h="auto" w="100vw" flexDir={"column"}>
