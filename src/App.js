@@ -39,7 +39,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/contact' element={<Contact />} />
+        <Route path='/backoffice/contact' element={<Contact/>} />
         <Route path='/backoffice/changeHomeForm' element={< Backoffice />} />
         <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
         <Route path='/backoffice/edit-organization' element={<EditOrganization />} />
