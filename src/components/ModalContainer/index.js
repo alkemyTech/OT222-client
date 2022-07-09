@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { Flex, Button, Heading, Box } from "@chakra-ui/react"
 const ModalContainer = ({
-  modalWarning,
+  modal,
   headingTitle,
   cancel,
   cancelText,
@@ -12,7 +12,7 @@ const ModalContainer = ({
   const closeOutside = useRef()
   useEffect(() => {
     const handler = (e) => {
-      if (modalWarning && !closeOutside.current.contains(e.target)) {
+      if (modal && !closeOutside.current.contains(e.target)) {
         cancel()
       }
     }
@@ -23,7 +23,7 @@ const ModalContainer = ({
   })
   return (
     <>
-      {modalWarning && (
+      {modal && (
         <Box
           position="absolute"
           top="50%"
