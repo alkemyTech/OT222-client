@@ -44,7 +44,7 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
                     )}
                     <Td>
                       <Button
-                        onClick={() => onEdit()}
+                        onClick={() => onEdit(_id)}
                         colorScheme="blue"
                         variant="outline"
                         size="sm"
