@@ -3,7 +3,7 @@ import ModalContainer from "../../components/ModalContainer"
 const Warning = ({ modalWarning, name = "this", cancel, pursue }) => {
   return (
     <ModalContainer
-      modalWarning={modalWarning}
+      modal={modalWarning}
       headingTitle={`Are you sure you want to delete ${name}?`}
       cancel={cancel}
       cancelText="Cancel"
