@@ -15,9 +15,15 @@ const Warning = ({ modalField, cancel, pursue, editFields, onChange }) => {
         {editFields &&
           editFields.map(({ _id, image, name, alt }) => (
             <Flex flexDirection="column" key={_id}>
-              <Input name="name" onChange={onChange} placeholder={name} />
-              <Input name="alt" onChange={onChange} placeholder={alt} />
-              <Input name="image" onChange={onChange} placeholder={image} />
+              {name && (
+                <Input name="name" onChange={onChange} placeholder={name} />
+              )}
+              {alt && (
+                <Input name="alt" onChange={onChange} placeholder={alt} />
+              )}
+              {image && (
+                <Input name="image" onChange={onChange} placeholder={image} />
+              )}
             </Flex>
           ))}
       </Box>
