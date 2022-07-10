@@ -9,6 +9,7 @@ import Fields from "../modals/Fields"
 import { confirmation, error } from "../Services/alerts"
 // Utils: newsData
 import newsData from "../utils/newsData"
+const tableHeaders = ["Title", "Date", "Image", "Actions"]
 const BackofficeNewsPage = () => {
   // arrs
   const [news, setNews] = useState([...newsData])
@@ -99,7 +100,12 @@ const BackofficeNewsPage = () => {
           onChange={handleInput}
         />
       )}
-      <TableComponent data={news} onEdit={onEdit} onDelete={onDelete} />
+      <TableComponent
+        data={news}
+        tableHeaders={tableHeaders}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
     </>
   )
 }
