@@ -17,6 +17,7 @@ import {
   UsersList,
   BackofficeNews,
   BackofficeActivities,
+  BackofficeTestimonials,
   SignUp,
 } from "./pages/index"
 import Footer from "./layouts/Footer"
@@ -52,6 +53,10 @@ function App() {
         <Route
           path="/backoffice/activities"
           element={<BackofficeActivities />}
+        />
+        <Route
+          path="/backoffice/testimonials"
+          element={<BackofficeTestimonials />}
         />
       </Routes>
       {location !== "/login" && location !== "/register" ? <Footer /> : null}
