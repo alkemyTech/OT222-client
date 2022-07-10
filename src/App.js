@@ -60,6 +60,7 @@ function App() {
           element={<BackofficeTestimonials />}
         />
         <Route path="/activities" element={<Activities />} />
+        <Route path="/activities/:activityId" element={<Activities />} />
       </Routes>
       {location !== "/login" && location !== "/register" ? <Footer /> : null}
     </>
