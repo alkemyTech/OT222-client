@@ -11,17 +11,16 @@ import {
   Image,
   Box,
 } from "@chakra-ui/react"
-const TableComponent = ({ data, onEdit, onDelete }) => {
+const TableComponent = ({ data, onEdit, onDelete, tableHeaders }) => {
   return (
     <Box p={5}>
       <TableContainer>
         <Table size="sm" borderWidth="1px" borderColor="gray.200">
           <Thead>
             <Tr>
-              <Th>Title</Th>
-              <Th>Date</Th>
-              <Th>Image</Th>
-              <Th>Actions</Th>
+              {tableHeaders.map((header, index) => (
+                <Th key={index}>{header}</Th>
+              ))}
             </Tr>
           </Thead>
           <Tbody>

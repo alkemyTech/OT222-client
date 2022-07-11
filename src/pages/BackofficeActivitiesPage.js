@@ -8,13 +8,13 @@ import Fields from "../modals/Fields"
 // Services: alerts
 import { confirmation, error } from "../Services/alerts"
 // Utils: newsData
-import newsData from "../utils/newsData"
-const tableHeaders = ["Title", "Date", "Image", "Actions"]
-const BackofficeNewsPage = () => {
+import activitiesData from "../utils/activitiesData"
+const tableHeaders = ["Name", "Actions"]
+const BackofficeActivitiesPage = () => {
   // arrs
-  const [news, setNews] = useState([...newsData])
-  const [toEeditNews, setToEditNews] = useState(Array)
-  const [editingNews, setEditingNews] = useState([...news])
+  const [activities, setActivities] = useState([...activitiesData])
+  const [toEeditActivities, setToEditActivities] = useState(Array)
+  const [editingActivities, setEditingActivities] = useState([...activities])
 
   // strs
   const [idDelete, setIdDelete] = useState(String)
@@ -25,28 +25,28 @@ const BackofficeNewsPage = () => {
   const [warning, setWarning] = useState(Boolean)
   const [fields, setFields] = useState(Boolean)
 
-  const editNews = () => {
+  const editActivities = () => {
     try {
       setFields(true)
-      setNews(editingNews)
-      confirmation("Success", "News edited successfully")
+      setActivities(editingActivities)
+      confirmation("Success", "Activity edited successfully")
       setFields(false)
     } catch (err) {
-      error("Error at editing news", err)
+      error("Error at editing activity", err)
       setSpinner(false)
     }
   }
 
-  const deleteNews = () => {
+  const deleteActivities = () => {
     try {
       setSpinner(true)
       setWarning(true)
-      setNews(news.filter(({ _id }) => _id !== idDelete))
-      confirmation("Success", "News deleted successfully")
+      setActivities(activities.filter(({ _id }) => _id !== idDelete))
+      confirmation("Success", "Activity deleted successfully")
       setSpinner(false)
       setWarning(false)
     } catch (err) {
-      error("Error at deleting news", err)
+      error("Error at deleting activity", err)
       setSpinner(false)
     }
   }
@@ -61,26 +61,25 @@ const BackofficeNewsPage = () => {
     setFields(!fields)
     if (!_id) return
     setIdEdit(_id)
-    const getNews = news.filter(({ _id: id }) => id === _id)
-    setToEditNews(getNews)
-    setEditingNews(news)
+    const getActivity = activities.filter(({ _id: id }) => id === _id)
+    setToEditActivities(getActivity)
+    setEditingActivities(activities)
   }
 
   const handleInput = (e) => {
     const { name, value } = e.target
-    setEditingNews(
-      editingNews.map((news) => {
-        if (news._id === idEdit) {
+    setEditingActivities(
+      editingActivities.map((activities) => {
+        if (activities._id === idEdit) {
           return {
-            ...news,
+            ...activities,
             [name]: value,
           }
         }
-        return news
+        return activities
       })
     )
   }
-
   return (
     <>
       {spinner && <LoaderSpinner />}
@@ -88,25 +87,25 @@ const BackofficeNewsPage = () => {
         <Warning
           modalWarning={onDelete}
           cancel={onDelete}
-          pursue={deleteNews}
+          pursue={deleteActivities}
         />
       )}
       {fields && (
         <Fields
           modalField={onEdit}
           cancel={onEdit}
-          pursue={editNews}
-          editFields={toEeditNews}
+          pursue={editActivities}
+          editFields={toEeditActivities}
           onChange={handleInput}
         />
       )}
       <TableComponent
-        data={news}
         tableHeaders={tableHeaders}
+        data={activities}
         onEdit={onEdit}
         onDelete={onDelete}
       />
     </>
   )
 }
-export default BackofficeNewsPage
+export default BackofficeActivitiesPage

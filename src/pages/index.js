@@ -14,6 +14,7 @@ import EditOrganizationPage from "./EditOrganizationPage"
 import UsersListPage from "./UsersList"
 import SignUpPage from "./SignUpPage"
 import BackofficeNewsPage from "./BackofficeNewsPage"
+import BackofficeActivitiesPage from "./BackofficeActivitiesPage"
 
 export const Home = () => {
   return <HomePage />
@@ -71,4 +72,7 @@ export const UsersList = () => {
 }
 export const BackofficeNews = () => {
   return <BackofficeNewsPage />
+}
+export const BackofficeActivities = () => {
+  return <BackofficeActivitiesPage />
 }
