@@ -41,7 +41,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/backoffice/changeHomeForm' element={< Backoffice />} />
-        <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
+        <Route path='/backoffice' element={<LayoutBackoffice />} />
         <Route path='/backoffice/edit-organization' element={<EditOrganization />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/backoffice/users-list' element={<UsersList />} />
