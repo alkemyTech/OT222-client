@@ -23,7 +23,7 @@ const ActivitiesPage = () => {
     setActivityDetails(getActivityDetails(activityId))
   }, [activityId])
 
-  if (!activityId) return <div>Activities Page</div>
+  if (!activityId) return <div>This is the activities page</div>
 
   return (
     <Flex
