@@ -9,6 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { colors, breakpoints, components } from './theme'
 
+console.log(process.env.REACT_APP_SERVER_BASE_URL)
 const theme = extendTheme({ colors, breakpoints, components });
 const root = createRoot(document.getElementById("root"));
 root.render(

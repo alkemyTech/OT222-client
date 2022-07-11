@@ -12,6 +12,14 @@ const navItems = [
   { text: "Contribuye", path: "/contribute" }
 ]
 
+const auth = ()=>{
+  if(localStorage.getItem('token')){
+    navItems.push({ text: "Backoffice", path: "/backoffice" })
+  }else{
+    console.log("no esta logueado")
+  }
+}
+auth()
 const Navbar = ({ mobile, setMobile }) => {
   const location = useLocation().pathname;
 
