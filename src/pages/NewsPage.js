@@ -6,6 +6,7 @@ import axios from "../Services/authorization/index"
 
 const NewsPage = () => {
   const[data, setData]=useState([]);
+
   const getNews = ()=>{
     axios.get(process.env.REACT_APP_SERVER_BASE_URL +"/news")
     .then(res => {
