@@ -38,7 +38,7 @@ export default function SignUpForm() {
   const onSubmit = (values) => {
     const userSaved = RegisterApi(values, navigate).then(async (res) => {
       const user = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}auth/me`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
         {
           headers: {
             authorization: res.data.token,
