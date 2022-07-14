@@ -24,7 +24,7 @@ const BackofficeAdmin = () =>{
         img: actividadesIcon,
         alt: "actividades-icon",
         title: "Actividades",
-        route:"",
+        route:"activities",
       },
       {
         id: 3,
@@ -66,7 +66,7 @@ const BackofficeAdmin = () =>{
         img: usuariosIcon,
         alt: "usuarioss-icon",
         title: "Usuarios",
-        route:"",
+        route:"users-list",
         
     },];
   
