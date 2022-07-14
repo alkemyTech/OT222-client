@@ -37,7 +37,7 @@ function ContactDeleteConfirmation({ contact, setDeleting }) {
             p={'2rem'}
         >
             <Heading as="h2" size="lg" mb={'1rem'}>
-                ¿Está seguro que desea eliminar el usuario {contact.name}?
+                ¿Está seguro que desea eliminar el contacto {contact.name}?
             </Heading>
             <Flex justifyContent={'space-between'}>
                 <Button onClick={() => { setDeleting(null) }}>
