@@ -10,11 +10,14 @@ const RegisterApi = (values, navigate) => {
     password,
   })
     .then(response => {
-      confirmation('Te has registrado exitosamente!!');
+      confirmation('Has sido registrado, por favor inicia sesión.!!');
       navigate('/login');
     })
     .catch(errorPost => {
-      error('Error', errorPost.response.data[0].errors[0].email);
+      const errorMsg = errorPost.response.data[0].errors[0].email
+        ? errorPost.response.data[0].errors[0].email
+        : errorPost.response.data[0].errors[0].msg;
+      error('Error', errorMsg);
     });
 };
 

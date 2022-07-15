@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Input, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
-import LoginApi from '../Services/LoginApi/index';
+import LoginApi from '../../services/LoginApi';
 
 const validate = values => {
   const errors = {};
@@ -45,35 +45,52 @@ export default function LoginForm() {
           <Flex flexDirection={'column'} gap={'10px'} as={Form} maxWidth="100%">
             <div>
               <Text variant={'login'}>Bienvenido</Text>
-              <Heading variant={'login'}>Inicia sesión en tu cuenta!</Heading>
+              <Heading mb="15px" size={['sm', 'md', 'lg']} variant={'login'}>
+                Inicia sesión en tu cuenta!
+              </Heading>
             </div>
+
             <Input
               as={Field}
+              mb="10px"
               id="email"
               name="email"
               type="email"
               placeholder="Email"
               variant={'login'}
             />
-            {errors.email && touched.email && (
-              <label htmlFor="email">{errors.email}</label>
-            )}
+            <Text color="blue">
+              {errors.email && touched.email && (
+                <label htmlFor="email">{errors.email}</label>
+              )}
+            </Text>
+
             <Input
               as={Field}
               id="password"
+              mb="10px"
               name="password"
               type="password"
               placeholder="Contraseña"
               autoComplete="current-password"
               variant={'login'}
             />
-            {errors.password && touched.password && (
-              <label htmlFor="password">{errors.password}</label>
-            )}
-            <Button type="submit" variant={'login'}>
+            <Text color="blue">
+              {errors.password && touched.password && (
+                <label htmlFor="password">{errors.password}</label>
+              )}
+            </Text>
+
+            <Button
+              type="submit"
+              mb="10px"
+              fontSize={{ base: '15px', md: '20px', lg: '25px' }}
+              variant={'login'}
+            >
               Inicia sesión
             </Button>
-            <Flex justifyContent="center" gap="4px">
+
+            <Flex justifyContent="center" mt="30px" gap="4px">
               <Text>¿No tienes una cuenta?</Text>
               <Text
                 color="primary"
