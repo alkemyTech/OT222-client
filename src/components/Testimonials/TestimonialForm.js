@@ -6,6 +6,7 @@ import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 function TestimonialForm({ values }) {
   const { name, content, id } = values || {
@@ -58,9 +59,28 @@ function TestimonialForm({ values }) {
         });
         confirmation('Has editado el testimonio!');
       } else {
-        AuthorizationService.post(`/testimonials`, {
-          values,
-        });
+        // AuthorizationService.post(`/testimonials`, {
+        //   values,
+        // });
+        const pepe = { file: values.image };
+        console.log('image', pepe);
+        axios
+          .post(
+            'http://localhost:3000/files',
+            { file: values.image },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          )
+          .then(res => {
+            console.log('response', res);
+          })
+          .catch(err => {
+            console.log('error', err);
+          });
+        console.log('values', values);
         confirmation('Has creado el testimonio!');
       }
     } catch (error) {
