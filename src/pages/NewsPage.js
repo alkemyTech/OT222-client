@@ -1,30 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import NewsCard from "../components/NewsCard"
 import {Flex, Text,Grid } from "@chakra-ui/react";
+import axios from "../Services/authorization/index"
 
 
 const NewsPage = () => {
-  const data = [
-    {
-      id: 1,
-      image: "https://www.fundacion-affinity.org/sites/default/files/dia-de-los-animales.jpg",
-      alt: "foto1",
-     name: "Aca escribo un titulo que sea mas o menos largo como para probar",
-    },
-    {
-      id: 2,
-      image: "https://assets.afcdn.com/story/20161017/989289_w1200h630c1cx511cy250.jpg",
-      alt: "foto2",
-      name: "Aca escribo un titulo que sea mas o menos largo como para probar",
-    },
-    {
-      id: 3,
-      image: "https://okdiario.com/img/2018/11/20/leopardo.jpg",
-      alt: "foto3",
-      name: "Aca escribo un titulo que sea mas o menos largo como para probar",
-    },
+  const[data, setData]=useState([]);
 
-];
+  const getNews = ()=>{
+    axios.get(process.env.REACT_APP_SERVER_BASE_URL +"/news")
+    .then(res => {
+        setData(res.data)
+    }).catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getNews()
+  }, []);
+
   return (
     <Flex
     flexDirection={"column"}

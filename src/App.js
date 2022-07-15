@@ -1,6 +1,6 @@
-import React from "react";
-import "./App.css";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react"
+import "./App.css"
+import { Routes, Route, useLocation } from "react-router-dom"
 import {
   Home,
   Login,
@@ -15,16 +15,18 @@ import {
   Profile,
   EditOrganization,
   UsersList,
-  SignUp
-} from "./pages/index";
-import Footer from "./layouts/Footer";
-import Header from "./layouts/Header";
-import DynamicNews from "./pages/Dynamic_news";
-
-
+  BackofficeNews,
+  BackofficeActivities,
+  BackofficeTestimonials,
+  Activities,
+  SignUp,
+} from "./pages/index"
+import Footer from "./layouts/Footer"
+import Header from "./layouts/Header"
+import DynamicNews from "./pages/Dynamic_news"
 
 function App() {
-  const location = useLocation().pathname;
+  const location = useLocation().pathname
 
   return (
     <>
@@ -38,17 +40,31 @@ function App() {
         <Route path="/news/:id" element={<DynamicNews />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/backoffice/changeHomeForm' element={< Backoffice />} />
-        <Route path='/layoutbackoffice' element={<LayoutBackoffice />} />
-        <Route path='/backoffice/edit-organization' element={<EditOrganization />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/backoffice/users-list' element={<UsersList />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
+        <Route path="/layoutbackoffice" element={<LayoutBackoffice />} />
+        <Route
+          path="/backoffice/edit-organization"
+          element={<EditOrganization />}
+        />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/backoffice/users-list" element={<UsersList />} />
+        <Route path="/backoffice/news" element={<BackofficeNews />} />
+        <Route
+          path="/backoffice/activities"
+          element={<BackofficeActivities />}
+        />
+        <Route
+          path="/backoffice/testimonials"
+          element={<BackofficeTestimonials />}
+        />
+        <Route path="/activities" element={<Activities />} />
+        <Route path="/activities/:activityId" element={<Activities />} />
       </Routes>
       {location !== "/login" && location !== "/register" ? <Footer /> : null}
     </>
-  );
+  )
 }
 
-export default App;
+export default App
