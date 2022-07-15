@@ -1,9 +1,10 @@
-import AuthorizationService from '../authorization/index';
-import { confirmation, error } from '../alerts';
+import AuthorizationService from "../authorization/index";
+import { confirmation, error } from "../alerts";
+import axios from "axios";
 
 const RegisterApi = (values, navigate) => {
   const { firstName, lastName, email, password } = values;
-  AuthorizationService.post('auth/register', {
+  const auth = AuthorizationService.post("auth/register", {
     firstName,
     lastName,
     email,
@@ -19,6 +20,7 @@ const RegisterApi = (values, navigate) => {
         : errorPost.response.data[0].errors[0].msg;
       error('Error', errorMsg);
     });
+    return auth
 };
 
 export default RegisterApi;

@@ -3,26 +3,27 @@ import { Formik, Field, Form } from 'formik';
 import { Input, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 import RegisterApi from '../../services/RegisterApi';
+import axios from "axios";
 
 const validate = values => {
   const errors = {};
 
   if (!values.firstName) {
-    errors.firstName = 'Obligatorio';
+    errors.firstName = "Obligatorio";
   } else if (values.firstName.length < 3) {
-    errors.firstName = 'Debe tener al menos 3 caracteres';
+    errors.firstName = "Debe tener al menos 3 caracteres";
   }
 
   if (!values.lastName) {
-    errors.lastName = 'Obligatorio';
+    errors.lastName = "Obligatorio";
   } else if (values.lastName.length < 3) {
-    errors.lastName = 'Debe tener al menos 3 caracteres';
+    errors.lastName = "Debe tener al menos 3 caracteres";
   }
 
   if (!values.email) {
-    errors.email = 'Obligatorio';
+    errors.email = "Obligatorio";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Direccción de correo inválida';
+    errors.email = "Direccción de correo inválida";
   }
 
   if (!values.password) {
@@ -33,26 +34,37 @@ const validate = values => {
 
   return errors;
 };
-
 export default function SignUpForm() {
   const navigate = useNavigate();
-
+  const onSubmit = (values) => {
+    const userSaved = RegisterApi(values, navigate).then(async (res) => {
+      const user = await axios.get(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
+        {
+          headers: {
+            authorization: res.data.token,
+          },
+        }
+      );
+      window.location.reload();
+    });
+  };
   return (
     <>
       <Formik
         initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
         }}
         validate={validate}
-        onSubmit={values => {
-          RegisterApi(values, navigate);
+        onSubmit={(values) => {
+          onSubmit(values);
         }}
       >
         {({ errors, touched }) => (
-          <Flex flexDirection={'column'} gap={'10px'} as={Form} maxWidth="100%">
+          <Flex flexDirection={"column"} gap={"10px"} as={Form} maxWidth="100%">
             <div>
               <Text variant={'login'}>Bienvenido</Text>
               <Heading size={['md', 'md', 'lg']} variant={'login'}>
@@ -130,8 +142,8 @@ export default function SignUpForm() {
               <Text
                 fontSize={{ base: '15px', md: '15px', lg: '20px' }}
                 color="primary"
-                _hover={{ cursor: 'pointer' }}
-                onClick={() => navigate('/login')}
+                _hover={{ cursor: "pointer" }}
+                onClick={() => navigate("/login")}
               >
                 Iniciar Sesión
               </Text>

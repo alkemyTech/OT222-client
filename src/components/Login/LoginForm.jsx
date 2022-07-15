@@ -1,26 +1,26 @@
-import React from 'react';
-import { Formik, Field, Form } from 'formik';
-import { Input, Button, Flex, Heading, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
-import LoginApi from '../../services/LoginApi';
+import React from "react";
+import { Formik, Field, Form } from "formik";
+import { Input, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
+import LoginApi from "../../services/LoginApi";
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
 
   if (!values.email) {
-    errors.email = 'Obligatorio';
+    errors.email = "Obligatorio";
   } else if (
     !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i.test(
       values.email
     )
   ) {
-    errors.email = 'Direccción de correo inválida';
+    errors.email = "Direccción de correo inválida";
   }
 
   if (!values.password) {
-    errors.password = 'Obligatorio';
+    errors.password = "Obligatorio";
   } else if (values.password.length < 6) {
-    errors.password = 'Debe tener al menos 6 caracteres';
+    errors.password = "Debe tener al menos 6 caracteres";
   }
 
   return errors;
@@ -33,19 +33,19 @@ export default function LoginForm() {
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: "",
+          password: "",
         }}
         validate={validate}
-        onSubmit={values => {
+        onSubmit={(values) => {
           LoginApi(values, navigate);
         }}
       >
         {({ errors, touched }) => (
-          <Flex flexDirection={'column'} gap={'10px'} as={Form} maxWidth="100%">
+          <Flex flexDirection={"column"} gap={"10px"} as={Form} maxWidth="100%">
             <div>
-              <Text variant={'login'}>Bienvenido</Text>
-              <Heading mb="15px" size={['sm', 'md', 'lg']} variant={'login'}>
+              <Text variant={"login"}>Bienvenido</Text>
+              <Heading mb="15px" size={["sm", "md", "lg"]} variant={"login"}>
                 Inicia sesión en tu cuenta!
               </Heading>
             </div>
@@ -57,7 +57,7 @@ export default function LoginForm() {
               name="email"
               type="email"
               placeholder="Email"
-              variant={'login'}
+              variant={"login"}
             />
             <Text color="blue">
               {errors.email && touched.email && (
@@ -73,7 +73,7 @@ export default function LoginForm() {
               type="password"
               placeholder="Contraseña"
               autoComplete="current-password"
-              variant={'login'}
+              variant={"login"}
             />
             <Text color="blue">
               {errors.password && touched.password && (
@@ -84,8 +84,8 @@ export default function LoginForm() {
             <Button
               type="submit"
               mb="10px"
-              fontSize={{ base: '15px', md: '20px', lg: '25px' }}
-              variant={'login'}
+              fontSize={{ base: "15px", md: "20px", lg: "25px" }}
+              variant={"login"}
             >
               Inicia sesión
             </Button>
@@ -94,8 +94,8 @@ export default function LoginForm() {
               <Text>¿No tienes una cuenta?</Text>
               <Text
                 color="primary"
-                _hover={{ cursor: 'pointer' }}
-                onClick={() => navigate('/register')}
+                _hover={{ cursor: "pointer" }}
+                onClick={() => navigate("/register")}
               >
                 Registrate
               </Text>
