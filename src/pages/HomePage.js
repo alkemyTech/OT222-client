@@ -1,10 +1,12 @@
-import React from "react"
+import React from 'react';
 // Utils: latest news
-import latestNews from "../utils/latestNews"
+import latestNews from '../utils/latestNews';
 // Components
-import Carousel from "../components/Carousel"
+import Carousel from '../components/Carousel';
+
+import TestimonialForm from '../components/Testimonials/TestimonialForm';
 // Styles
-import { Box, Flex, Text } from "@chakra-ui/react"
+import { Box, Flex, Text } from '@chakra-ui/react';
 const HomePage = () => {
   return (
     <Box>
@@ -12,6 +14,7 @@ const HomePage = () => {
         Texto de Bienvenida
       </Text>
       <Carousel />
+      <TestimonialForm />
       {latestNews &&
         latestNews.map(({ _id, title, briefDescription }) => {
           return (
@@ -19,9 +22,9 @@ const HomePage = () => {
               <Text fontWeight="bold">{title}</Text>
               <Text>{briefDescription}</Text>
             </Flex>
-          )
+          );
         })}
     </Box>
-  )
-}
-export default HomePage
+  );
+};
+export default HomePage;

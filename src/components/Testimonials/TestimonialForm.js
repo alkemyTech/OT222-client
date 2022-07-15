@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
-import { confirmacion, error } from '../../services/alerts';
+import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
@@ -56,12 +56,12 @@ function TestimonialForm({ values }) {
         AuthorizationService.patch(`/testimonials/${id}`, {
           values,
         });
-        confirmacion('Has editado el testimonio!');
+        confirmation('Has editado el testimonio!');
       } else {
         AuthorizationService.post(`/testimonials`, {
           values,
         });
-        confirmacion('Has creado el testimonio!');
+        confirmation('Has creado el testimonio!');
       }
     } catch (error) {
       error();
