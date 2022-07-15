@@ -10,15 +10,15 @@ const RegisterApi = (values, navigate) => {
     email,
     password,
   })
-    .then((response) => {
-      confirmation("Te has registrado exitosamente!!");
-      window.localStorage.setItem('token', response.data.token)
-      navigate("/");
-      return response
+    .then(response => {
+      confirmation('Has sido registrado, por favor inicia sesión.!!');
+      navigate('/login');
     })
-    .catch((errorPost) => {
-      error("Error", errorPost);
-      return false
+    .catch(errorPost => {
+      const errorMsg = errorPost.response.data[0].errors[0].email
+        ? errorPost.response.data[0].errors[0].email
+        : errorPost.response.data[0].errors[0].msg;
+      error('Error', errorMsg);
     });
     return auth
 };

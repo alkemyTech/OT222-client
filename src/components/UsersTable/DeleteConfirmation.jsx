@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flex, Button, Text, Heading } from '@chakra-ui/react';
-import axios from 'axios';
+import axios from '../../Services/authorization/index';
 import { confirmation } from '../../Services/alerts/index';
 import LoaderSpinner from '../LoaderSpinner';
 
