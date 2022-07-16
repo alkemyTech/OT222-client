@@ -1,18 +1,35 @@
-import React from "react"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 // Utils: footer content
-import footerContent from "../../utils/footerContent"
+import footerContent from '../../utils/footerContent';
 // Styles: chacra ui
-import { Box, Flex, Grid, Text, Image, Link, Button } from "@chakra-ui/react"
+import { Box, Flex, Grid, Text, Image, Link, Button } from '@chakra-ui/react';
 const Footer = () => {
+  const [urlMedia, seturlMedia] = useState([]);
+  const fetchUrlMedia = () => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/organizations/public`)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchUrlMedia();
+  }, []);
+
   return (
     <Box
-      p={["10px", "10px"]}
+      p={['10px', '10px']}
       bgColor="#f8f9fa"
       position="relative"
       bottom={0}
       w="100%"
     >
-      <Flex direction="column" maxW="1280px" m={["0", "auto"]}>
+      <Flex direction="column" maxW="1280px" m={['0', 'auto']}>
         <Grid templateColumns="repeat(auto-fill, minmax(185px, 1fr))">
           {footerContent.map(({ _id, title, logo, dir, socialMedia }) => {
             return (
@@ -27,7 +44,7 @@ const Footer = () => {
                       href="/"
                       mb="5px"
                       fontSize="16px"
-                      _hover={{ color: "green", transition: "200ms ease-in" }}
+                      _hover={{ color: 'green', transition: '200ms ease-in' }}
                     >
                       {dir}
                     </Link>
@@ -41,15 +58,15 @@ const Footer = () => {
                           <Link href={href}>{media}</Link>
                         </Button>
                       </Text>
-                    )
+                    );
                   })}
               </Flex>
-            )
+            );
           })}
         </Grid>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
