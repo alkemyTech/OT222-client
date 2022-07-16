@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
+import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
 function NewsForm({ values }) {
-  const { title, content, category, id } = values || {
-    title: '',
+  const { name, content, category, id } = values || {
+    name: '',
     category: '',
     content: '',
   };
   const initialValues = {
-    title,
+    name,
     content,
     category,
     image: '',
@@ -33,7 +34,7 @@ function NewsForm({ values }) {
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Por favor escribe un titulo'),
+    name: Yup.string().required('Por favor escribe un titulo'),
     image: Yup.mixed()
       .required('Por favor ingrese una imagen')
       .test(
@@ -53,20 +54,52 @@ function NewsForm({ values }) {
   });
 
   const onSubmit = (values, actions) => {
-    try {
-      if (isEditionForm) {
-        AuthorizationService.patch(`/news/${id}`, {
-          values,
-        });
-      } else {
-        AuthorizationService.post(`/news`, {
-          values,
-        });
+    AuthorizationService.post(
+      'files',
+      { file: values.image },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
-    } catch (error) {
-      alert(error);
+    )
+      .then(res => {
+        values.image = res.data.data.Location;
+
+        if (isEditionForm) {
+          AuthorizationService.put(`/news/${id}`, {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+            category: values.category,
+          })
+            .then(res => {
+              confirmation('Has editado la Novedad!');
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        } else {
+          AuthorizationService.post('/news', {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+            category: values.category,
+          })
+            .then(res => {
+              confirmation(`Has creado una Novedad!`);
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        }
+      })
+      .catch(err => {
+        error('Error', err);
+      });
+    {
+      actions.resetForm();
     }
-    actions.resetForm();
   };
 
   const formik = useFormik({
@@ -74,6 +107,7 @@ function NewsForm({ values }) {
     onSubmit,
     validationSchema,
   });
+
   const editOrCreate = isEditionForm ? 'Editar' : 'Crear';
 
   return (
@@ -97,10 +131,10 @@ function NewsForm({ values }) {
         </Flex>
 
         <div>
-          <label htmlFor="title">Titulo</label>
-          <Field as={Input} id="title" type="text" name="title" />
+          <label htmlFor="name">Titulo</label>
+          <Field as={Input} id="name" type="text" name="name" />
           <Text color="red">
-            <ErrorMessage name="title" />
+            <ErrorMessage name="name" />
           </Text>
         </div>
 
@@ -154,13 +188,13 @@ function NewsForm({ values }) {
           <Button
             mt={5}
             rounded={10}
-            background={'yellow'}
+            background={'blue'}
             size={['lg', 'md']}
-            color={'black'}
+            color={'white'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            {`${editOrCreate} Novedad`}
+            {`${editOrCreate}`}
           </Button>
         </Stack>
       </Flex>

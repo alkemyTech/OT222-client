@@ -6,7 +6,6 @@ import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
-import axios from 'axios';
 
 function TestimonialForm({ values }) {
   const { name, content, id } = values || {
@@ -52,40 +51,47 @@ function TestimonialForm({ values }) {
   });
 
   const onSubmit = (values, actions) => {
-    try {
-      if (isEditionForm) {
-        AuthorizationService.patch(`/testimonials/${id}`, {
-          values,
-        });
-        confirmation('Has editado el testimonio!');
-      } else {
-        // AuthorizationService.post(`/testimonials`, {
-        //   values,
-        // });
-        const pepe = { file: values.image };
-        console.log('image', pepe);
-        axios
-          .post(
-            'http://localhost:3000/files',
-            { file: values.image },
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          )
-          .then(res => {
-            console.log('response', res);
-          })
-          .catch(err => {
-            console.log('error', err);
-          });
-        console.log('values', values);
-        confirmation('Has creado el testimonio!');
+    AuthorizationService.post(
+      'files',
+      { file: values.image },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
-    } catch (error) {
-      error();
-    }
+    )
+      .then(res => {
+        values.image = res.data.data.Location;
+
+        if (isEditionForm) {
+          AuthorizationService.put(`/testimonials/${id}`, {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+          })
+            .then(res => {
+              confirmation('Has editado el testimonio!');
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        } else {
+          AuthorizationService.post('/testimonials', {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+          })
+            .then(res => {
+              confirmation(`Has creado el testimonio!`);
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        }
+      })
+      .catch(err => {
+        error('Error', err);
+      });
     {
       actions.resetForm();
     }
