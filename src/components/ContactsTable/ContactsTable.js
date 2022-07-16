@@ -10,7 +10,7 @@ import {
   Td,
   Button,
 } from '@chakra-ui/react';
-import axios from '../../services/authorization/index';
+import axios from '../../Services/authorization/index';
 import UserEditionForm from '../UserForm/UserEditionForm';
 import ContactDeleteConfirmation from '../ContactsTable/ContactDeleteConfirmation';
 

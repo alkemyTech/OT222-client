@@ -6,7 +6,7 @@ import LoaderSpinner from '../components/LoaderSpinner';
 import Warning from '../modals/Warning';
 import Fields from '../modals/Fields';
 // Services: alerts
-import { confirmation, error } from '../services/alerts';
+import { confirmation, error } from '../Services/alerts';
 // Utils: newsData
 import testimonialsData from '../utils/testimonialsData';
 const tableHeaders = ['User', 'Actions'];
