@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import axios from '../services/authorization/index';
+
 const NewsCard = ({ element }) => {
   const [newsId, setNewsId] = useState('');
 
@@ -38,16 +39,8 @@ const NewsCard = ({ element }) => {
         {element.name}{' '}
       </Text>
 
-      <Link to={'' /* `news/${element.id}` */}>
-        <Button
-          mt={'10%'}
-          background={'red'}
-          color={'white'}
-          mb={'10px'}
-          onClick={() => {
-            getNewsById(element.id);
-          }}
-        >
+      <Link to={`/news/${element.id}`}>
+        <Button mt={'10%'} background={'red'} color={'white'} mb={'10px'}>
           ver detalle
         </Button>
       </Link>
