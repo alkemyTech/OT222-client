@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Flex, Input, Textarea, Button, Stack } from '@chakra-ui/react';
-import { confirmation, error } from '../services/alerts';
+import { confirmation, error } from '../Services/alerts/index';
 import LoaderSpinner from './LoaderSpinner';
 
 const ContactForm = () => {

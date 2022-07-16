@@ -1,8 +1,18 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import React, {useState} from 'react';
 import { Image } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
+import axios from "../Services/authorization/index"
 const NewsCard =({element}) =>{
+
+  const [newsId,setNewsId]=useState("");
+
+  const getNewsById = (id)=>{
+    axios.get(process.env.REACT_APP_SERVER_BASE_URL +`/news/${id}`)
+    .then(res => {setNewsId(res.data)
+    }).catch(err => console.log(err))
+  }
+  console.log(newsId)
  return(
     <Flex
     flexDirection={"column"}
@@ -30,13 +40,13 @@ const NewsCard =({element}) =>{
         >{element.name} </Text>
 
         
-        <Link to={`news/${element.id}`}>
+       <Link to={""/* `news/${element.id}` */}> 
         <Button
         mt={"10%"}
         background={"red"}
         color={"white"}
         mb={"10px"}
-        onClick ={()=>{}}
+        onClick ={()=>{getNewsById(element.id)}}
         >ver detalle</Button>
         </Link>
 

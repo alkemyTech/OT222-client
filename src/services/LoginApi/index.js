@@ -9,7 +9,7 @@ const LoginApi = (values, navigate) => {
       navigate('/');
     })
     .catch(errorPost => {
-      error('Error', errorPost);
+      error('Email o Contraseña incorrecta!', errorPost.response.data.data);
     });
 };
 
