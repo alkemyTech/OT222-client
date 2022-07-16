@@ -5,25 +5,31 @@ import { EditIcon, DeleteIcon} from '@chakra-ui/icons'
 import axios from "../../Services/authorization/index";
 import ContactDeleteConfirmation from "../ContactsTable/ContactDeleteConfirmation";
 
-const ContactsTable = ()=>{
-    const [contacts, setContacts] = useState([])
-    const [editing, setEditing] = useState(null)
-    const [deleting, setDeleting] = useState(null)
+const ContactsTable = () => {
+  const [contacts, setContacts] = useState([]);
+  const [editing, setEditing] = useState(null);
+  const [deleting, setDeleting] = useState(null);
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_BASE_URL + "/contacts")
-            .then(res => setContacts(res.data))
-            .catch(err => console.log(err))
-    }, [editing, deleting])
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_SERVER_BASE_URL + '/contacts')
+      .then(res => setContacts(res.data))
+      .catch(err => console.log(err));
+  }, [editing, deleting]);
 
-    if (editing) return (
-       /*  <UserEditionForm contact={editing} setEditing={setEditing}></UserEditionForm> */
-        <div> hay que hacer un form de edicion de contacto</div>
-    )
+  if (editing)
+    return (
+      /*  <UserEditionForm contact={editing} setEditing={setEditing}></UserEditionForm> */
+      <div> hay que hacer un form de edicion de contacto</div>
+    );
 
-    if (deleting) return (
-        <ContactDeleteConfirmation contact={deleting} setDeleting={setDeleting} ></ContactDeleteConfirmation>
-    )
+  if (deleting)
+    return (
+      <ContactDeleteConfirmation
+        contact={deleting}
+        setDeleting={setDeleting}
+      ></ContactDeleteConfirmation>
+    );
   return (
     <Flex
     justifyContent={"center"}
@@ -69,3 +75,4 @@ const ContactsTable = ()=>{
   )
 }
 export default ContactsTable
+

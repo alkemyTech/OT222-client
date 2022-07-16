@@ -5,7 +5,6 @@ import LoginPage from "./LoginPage"
 import StaffPage from "./StaffPage"
 import NewsPage from "./NewsPage"
 import TestimonialsPage from "./TestimonialsPage"
-import RegisterPage from "./RegisterPage"
 import ContactPage from "./ContactPage"
 import BackofficePage from "./BackofficePage"
 import LayoutBackofficePage from "./LayoutBackofficePage"
@@ -44,10 +43,6 @@ export const Testimonials = () => {
 
 export const Contribute = () => {
   return <ContributePage />
-}
-
-export const Register = () => {
-  return <RegisterPage />
 }
 
 export const Contact = () => {

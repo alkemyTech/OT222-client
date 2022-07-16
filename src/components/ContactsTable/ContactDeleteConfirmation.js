@@ -1,41 +1,39 @@
-import React, { useState } from "react"
-import { Flex, Button, Text, Heading } from '@chakra-ui/react'
-import axios from "../../Services/authorization/index"
-import { confirmation } from "../../Services/alerts/index"
-import LoaderSpinner from "../LoaderSpinner"
+import React, { useState } from 'react';
+import { Flex, Button, Text, Heading } from '@chakra-ui/react';
+import axios from '../../services/authorization/index';
+import { confirmation } from '../../services/alerts/index';
+import LoaderSpinner from '../LoaderSpinner';
 
 function ContactDeleteConfirmation({ contact, setDeleting }) {
+  const [loading, setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(false)
+  const deleteContact = () => {
+    setLoading(true);
+    axios
+      .delete('/contacts/' + contact.id)
+      .then(res => {
+        setLoading(false);
+        setDeleting(null);
+        confirmation(contact.email, 'Ha sido borrado con éxito.');
+      })
+      .catch(err => console.log(err));
+  };
 
-    const deleteContact = () => {
-        setLoading(true)
-        axios.delete("/contacts/" + contact.id)
-            .then(res => {
-                setLoading(false)
-                setDeleting(null)
-                confirmation(contact.email, "Ha sido borrado con éxito.")
-            }).catch(err => console.log(err))
-    }
+  if (loading) return <LoaderSpinner></LoaderSpinner>;
 
-
-    if (loading) return (
-        <LoaderSpinner></LoaderSpinner>
-    )
-
-    return (
-        <Flex
-            flexDirection={'column'}
-            gap={'20px'}
-            width={'520px'}
-            maxWidth={'90%'}
-            mt={'3%'}
-            mb={'10%'}
-            boxShadow="dark-lg"
-            rounded="ms"
-            bg="white"
-            p={'2rem'}
-        >
+  return (
+    <Flex
+      flexDirection={'column'}
+      gap={'20px'}
+      width={'520px'}
+      maxWidth={'90%'}
+      mt={'3%'}
+      mb={'10%'}
+      boxShadow="dark-lg"
+      rounded="ms"
+      bg="white"
+      p={'2rem'}
+    >
             <Heading as="h2" size="lg" mb={'1rem'}>
                 ¿Está seguro que desea eliminar el contacto {contact.name}?
             </Heading>
@@ -49,5 +47,15 @@ function ContactDeleteConfirmation({ contact, setDeleting }) {
             </Flex>
         </Flex>
     )
+
+          Cancelar
+        </Button>
+        <Button colorScheme="red" onClick={() => deleteContact()}>
+          Eliminar
+        </Button>
+      </Flex>
+    </Flex>
+  );
+
 }
-export default ContactDeleteConfirmation
+export default ContactDeleteConfirmation;

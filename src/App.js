@@ -1,6 +1,6 @@
-import React from "react"
-import "./App.css"
-import { Routes, Route, useLocation } from "react-router-dom"
+import React, { useEffect } from "react";
+import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
 import {
   Home,
   Login,
@@ -8,7 +8,6 @@ import {
   News,
   Testimonials,
   Contribute,
-  Register,
   Contact,
   Backoffice,
   LayoutBackoffice,
@@ -20,12 +19,19 @@ import {
   BackofficeTestimonials,
   Activities,
   SignUp,
-} from "./pages/index"
-import Footer from "./layouts/Footer"
-import Header from "./layouts/Header"
-import DynamicNews from "./pages/Dynamic_news"
+} from "./pages/index";
+import Footer from "./layouts/Footer";
+import Header from "./layouts/Header";
+import DynamicNews from "./pages/Dynamic_news";
+import { selectUserStatus } from "./features/user/userSlice";
+import { useSelector } from "react-redux";
 function App() {
-  const location = useLocation().pathname
+  const location = useLocation().pathname;
+  const status = useSelector(selectUserStatus);
+  useEffect(() => {
+    if (status === false) {
+    }
+  }, [location]);
   return (
     <>
       <Header />
@@ -38,7 +44,6 @@ function App() {
         <Route path="/news/:id" element={<DynamicNews />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
         <Route path="/backoffice" element={<LayoutBackoffice />} />
@@ -63,7 +68,7 @@ function App() {
 
       {location !== "/login" && location !== "/register" ? <Footer /> : null}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
