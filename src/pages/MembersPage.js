@@ -21,12 +21,21 @@ const MembersPage = () => {
           justifyContent="center"
           alignContent="center"
           w="80vw"
-          templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)",  "repeat(4, 1fr)"]}
+          templateColumns={[
+            "repeat(1, 1fr)",
+            "repeat(2, 1fr)",
+            "repeat(3, 1fr)",
+            "repeat(4, 1fr)",
+          ]}
           gap="2vw"
         >
           {data &&
             data.map((member, index) => (
-              <MemberThumbnail name={member.name} key='index' image={member.image}/>
+              <MemberThumbnail
+                name={member.name}
+                key="index"
+                image={member.image}
+              />
             ))}
         </Grid>
       </Grid>
