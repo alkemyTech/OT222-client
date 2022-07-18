@@ -19,6 +19,7 @@ import {
   BackofficeTestimonials,
   Activities,
   SignUp,
+  Members
 } from "./pages/index";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -46,6 +47,7 @@ function App() {
         <Route path="/contribute" element={<Contribute />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
+        <Route path="/members" element={<Members />}/>
         <Route path="/layoutbackoffice" element={<LayoutBackoffice />} />
         <Route
           path="/backoffice/edit-organization"

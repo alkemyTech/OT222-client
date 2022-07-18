@@ -16,7 +16,7 @@ import BackofficeNewsPage from "./BackofficeNewsPage"
 import BackofficeActivitiesPage from "./BackofficeActivitiesPage"
 import BackofficeTestimonialsPage from "./BackofficeTestimonialsPage"
 import ActivitiesPage from "./ActivitiesPage"
-
+import MembersPage from "./MembersPage"
 export const Home = () => {
   return <HomePage />
 }
@@ -78,4 +78,8 @@ export const BackofficeTestimonials = () => {
 }
 export const Activities = () => {
   return <ActivitiesPage />
+}
+
+export const Members = () => {
+  return <MembersPage />
 }
