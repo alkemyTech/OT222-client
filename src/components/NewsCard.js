@@ -1,61 +1,58 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import axios from '../services/authorization/index';
-
+import { Button, Flex, Text } from "@chakra-ui/react"
+import React, { useState } from "react"
+import { Image } from "@chakra-ui/react"
+import { Link } from "react-router-dom"
+import axios from "../services/authorization/index"
 
 const NewsCard = ({ element }) => {
-  const [newsId, setNewsId] = useState('');
+  const [newsId, setNewsId] = useState("")
 
-
-  const getNewsById = id => {
+  const getNewsById = (id) => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + `/news/${id}`)
-      .then(res => {
-        setNewsId(res.data);
+      .then((res) => {
+        setNewsId(res.data)
       })
-      .catch(err => console.log(err));
-  };
-  console.log(newsId);
+      .catch((err) => console.log(err))
+  }
+  console.log(newsId)
   return (
     <Flex
-      flexDirection={'column'}
-      alignItems={'center'}
-      color={'black'}
-      width={['']}
-      mt={'20px'}
-      border={'solid black'}
-      rounded={'25px'}
-      ml={'20px'}
+      flexDirection={"column"}
+      alignItems={"center"}
+      color={"black"}
+      width={[""]}
+      mt={"20px"}
+      border={"solid black"}
+      rounded={"25px"}
+      ml={"20px"}
     >
       <Image
-        rounded={'21px 21px 0px 0px'}
-        textAlign={'center'}
-        height={'300px'}
-        mb={'15%'}
+        rounded={"21px 21px 0px 0px"}
+        textAlign={"center"}
+        height={"300px"}
+        mb={"15%"}
         src={element.image}
         alt={element.name}
       />
-      <Text width={'95%'} fontSize={'16px'} textAlign={'center'}>
-        {element.name}{' '}
+      <Text width={"95%"} fontSize={"16px"} textAlign={"center"}>
+        {element.name}{" "}
       </Text>
-      <Link to={'' /* `news/${element.id}` */}>
+      <Link to={"" /* `news/${element.id}` */}>
         <Button
-          mt={'10%'}
-          background={'red'}
-          color={'white'}
-          mb={'10px'}
+          mt={"10%"}
+          background={"red"}
+          color={"white"}
+          mb={"10px"}
           onClick={() => {
-            getNewsById(element.id);
+            getNewsById(element.id)
           }}
         >
-
           ver detalle
         </Button>
       </Link>
     </Flex>
-  );
-};
+  )
+}
 
-export default NewsCard;
+export default NewsCard

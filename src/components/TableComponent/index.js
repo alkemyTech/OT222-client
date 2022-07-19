@@ -42,24 +42,28 @@ const TableComponent = ({ data, onEdit, onDelete, tableHeaders }) => {
                       </Td>
                     )}
                     <Td>
-                      <Button
-                        onClick={() => onEdit(_id)}
-                        colorScheme="blue"
-                        variant="outline"
-                        size="sm"
-                        mr="2"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        onClick={() => onDelete(_id)}
-                        colorScheme="red"
-                        variant="outline"
-                        size="sm"
-                        ml="2"
-                      >
-                        Delete
-                      </Button>
+                      {onEdit && (
+                        <Button
+                          onClick={() => onEdit(_id)}
+                          colorScheme="blue"
+                          variant="outline"
+                          size="sm"
+                          mr="2"
+                        >
+                          Edit
+                        </Button>
+                      )}
+                      {onDelete && (
+                        <Button
+                          onClick={() => onDelete(_id)}
+                          colorScheme="red"
+                          variant="outline"
+                          size="sm"
+                          ml="2"
+                        >
+                          Delete
+                        </Button>
+                      )}
                     </Td>
                   </Tr>
                 )
