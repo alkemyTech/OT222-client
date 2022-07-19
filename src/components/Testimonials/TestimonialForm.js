@@ -7,16 +7,14 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 
-function NewsForm({ values }) {
-  const { name, content, category, id } = values || {
+function TestimonialForm({ values }) {
+  const { name, content, id } = values || {
     name: '',
-    category: '',
     content: '',
   };
   const initialValues = {
     name,
     content,
-    category,
     image: '',
   };
 
@@ -34,7 +32,7 @@ function NewsForm({ values }) {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Por favor escribe un titulo'),
+    name: Yup.string().required('Por favor escribe un nombre'),
     image: Yup.mixed()
       .required('Por favor ingrese una imagen')
       .test(
@@ -50,7 +48,6 @@ function NewsForm({ values }) {
         value => !value || (value && value.size <= FILE_SIZE)
       ),
     content: Yup.string().required('Por favor escribe un contenido'),
-    category: Yup.string().required('Por favor escribe una categoria'),
   });
 
   const onSubmit = (values, actions) => {
@@ -67,27 +64,25 @@ function NewsForm({ values }) {
         values.image = res.data.data.Location;
 
         if (isEditionForm) {
-          AuthorizationService.put(`/news/${id}`, {
+          AuthorizationService.put(`/testimonials/${id}`, {
             name: values.name,
             content: values.content,
             image: values.image,
-            category: values.category,
           })
             .then(res => {
-              confirmation('Has editado la Novedad!');
+              confirmation('Has editado el testimonio!');
             })
             .catch(err => {
               error('Error', err.response.data.errors[0].msg);
             });
         } else {
-          AuthorizationService.post('/news', {
+          AuthorizationService.post('/testimonials', {
             name: values.name,
             content: values.content,
             image: values.image,
-            category: values.category,
           })
             .then(res => {
-              confirmation(`Has creado una Novedad!`);
+              confirmation(`Has creado el testimonio!`);
             })
             .catch(err => {
               error('Error', err.response.data.errors[0].msg);
@@ -107,7 +102,6 @@ function NewsForm({ values }) {
     onSubmit,
     validationSchema,
   });
-
   const editOrCreate = isEditionForm ? 'Editar' : 'Crear';
 
   return (
@@ -127,11 +121,11 @@ function NewsForm({ values }) {
         p={'2%'}
       >
         <Flex fontWeight={'bold'} fontSize={'24px'}>
-          {`¡${editOrCreate} Novedad!`}
+          {`¡${editOrCreate} Testimonio!`}
         </Flex>
 
         <div>
-          <label htmlFor="name">Titulo</label>
+          <label htmlFor="name">Nombre</label>
           <Field as={Input} id="name" type="text" name="name" />
           <Text color="red">
             <ErrorMessage name="name" />
@@ -143,7 +137,6 @@ function NewsForm({ values }) {
           <br />
           <input
             type="file"
-            accept="image/x-png,image/gif,image/jpeg"
             onChange={event => {
               formik.setFieldValue('image', event.target.files[0]);
             }}
@@ -176,25 +169,17 @@ function NewsForm({ values }) {
           </Text>
         </div>
 
-        <div>
-          <label htmlFor="category">Categoria</label>
-          <Field as={Input} id="title" type="text" name="category" />
-          <Text color="red">
-            <ErrorMessage name="category" />
-          </Text>
-        </div>
-
         <Stack width={['40%']}>
           <Button
             mt={5}
             rounded={10}
-            background={'blue'}
+            background={'yellow'}
             size={['lg', 'md']}
-            color={'white'}
+            color={'black'}
             fontSize={['xs', 'md']}
             type="submit"
           >
-            {`${editOrCreate}`}
+            {`${editOrCreate} `}
           </Button>
         </Stack>
       </Flex>
@@ -202,4 +187,4 @@ function NewsForm({ values }) {
   );
 }
 
-export default NewsForm;
+export default TestimonialForm;
