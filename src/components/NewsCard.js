@@ -2,7 +2,8 @@ import { Button, Flex, Text } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { Image } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import axios from "../services/authorization"
+import axios from "../services/authorization/index"
+
 const NewsCard = ({ element }) => {
   const [newsId, setNewsId] = useState("")
 
@@ -37,7 +38,6 @@ const NewsCard = ({ element }) => {
       <Text width={"95%"} fontSize={"16px"} textAlign={"center"}>
         {element.name}{" "}
       </Text>
-
       <Link to={"" /* `news/${element.id}` */}>
         <Button
           mt={"10%"}

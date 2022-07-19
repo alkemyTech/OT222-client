@@ -2,6 +2,7 @@ import React, { useState } from "react"
 // Components
 import TableComponent from "../components/TableComponent"
 import LoaderSpinner from "../components/LoaderSpinner"
+import NewsForm from "../components/NewsForm/NewsForm"
 // Modals
 import Warning from "../modals/Warning"
 import Fields from "../modals/Fields"
@@ -106,6 +107,7 @@ const BackofficeNewsPage = () => {
         onEdit={onEdit}
         onDelete={onDelete}
       />
+      <NewsForm />
     </>
   )
 }
