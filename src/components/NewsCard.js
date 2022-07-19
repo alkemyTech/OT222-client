@@ -4,8 +4,10 @@ import { Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import axios from '../services/authorization/index';
 
+
 const NewsCard = ({ element }) => {
   const [newsId, setNewsId] = useState('');
+
 
   const getNewsById = id => {
     axios
@@ -38,9 +40,17 @@ const NewsCard = ({ element }) => {
       <Text width={'95%'} fontSize={'16px'} textAlign={'center'}>
         {element.name}{' '}
       </Text>
+      <Link to={'' /* `news/${element.id}` */}>
+        <Button
+          mt={'10%'}
+          background={'red'}
+          color={'white'}
+          mb={'10px'}
+          onClick={() => {
+            getNewsById(element.id);
+          }}
+        >
 
-      <Link to={`/news/${element.id}`}>
-        <Button mt={'10%'} background={'red'} color={'white'} mb={'10px'}>
           ver detalle
         </Button>
       </Link>
