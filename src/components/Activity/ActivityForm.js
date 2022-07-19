@@ -1,77 +1,126 @@
-import React, { useState, useEffect } from "react"
-import AuthorizationService from "../../services/authorization"
-import { ErrorMessage, Field, Form, FormikProvider, useFormik } from "formik"
-import { Flex, Input, Button, Stack, Text } from "@chakra-ui/react"
-import { CKEditor } from "@ckeditor/ckeditor5-react"
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
-import * as Yup from "yup"
+import React, { useState, useEffect } from 'react';
+import AuthorizationService from '../../services/authorization';
+import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
+import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as Yup from 'yup';
+import { confirmation, error } from '../../services/alerts';
 
 function ActivityForm({ values }) {
   const { name, content, id } = values || {
-    name: "",
-    content: "",
-  }
+    name: '',
+    content: '',
+  };
   const initialValues = {
     name,
     content,
-  }
+    image: '',
+  };
 
-  const [isEditionForm, setIsEditionForm] = useState(false)
+  const [isEditionForm, setIsEditionForm] = useState(false);
 
   useEffect(() => {
-    setIsEditionForm(!!values)
-  }, [values])
+    setIsEditionForm(!!values);
+  }, [values]);
 
   const inputHandler = (event, editor) => {
-    formik.setFieldValue("content", editor.getData())
-  }
+    formik.setFieldValue('content', editor.getData());
+  };
+
+  const FILE_SIZE = 200000; //100000 is 1 mb
+  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg'];
 
   const validationSchema = Yup.object({
-    name: Yup.string().required("Por favor escribe un nombre"),
-    content: Yup.string().required("Por favor escribe un contenido"),
-  })
+    name: Yup.string().required('Por favor escribe un nombre'),
+    image: Yup.mixed()
+      .required('Por favor ingrese una imagen')
+      .test(
+        'fileFormat',
+        'Formato no soportado, los formatos permitidos son jpg o jpeg',
+        value => {
+          if (value) return SUPPORTED_FORMATS.includes(value.type);
+        }
+      )
+      .test(
+        'fileSize',
+        'La imagen es muy grande, el tamaño maximo es de 200 mb',
+        value => !value || (value && value.size <= FILE_SIZE)
+      ),
+    content: Yup.string().required('Por favor escribe un contenido'),
+  });
 
   const onSubmit = (values, actions) => {
-    try {
-      if (isEditionForm) {
-        AuthorizationService.patch(`/activities/${id}`, {
-          values,
-        })
-      } else {
-        AuthorizationService.post(`/activities`, {
-          values,
-        })
+    AuthorizationService.post(
+      'files',
+      { file: values.image },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
-    } catch (error) {
-      alert(error)
+    )
+      .then(res => {
+        values.image = res.data.data.Location;
+
+        if (isEditionForm) {
+          AuthorizationService.put(`/activities/${id}`, {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+          })
+            .then(res => {
+              confirmation('Has editado la Actividad!');
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        } else {
+          AuthorizationService.post('/activities', {
+            name: values.name,
+            content: values.content,
+            image: values.image,
+          })
+            .then(res => {
+              confirmation(`Has creado una Actividad!`);
+            })
+            .catch(err => {
+              error('Error', err.response.data.errors[0].msg);
+            });
+        }
+      })
+      .catch(err => {
+        error('Error', err);
+      });
+    {
+      actions.resetForm();
     }
-    actions.resetForm()
-  }
+  };
 
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
-  })
-  const editOrCreate = isEditionForm ? "Editar" : "Crear"
+  });
+  const editOrCreate = isEditionForm ? 'Editar' : 'Crear';
 
   return (
     <FormikProvider value={formik}>
       <Flex
         as={Form}
         className="form"
-        flexDirection={"column"}
-        gap={"20px"}
-        width={"50%"}
-        ml={"5%"}
-        mt={"3%"}
-        mb={"10%"}
+        flexDirection={'column'}
+        gap={'20px'}
+        width={'50%'}
+        ml={'5%'}
+        mt={'3%'}
+        mb={'10%'}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"
-        p={"2%"}
+        p={'2%'}
       >
-        <Flex fontWeight={"bold"} fontSize={"24px"}>
+        <Flex fontWeight={'bold'} fontSize={'24px'}>
           {`¡${editOrCreate} Actividad!`}
         </Flex>
 
@@ -84,18 +133,32 @@ function ActivityForm({ values }) {
         </div>
 
         <div>
+          <label htmlFor="image">Imagen</label>
+          <br />
+          <input
+            type="file"
+            onChange={event => {
+              formik.setFieldValue('image', event.target.files[0]);
+            }}
+          />
+          <Text color="red">
+            <ErrorMessage name="image" />
+          </Text>
+        </div>
+
+        <div>
           <label htmlFor="content">Contenido</label>
           <CKEditor
             editor={ClassicEditor}
             config={{
               toolbar: [
-                "heading",
-                "|",
-                "bold",
-                "italic",
-                "bulletedList",
-                "numberedList",
-                "blockQuote",
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'bulletedList',
+                'numberedList',
+                'blockQuote',
               ],
               initialData: content,
             }}
@@ -106,22 +169,22 @@ function ActivityForm({ values }) {
           </Text>
         </div>
 
-        <Stack width={["40%"]}>
+        <Stack width={['40%']}>
           <Button
             mt={5}
             rounded={10}
-            background={"yellow"}
-            size={["lg", "md"]}
-            color={"black"}
-            fontSize={["xs", "md"]}
+            background={'red'}
+            size={['lg', 'md']}
+            color={'white'}
+            fontSize={['xs', 'md']}
             type="submit"
           >
-            {`${editOrCreate} Actividad`}
+            {`${editOrCreate}`}
           </Button>
         </Stack>
       </Flex>
     </FormikProvider>
-  )
+  );
 }
 
-export default ActivityForm
+export default ActivityForm;

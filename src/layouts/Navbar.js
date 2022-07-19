@@ -1,7 +1,10 @@
-import { Box, Grid, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, Text } from "@chakra-ui/react";
 import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import NavButton from "../components/NavButton";
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../features/user/userSlice'
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
   { text: "Inicio", path: "/" },
@@ -12,16 +15,27 @@ const navItems = [
   { text: "Contribuye", path: "/contribute" }
 ]
 
-const auth = ()=>{
-  if(localStorage.getItem('token')){
+const auth = () => {
+  if (localStorage.getItem('token')) {
     navItems.push({ text: "Backoffice", path: "/backoffice" })
-  }else{
+  } else {
     console.log("no esta logueado")
   }
 }
 auth()
+
+const logoutFunc = (dispatch, navigate) => {
+  localStorage.removeItem('token')
+  dispatch(logout())
+  navigate('/')
+  document.location.reload()
+}
+
+
 const Navbar = ({ mobile, setMobile }) => {
   const location = useLocation().pathname;
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   return (
     <Grid
@@ -63,13 +77,19 @@ const Navbar = ({ mobile, setMobile }) => {
         gap="2vw"
         display={["none", "none", "grid", "grid"]}
       >
-        <NavButton name="Log In" path="/login" mobile={false} />
-        <NavButton
-          name="Registrarse"
-          path="/register"
-          color="red"
-          mobile={false}
-        />
+        {useSelector(state => state.user.isLogged) ?
+          <Button variant="link" onClick={() => logoutFunc(dispatch, navigate)}>Cerrar Sesión</Button>
+          :
+          <>
+            <NavButton name="Log In" path="/login" mobile={false} />
+            <NavButton
+              name="Registrarse"
+              path="/register"
+              color="red"
+              mobile={false}
+            />
+          </>}
+
       </Grid>
     </Grid >
   );
