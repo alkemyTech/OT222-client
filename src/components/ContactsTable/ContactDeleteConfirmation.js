@@ -34,15 +34,20 @@ function ContactDeleteConfirmation({ contact, setDeleting }) {
       bg="white"
       p={'2rem'}
     >
-      <Heading as="h2" size="lg" mb={'1rem'}>
-        ¿Está seguro que desea eliminar el usuario {contact.name}?
-      </Heading>
-      <Flex justifyContent={'space-between'}>
-        <Button
-          onClick={() => {
-            setDeleting(null);
-          }}
-        >
+            <Heading as="h2" size="lg" mb={'1rem'}>
+                ¿Está seguro que desea eliminar el contacto {contact.name}?
+            </Heading>
+            <Flex justifyContent={'space-between'}>
+                <Button onClick={() => { setDeleting(null) }}>
+                    Cancelar
+                </Button>
+                <Button colorScheme="red" onClick={() => deleteContact()}>
+                    Eliminar
+                </Button>
+            </Flex>
+        </Flex>
+    )
+
           Cancelar
         </Button>
         <Button colorScheme="red" onClick={() => deleteContact()}>
@@ -51,5 +56,6 @@ function ContactDeleteConfirmation({ contact, setDeleting }) {
       </Flex>
     </Flex>
   );
+
 }
 export default ContactDeleteConfirmation;

@@ -46,7 +46,7 @@ function App() {
         <Route path="/contribute" element={<Contribute />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
-        <Route path="/layoutbackoffice" element={<LayoutBackoffice />} />
+        <Route path="/backoffice" element={<LayoutBackoffice />} />
         <Route
           path="/backoffice/edit-organization"
           element={<EditOrganization />}
@@ -65,6 +65,7 @@ function App() {
         <Route path="/activities" element={<Activities />} />
         <Route path="/activities/:activityId" element={<Activities />} />
       </Routes>
+
       {location !== "/login" && location !== "/register" ? <Footer /> : null}
     </>
   );
