@@ -38,7 +38,7 @@ const NewsCard = ({ element }) => {
       <Text width={'95%'} fontSize={'16px'} textAlign={'center'}>
         {element.name}{' '}
       </Text>
-      <Link to={'' /* `news/${element.id}` */}>
+      <Link to={`/news/${element.id}`}>
         <Button
           mt={'10%'}
           background={'red'}
