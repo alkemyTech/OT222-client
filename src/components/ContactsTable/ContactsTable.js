@@ -9,9 +9,11 @@ import {
   Tbody,
   Td,
   Button,
+  Flex,
+  Text,
 } from '@chakra-ui/react';
-import axios from '../../services/authorization/index';
-import UserEditionForm from '../UserForm/UserEditionForm';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import axios from '../../services/authorization';
 import ContactDeleteConfirmation from '../ContactsTable/ContactDeleteConfirmation';
 
 const ContactsTable = () => {
@@ -40,47 +42,68 @@ const ContactsTable = () => {
       ></ContactDeleteConfirmation>
     );
   return (
-    <TableContainer width={'90%'}>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Nombre</Th>
-            <Th>Telefono</Th>
-            <Th>Email</Th>
-            <Th>Mensaje</Th>
-            <Th>Editar</Th>
-            <Th>Eliminar</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {contacts.map(contact => (
-            <Tr key={contact.id}>
-              <Td>{contact.name}</Td>
-              <Td>{contact.phone}</Td>
-              <Td>{contact.email}</Td>
-              <Td>{contact.message}</Td>
-              <Td>
-                <Button size="sm" onClick={() => setEditing(contact)}>
-                  Editar
-                </Button>
-              </Td>
-              <Td>
-                {
-                  <Button
-                    colorScheme="red"
-                    variant="solid"
-                    size="sm"
-                    onClick={() => setDeleting(contact)}
-                  >
-                    Eliminar
-                  </Button>
-                }
-              </Td>
+    <Flex flexDirection={'column'} m={'20px'} alignItems={'center'}>
+      <Text fontSize={'30px'} fontWeight={'bold'} textAlign={'center'}>
+        {' '}
+        Lista de Contactos
+      </Text>
+      <TableContainer width={'90%'}>
+        <Table
+          variant="striped"
+          align="center"
+          size={['400px', '600px', 'md', 'md']}
+        >
+          <Thead>
+            <Tr>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Nombre</Th>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Telefono</Th>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Email</Th>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Mensaje</Th>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Editar</Th>
+              <Th fontSize={['8px', '10px', '12px', '16px']}>Eliminar</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody>
+            {contacts.map(contact => (
+              <Tr key={contact.id}>
+                <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  {contact.name}
+                </Td>
+                <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  {contact.phone}
+                </Td>
+                <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  {contact.email}
+                </Td>
+                <Td fontSize={['8px', '12px', '12px', '16px']}>
+                  {contact.message}
+                </Td>
+                <Td>
+                  <Button
+                    size={['20px', 'xs', 'sm']}
+                    onClick={() => setEditing(contact)}
+                  >
+                    <EditIcon />
+                  </Button>
+                </Td>
+                <Td>
+                  {
+                    <Button
+                      colorScheme="red"
+                      variant="solid"
+                      size={['20px', 'xs', 'sm']}
+                      onClick={() => setDeleting(contact)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  }
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Flex>
   );
 };
 export default ContactsTable;

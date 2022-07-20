@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // Components
 import TableComponent from '../components/TableComponent';
 import LoaderSpinner from '../components/LoaderSpinner';
+import ActivityForm from '../components/Activity/ActivityForm';
 // Modals
 import Warning from '../modals/Warning';
 import Fields from '../modals/Fields';
@@ -105,6 +106,7 @@ const BackofficeActivitiesPage = () => {
         onEdit={onEdit}
         onDelete={onDelete}
       />
+      <ActivityForm />
     </>
   );
 };

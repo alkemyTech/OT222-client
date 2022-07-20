@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../../services/authorization/index';
+import axios from '../../services/authorization';
 import {
   TableContainer,
   Table,

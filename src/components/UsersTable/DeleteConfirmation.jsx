@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Button, Text, Heading } from '@chakra-ui/react';
-import axios from '../../services/authorization/index';
-import { confirmation } from '../../services/alerts/index';
+import axios from '../../services/authorization';
+import { confirmation } from '../../services/alerts';
 import LoaderSpinner from '../LoaderSpinner';
 
 function DeleteConfirmation({ user, setDeleting }) {
