@@ -10,44 +10,39 @@ import {
   Td,
   Button,
   Flex,
-  Text
+  Image
 } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import axios from "../../services/authorization"
-import ContactDeleteConfirmation from "../ContactsTable/ContactDeleteConfirmation"
+import TestimonyDeleteConfirmation from "./TestimonyDeleteConfirmation"
 
-const ContactsTable = () => {
-  const [contacts, setContacts] = useState([])
+const TestimonialTable = () => {
+  const [testimonial, setTestimonial] = useState([])
   const [editing, setEditing] = useState(null)
   const [deleting, setDeleting] = useState(null)
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + "/contacts")
-      .then((res) => setContacts(res.data))
+      .get(process.env.REACT_APP_SERVER_BASE_URL + "/testimonials")
+      .then((res) => setTestimonial(res.data.testimonials))
       .catch((err) => console.log(err))
   }, [editing, deleting])
 
   if (editing)
     return (
       /*  <UserEditionForm contact={editing} setEditing={setEditing}></UserEditionForm> */
-      <div> hay que hacer un form de edicion de contacto</div>
+      <div> hay que hacer un form de edicion de Testimonio</div>
     )
 
   if (deleting)
     return (
-      <ContactDeleteConfirmation
-        contact={deleting}
-        setDeleting={setDeleting}
-      ></ContactDeleteConfirmation>
+      <TestimonyDeleteConfirmation
+       testimonio={deleting}
+       setDeleting={setDeleting}
+      ></TestimonyDeleteConfirmation>
     )
   return (
-    <Flex  flexDirection={"column"} m={"20px"} alignItems={"center"}>
-      <Text
-      fontSize={"30px"}
-      fontWeight={"bold"}
-      textAlign={"center"}
-      > Lista de Contactos</Text>
+    <Flex justifyContent={"center"}>
       <TableContainer width={"90%"}>
         <Table
           variant="striped"
@@ -56,33 +51,33 @@ const ContactsTable = () => {
         >
           <Thead>
             <Tr>
+              <Th fontSize={["8px", "10px", "12px", "16px"]}>Imagen</Th>
               <Th fontSize={["8px", "10px", "12px", "16px"]}>Nombre</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Telefono</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Email</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Mensaje</Th>
+              <Th fontSize={["8px", "10px", "12px", "16px"]}>Testimonio</Th>
               <Th fontSize={["8px", "10px", "12px", "16px"]}>Editar</Th>
               <Th fontSize={["8px", "10px", "12px", "16px"]}>Eliminar</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {contacts.map((contact) => (
-              <Tr key={contact.id}>
+            {testimonial.map((testimonio) => (
+              <Tr key={testimonio.id}>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.name}
+                <Image 
+                width={["20px", "40px", "50px", "50px"]}
+                height={["20px", "40px", "50px", "50px"]}
+                borderRadius={"50%"}
+                src={testimonio.image} />
                 </Td>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.phone}
+                {testimonio.name}
                 </Td>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.email}
-                </Td>
-                <Td fontSize={["8px", "12px", "12px", "16px"]}>
-                  {contact.message}
+                  {testimonio.content}
                 </Td>
                 <Td>
                   <Button
                     size={["20px", "xs", "sm"]}
-                    onClick={() => setEditing(contact)}
+                    onClick={() => setEditing(testimonio)}
                   >
                     <EditIcon />
                   </Button>
@@ -93,7 +88,7 @@ const ContactsTable = () => {
                       colorScheme="red"
                       variant="solid"
                       size={["20px", "xs", "sm"]}
-                      onClick={() => setDeleting(contact)}
+                      onClick={() => setDeleting(testimonio)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -107,4 +102,4 @@ const ContactsTable = () => {
     </Flex>
   )
 }
-export default ContactsTable
+export default TestimonialTable
