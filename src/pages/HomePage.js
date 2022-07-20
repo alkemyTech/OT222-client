@@ -4,7 +4,6 @@ import latestNews from '../utils/latestNews';
 // Components
 import Carousel from '../components/Carousel';
 
-import TestimonialForm from '../components/Testimonial/TestimonialForm';
 // Styles
 import { Box, Flex, Text } from '@chakra-ui/react';
 const HomePage = () => {
