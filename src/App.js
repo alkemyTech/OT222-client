@@ -20,6 +20,7 @@ import {
   Activities,
   BackofficeCategories,
   SignUp,
+  Members
 } from "./pages/index"
 import Footer from "./layouts/Footer"
 import Header from "./layouts/Header"
@@ -54,11 +55,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/staff" element={<Staff />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<DynamicNews />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contribute" element={<Contribute />} />
+        <Route path="/staff" element={<Members />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
         <Route path="/backoffice" element={<LayoutBackoffice />} />
