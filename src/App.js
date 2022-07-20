@@ -48,7 +48,7 @@ function App() {
 				dispatch(handleUser(res.data))
 				if (res.data.roleId !== 1 && location.includes("/backoffice")) navigate("/")
 			})
-			.catch((err) => { if (location.includes("/backoffice")) navigate("/") })
+			.catch((err) => { if (location.includes("/backoffice") || location.includes("/profile")) navigate("/") })
 	}, [])
 
 	return (
