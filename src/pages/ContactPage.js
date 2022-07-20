@@ -1,11 +1,15 @@
-import React from 'react'
-import ContactForm from '../components/ContactForm'
-import ContactsTable from '../components/ContactsTable/ContactsTable'
+import React from 'react';
+import ContactForm from '../components/ContactForm';
+import {Flex } from '@chakra-ui/react';
 
 const ContactPage = () => {
   return (
-  /*   <ContactForm /> */
-    <ContactsTable />
+    <Flex
+    ml={"10%"}
+    mb={"10%"}
+    >
+   <ContactForm /> 
+   </Flex>
   )
 }
 
