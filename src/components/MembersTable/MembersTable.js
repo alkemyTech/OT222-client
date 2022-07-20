@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import axios from "../../services/authorization"
-import ContactDeleteConfirmation from "../ContactsTable/ContactDeleteConfirmation"
+import MemberDeleteConfirmation from "../MembersTable/MembersDeleteConfirmation"
 
 const MembersTable = () => {
   const [members, setMembers] = useState([])
@@ -37,10 +37,10 @@ const MembersTable = () => {
 
   if (deleting)
     return (
-      <ContactDeleteConfirmation
+      <MemberDeleteConfirmation
         member={deleting}
         setDeleting={setDeleting}
-      ></ContactDeleteConfirmation>
+      ></MemberDeleteConfirmation>
     ) 
   return (
     <Flex  flexDirection={"column"} m={"20px"} alignItems={"center"}>
