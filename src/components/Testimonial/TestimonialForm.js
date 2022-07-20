@@ -112,9 +112,7 @@ function TestimonialForm({ values }) {
         flexDirection={'column'}
         gap={'20px'}
         width={'50%'}
-        ml={'5%'}
-        mt={'3%'}
-        mb={'10%'}
+        mb={'20px'}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"

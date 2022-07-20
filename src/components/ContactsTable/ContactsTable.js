@@ -10,9 +10,10 @@ import {
   Td,
   Button,
   Flex,
+  Text,
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import axios from '../../services/authorization/index';
+import axios from '../../services/authorization';
 import ContactDeleteConfirmation from '../ContactsTable/ContactDeleteConfirmation';
 
 const ContactsTable = () => {
@@ -41,7 +42,11 @@ const ContactsTable = () => {
       ></ContactDeleteConfirmation>
     );
   return (
-    <Flex justifyContent={'center'}>
+    <Flex flexDirection={'column'} m={'20px'} alignItems={'center'}>
+      <Text fontSize={'30px'} fontWeight={'bold'} textAlign={'center'}>
+        {' '}
+        Lista de Contactos
+      </Text>
       <TableContainer width={'90%'}>
         <Table
           variant="striped"

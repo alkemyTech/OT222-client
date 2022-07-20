@@ -13,7 +13,6 @@ const HomePage = () => {
         Texto de Bienvenida
       </Text>
       <Carousel />
-
       {latestNews &&
         latestNews.map(({ _id, title, briefDescription }) => {
           return (

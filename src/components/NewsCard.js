@@ -15,7 +15,7 @@ const NewsCard = ({ element }) => {
       })
       .catch(err => console.log(err));
   };
-  console.log(newsId);
+
   return (
     <Flex
       flexDirection={'column'}
@@ -48,7 +48,7 @@ const NewsCard = ({ element }) => {
             getNewsById(element.id);
           }}
         >
-          ver detalle
+          Ver Detalle
         </Button>
       </Link>
     </Flex>
