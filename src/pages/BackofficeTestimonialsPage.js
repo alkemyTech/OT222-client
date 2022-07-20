@@ -8,7 +8,7 @@ import TestimonialForm from '../components/Testimonial/TestimonialForm';
 import Warning from '../modals/Warning';
 import Fields from '../modals/Fields';
 // Services: alerts
-import { confirmation, error } from '../Services/alerts';
+import { confirmation, error } from '../services/alerts';
 // Utils: newsData
 import testimonialsData from '../utils/testimonialsData';
 const tableHeaders = ['User', 'Actions'];

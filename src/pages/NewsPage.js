@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewsCard from '../components/NewsCard';
 import { Flex, Text, Grid } from '@chakra-ui/react';
-import axios from '../Services/authorization/index';
+import axios from '../services/authorization/index';
 
 const NewsPage = () => {
   const [data, setData] = useState([]);

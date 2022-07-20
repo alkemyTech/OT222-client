@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Field, Form } from "formik";
 import { Input, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import LoginApi from "../../Services/LoginApi";
+import LoginApi from "../../services/LoginApi";
 
 const validate = (values) => {
   const errors = {};

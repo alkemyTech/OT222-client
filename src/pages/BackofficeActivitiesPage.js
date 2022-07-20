@@ -7,7 +7,7 @@ import ActivityForm from '../components/Activity/ActivityForm';
 import Warning from '../modals/Warning';
 import Fields from '../modals/Fields';
 // Services: alerts
-import { confirmation, error } from '../Services/alerts';
+import { confirmation, error } from '../services/alerts';
 // Utils: newsData
 import activitiesData from '../utils/activitiesData';
 const tableHeaders = ['Name', 'Actions'];
