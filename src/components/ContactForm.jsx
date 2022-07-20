@@ -13,7 +13,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <Flex heigth={'100%'} width={'70%'} ml={14} mt={30}>
+      <Flex heigth={'100%'} width={'70%'} mt={30}>
         <Formik
           initialValues={{
             name: '',
@@ -89,9 +89,8 @@ const ContactForm = () => {
               as={Form}
               className="form"
               flexDirection={'column'}
-              gap={'5px'}
+              gap={'20px'}
               width={'80%'}
-              ml={'5%'}
             >
               <Flex fontWeight={'bold'} fontSize={'24px'}>
                 ¡Contactate con nosotros!
@@ -100,6 +99,7 @@ const ContactForm = () => {
               <div>
                 <label htmlFor="name"></label>
                 <Field
+                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
                   as={Input}
                   id="name"
                   type="text"
@@ -116,6 +116,7 @@ const ContactForm = () => {
               <div>
                 <label htmlFor="email"></label>
                 <Field
+                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
                   as={Input}
                   type="email"
                   name="email"
@@ -132,6 +133,7 @@ const ContactForm = () => {
               <div>
                 <Field
                   as={Textarea}
+                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
                   name="messageText"
                   placeholder="Escribe tu consulta..."
                 />
@@ -147,9 +149,9 @@ const ContactForm = () => {
                   mt={5}
                   rounded={10}
                   background={'#0038FF'}
-                  size={['lg', 'md']}
+                  size={["xs","xs",'lg', 'md']}
                   color={'white'}
-                  fontSize={['xs', 'md']}
+                  fontSize={['xs','xs','md', 'md']}
                   type="submit"
                 >
                   Enviar consulta

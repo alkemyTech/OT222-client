@@ -4,7 +4,7 @@ import latestNews from '../utils/latestNews';
 // Components
 import Carousel from '../components/Carousel';
 
-import TestimonialForm from '../components/Testimonials/TestimonialForm';
+import TestimonialForm from '../components/Testimonial/TestimonialForm';
 // Styles
 import { Box, Flex, Text } from '@chakra-ui/react';
 const HomePage = () => {
@@ -14,7 +14,6 @@ const HomePage = () => {
         Texto de Bienvenida
       </Text>
       <Carousel />
-      <TestimonialForm />
       {latestNews &&
         latestNews.map(({ _id, title, briefDescription }) => {
           return (

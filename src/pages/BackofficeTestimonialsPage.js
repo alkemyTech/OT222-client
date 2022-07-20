@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // Components
 import TableComponent from '../components/TableComponent';
 import LoaderSpinner from '../components/LoaderSpinner';
-import TestimonialForm from '../components/Testimonials/TestimonialForm';
+import TestimonialForm from '../components/Testimonial/TestimonialForm';
 
 // Modals
 import Warning from '../modals/Warning';

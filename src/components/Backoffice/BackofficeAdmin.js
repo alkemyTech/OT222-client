@@ -59,16 +59,24 @@ const BackofficeAdmin = () =>{
         img: testimoniosIcon,
         alt: "testimonios-icon",
         title: "Testimonios",
-        route:"/testimonials",
+        route:"/backoffice/testimonials",
       },
       {
         id: 8,
         img: usuariosIcon,
-        alt: "usuarioss-icon",
+        alt: "usuarios-icon",
         title: "Usuarios",
-        route:"",
+        route:"/backoffice/users-list",
         
-    },];
+    },
+    {
+      id: 9,
+      img: usuariosIcon,
+      alt: "contactos-icon",
+      title: "Contactos",
+      route:"/backoffice/contacts-list",
+      
+  }];
   
   
  return(
