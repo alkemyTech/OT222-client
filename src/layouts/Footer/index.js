@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// Utils: footer content
 import { FaFacebookSquare } from 'react-icons/fa';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { BsInstagram } from 'react-icons/bs';
-
 import footerContent from '../../utils/footerContent';
-// Styles: chacra ui
 import {
   Box,
-  Flex,
-  Grid,
   Text,
   Image,
   Link,
   HStack,
-  Button,
   useColorModeValue,
   Container,
   Stack,
@@ -38,6 +32,10 @@ const Footer = () => {
       link: '/staff',
     },
     {
+      name: 'Novedades',
+      link: '/news',
+    },
+    {
       name: 'Testimonios',
       link: '/testimonials',
     },
@@ -49,10 +47,6 @@ const Footer = () => {
       name: 'Contribuye',
       link: '/contribute',
     },
-    {
-      name: 'Backoffice',
-      link: '/backoffice',
-    },
   ];
 
   const fetchUrlMedia = () => {
@@ -60,7 +54,6 @@ const Footer = () => {
       .get(`${process.env.REACT_APP_SERVER_BASE_URL}/organizations/public`)
       .then(function (response) {
         seturlMedia(response.data.slice(0, 3));
-        console.log(response.data.slice(0, 3));
       })
       .catch(function (error) {
         console.log(error);
@@ -70,15 +63,8 @@ const Footer = () => {
   useEffect(() => {
     fetchUrlMedia();
   }, []);
-  console.log(urlMedia);
+
   return (
-    /*<Box
-      p={['10px', '10px']}
-      bgColor="#f8f9fa"
-      position="relative"
-      bottom={0}
-      w="100%"
-    >*/
     <Box
       bg={useColorModeValue('gray.400', 'gray.400')}
       color={useColorModeValue('black', 'gray.200')}
@@ -87,7 +73,7 @@ const Footer = () => {
         as={Stack}
         maxW={'6xl'}
         py={4}
-        spacing={4}
+        spacing={1}
         justify={'center'}
         align={'center'}
       >
@@ -101,7 +87,7 @@ const Footer = () => {
         </Stack>
       </Container>
       <Box
-        borderTopWidth={3}
+        borderTopWidth={2}
         borderStyle={'solid'}
         borderColor={useColorModeValue('black')}
       >
@@ -127,54 +113,9 @@ const Footer = () => {
               </>
             ))}
           </HStack>
-          <Text>2022 by Alkemy. All rights reserved</Text>
+          <Text fontSize={'15px'}>2022 by Alkemy. All rights reserved</Text>
         </Container>
       </Box>
-      {/*<Flex direction="column" maxW="1280px" m={['0', 'auto']}>
-          <Grid templateColumns="repeat(auto-fill, minmax(185px, 1fr))">
-            {footerContent.map(({ _id, title, logo, dir, socialMedia }) => {
-              return (
-                <Flex key={_id} direction="column" textAlign="left" ml="50px">
-                  <Text
-                    fontSize="18px"
-                    color="black"
-                    mb="10px"
-                    fontWeight="bold"
-                  >
-                    {title}
-                  </Text>
-                  {logo && <Image src={logo} alt={_id} />}
-                  {dir && (
-                    <Text>
-                      <Link
-                        href="/"
-                        mb="5px"
-                        fontSize="16px"
-                        _hover={{ color: 'green', transition: '200ms ease-in' }}
-                      >
-                        {dir}
-                      </Link>
-                    </Text>
-                  )}
-                  {socialMedia &&
-                    socialMedia.map(({ _id, media, href }) => {
-                      return (
-                        
-                        <Text key={_id}>
-                          <Stack direction={'row'} spacing={6}>
-                          <Button m="5px" colorScheme={media}>
-                            <Link href={href}>{media}</Link>
-                          </Button>
-                          </Stack>
-                        </Text>
-                        
-                      );
-                    })}
-                </Flex>
-              );
-            })}
-        </Grid>
-        </Flex>*/}
     </Box>
   );
 };
