@@ -10,44 +10,45 @@ import {
   Td,
   Button,
   Flex,
-  Text
+  Text,
+  Image
 } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import axios from "../../services/authorization"
-import ContactDeleteConfirmation from "../ContactsTable/ContactDeleteConfirmation"
+import MemberDeleteConfirmation from "../MembersTable/MembersDeleteConfirmation"
 
-const ContactsTable = () => {
-  const [contacts, setContacts] = useState([])
+const MembersTable = () => {
+  const [members, setMembers] = useState([])
   const [editing, setEditing] = useState(null)
   const [deleting, setDeleting] = useState(null)
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + "/contacts")
-      .then((res) => setContacts(res.data))
+      .get(process.env.REACT_APP_SERVER_BASE_URL + "/members")
+      .then((res) => setMembers(res.data))
       .catch((err) => console.log(err))
   }, [editing, deleting])
 
   if (editing)
     return (
-      /*  <UserEditionForm contact={editing} setEditing={setEditing}></UserEditionForm> */
+     
       <div> hay que hacer un form de edicion de contacto</div>
     )
 
   if (deleting)
     return (
-      <ContactDeleteConfirmation
-        contact={deleting}
+      <MemberDeleteConfirmation
+        member={deleting}
         setDeleting={setDeleting}
-      ></ContactDeleteConfirmation>
-    )
+      ></MemberDeleteConfirmation>
+    ) 
   return (
     <Flex  flexDirection={"column"} m={"20px"} alignItems={"center"}>
       <Text
       fontSize={"30px"}
       fontWeight={"bold"}
       textAlign={"center"}
-      > Lista de Contactos</Text>
+      > Lista de Miembros</Text>
       <TableContainer width={"90%"}>
         <Table
           variant="striped"
@@ -56,33 +57,29 @@ const ContactsTable = () => {
         >
           <Thead>
             <Tr>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Nombre</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Telefono</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Email</Th>
-              <Th fontSize={["8px", "10px", "12px", "16px"]}>Mensaje</Th>
+              <Th fontSize={["8px", "10px", "12px", "16px"]}>Image</Th>
+              <Th fontSize={["8px", "10px", "12px", "16px"]}>Name</Th>
               <Th fontSize={["8px", "10px", "12px", "16px"]}>Editar</Th>
               <Th fontSize={["8px", "10px", "12px", "16px"]}>Eliminar</Th>
             </Tr>
           </Thead>
-          <Tbody>
-            {contacts.map((contact) => (
-              <Tr key={contact.id}>
+         <Tbody>
+            {members.map((member) => (
+              <Tr key={member.id}>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.name}
+                <Image 
+                width={["20px", "40px", "50px", "50px"]}
+                height={["20px", "40px", "50px", "50px"]}
+                borderRadius={"50%"}
+                src={member.image} />
                 </Td>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.phone}
-                </Td>
-                <Td fontSize={["8px", "10px", "12px", "16px"]}>
-                  {contact.email}
-                </Td>
-                <Td fontSize={["8px", "12px", "12px", "16px"]}>
-                  {contact.message}
+                {member.name}
                 </Td>
                 <Td>
                   <Button
                     size={["20px", "xs", "sm"]}
-                    onClick={() => setEditing(contact)}
+                    onClick={() => setEditing(member)}
                   >
                     <EditIcon />
                   </Button>
@@ -93,7 +90,7 @@ const ContactsTable = () => {
                       colorScheme="red"
                       variant="solid"
                       size={["20px", "xs", "sm"]}
-                      onClick={() => setDeleting(contact)}
+                      onClick={() => setDeleting(member)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -105,6 +102,6 @@ const ContactsTable = () => {
         </Table>
       </TableContainer>
     </Flex>
-  )
+  ) 
 }
-export default ContactsTable
+export default MembersTable

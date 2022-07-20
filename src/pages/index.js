@@ -18,6 +18,9 @@ import BackofficeTestimonialsPage from "./BackofficeTestimonialsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import BackofficeCategoriesPage from "./BackofficeCategoriesPage"
 import MembersPage from "./MembersPage"
+import AddTestimonyPage from "./AddTestimonyPage"
+import TestimonialTable from "../components/TestimonialTable/TestimonialTable"
+import BackOfficeContactsListPage from "./BackofficeContactsList"
 
 export const Home = () => {
   return <HomePage />
@@ -76,7 +79,7 @@ export const BackofficeActivities = () => {
   return <BackofficeActivitiesPage />
 }
 export const BackofficeTestimonials = () => {
-  return <BackofficeTestimonialsPage />
+  return <TestimonialTable />
 }
 export const Activities = () => {
   return <ActivitiesPage />
@@ -84,7 +87,12 @@ export const Activities = () => {
 export const BackofficeCategories = () => {
   return <BackofficeCategoriesPage />
 }
-
 export const Members = () => {
   return <MembersPage />
+}
+export const AddTestimony = () =>{
+  return <AddTestimonyPage />
+}
+export const ContactsTable = () =>{
+  return <BackOfficeContactsListPage />
 }
