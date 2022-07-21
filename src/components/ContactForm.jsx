@@ -72,6 +72,16 @@ const ContactForm = () => {
               });
             //changeForm(true);
             //  setTimeout(()=>changeForm(false,500000))
+              try {
+                axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/contacts`, {
+                  headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                  },
+                  messageObject
+                })
+              } catch (error) {
+                console.log(error)
+              }
           }}
         >
           {({ errors }) => (
