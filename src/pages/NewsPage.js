@@ -20,24 +20,25 @@ const NewsPage = () => {
 
   return (
     <Flex
-      flexDirection={'column'}
-      width={'95%'}
-      textAlign={'center'}
-      height={['400vh', '200vh']}
+      width={'100%'}
+      minHeight={'100vh'}
+      direction={'column'}
+      padding={'1rem'}
+      gap={'1rem'}
     >
       <Text fontSize={['36px']} fontWeight={'bold'} textAlign={'center'}>
         Novedades
       </Text>
-      <Grid
-        gridTemplateColumns={['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr 1fr']}
-        gridGap={'20px'}
-        textAlign={'center'} //alinea los titulos
-        justifySelf={'center'}
+      <Flex
+        justifyContent={'center'}
+        wrap={'wrap'}
+        gap={'1rem'}
       >
+        {data.length === 0 && <Text fontSize={'26px'} textAlign={'center'} >No se han encontrado novedades</Text>}
         {data.map(dato => {
           return <NewsCard element={dato} key={dato.id} />;
         })}
-      </Grid>
+      </Flex>
     </Flex>
   );
 };
