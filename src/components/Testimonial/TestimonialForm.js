@@ -51,50 +51,66 @@ function TestimonialForm({ values }) {
   });
 
   const onSubmit = (values, actions) => {
-    AuthorizationService.post(
-      'files',
-      { file: values.image },
-      {
+    // AuthorizationService.post(
+    //   'files',
+    //   { file: values.image },
+    //   {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   }
+    // )
+    //   .then(res => {
+    //     values.image = res.data.data.Location;
+
+    //     if (isEditionForm) {
+    //       AuthorizationService.put(`/testimonials/${id}`, {
+    //         name: values.name,
+    //         content: values.content,
+    //         image: values.image,
+    //       })
+    //         .then(res => {
+    //           confirmation('Has editado el testimonio!');
+    //         })
+    //         .catch(err => {
+    //           error('Error', err.response.data.errors[0].msg);
+    //         });
+    //     } else {
+    //       AuthorizationService.post('/testimonials', {
+    //         name: values.name,
+    //         content: values.content,
+    //         image: values.image,
+    //       })
+    //         .then(res => {
+    //           confirmation(`Has creado el testimonio!`);
+    //         })
+    //         .catch(err => {
+    //           error('Error', err.response.data.errors[0].msg);
+    //         });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     error('Error', err);
+    //   });
+    // {
+    //   actions.resetForm();
+    // }
+    console.log(values.image)
+    AuthorizationService.post('testimonials', {
+      name: values.name,
+      content: values.content
+    }).then(res => {
+      const data = new FormData();
+      data.append('file', values.image);
+      data.append('key', 'testimonials' + res.data.testimonials.id);
+      AuthorizationService.post('files', {
+        data,
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
-
-        if (isEditionForm) {
-          AuthorizationService.put(`/testimonials/${id}`, {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation('Has editado el testimonio!');
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        } else {
-          AuthorizationService.post('/testimonials', {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation(`Has creado el testimonio!`);
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
         }
       })
-      .catch(err => {
-        error('Error', err);
-      });
-    {
-      actions.resetForm();
-    }
+    })
+      .catch(err => console.log(err))
   };
 
   const formik = useFormik({

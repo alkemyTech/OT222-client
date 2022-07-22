@@ -56,7 +56,7 @@ const Dynamic_news = () => {
         </Grid>
       ) : (
         <Flex flexDir={'column'}>
-          <Image src={newsDetail.image || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />
+          <Image src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />
           <Flex flexDir={'column'} marginY={'10%'} alignItems={'center'} gap={'5rem'} textAlign={'center'} padding={'1rem'} >
             <Text fontSize={['2rem', '3rem']} textAlign="center" fontWeight={'500'}>
               {newsDetail.name}
