@@ -4,7 +4,7 @@ import { Image } from "@chakra-ui/react"
 
 
 const TestimonialCard = ({ element }) => {
- 
+
   return (
     <Flex
       flexDirection={"column"}
@@ -17,7 +17,7 @@ const TestimonialCard = ({ element }) => {
       border={"1px solid #F9FE00"}
     >
 
-        <Flex
+      <Flex
         width={"75px"}
         height={"75px"}
         borderRadius={"50%"}
@@ -25,29 +25,29 @@ const TestimonialCard = ({ element }) => {
         ml={"20px"}
         mt={"10px"}
         mb={"10px"}
-        >
-            <Image
-            width={"75px"}
-            height={"75px"}
-            borderRadius={"50%"}         
-            src={element.image} 
-            alt={element.name}/>
-        </Flex>
+      >
+        <Image
+          width={"75px"}
+          height={"75px"}
+          borderRadius={"50%"}
+          src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/testimonial${element.id}`}
+          alt={element.name} />
+      </Flex>
 
-      <Text 
-      width={"95%"}
-      fontSize={"16px"} 
-      fontWeight={"bold"}
-      textAlign={"start"}
-      ml={"20px"}
+      <Text
+        width={"95%"}
+        fontSize={"16px"}
+        fontWeight={"bold"}
+        textAlign={"start"}
+        ml={"20px"}
       >
         {element.name}
       </Text>
-      <Text 
-      width={"95%"} 
-      fontSize={"16px"}      
-      textAlign={"start"}
-      margin={"10px"}>
+      <Text
+        width={"95%"}
+        fontSize={"16px"}
+        textAlign={"start"}
+        margin={"10px"}>
         {element.content}
       </Text>
 
