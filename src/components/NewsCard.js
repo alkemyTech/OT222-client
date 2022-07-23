@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
@@ -17,33 +17,33 @@ const NewsCard = ({ element }) => {
   };
 
   return (
-    <Flex
-      flexDirection={'column'}
-      alignItems={'center'}
-      color={'black'}
-      width={['']}
-      mt={'20px'}
-      border={'solid black'}
-      rounded={'25px'}
-      ml={'20px'}
+    <Grid
+      gridTemplate={'3fr 1fr / 1fr 1fr'}
+      gap={'1rem'}
+      border={'1px solid #0038FF'}
+      width={'448px'}
+      maxWidth={'100%'}
+      borderRadius={'20px'}
+      padding={'1rem'}
+      backgroundColor={'#7E9AFD'}
     >
       <Image
-        rounded={'21px 21px 0px 0px'}
-        textAlign={'center'}
-        height={'300px'}
-        mb={'15%'}
-        src={element.image}
+        objectFit={'cover'}
+        borderRadius={'20px'}
+        height={'100%'}
+        src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
         alt={element.name}
+        gridArea={'1 / 1 / 3 / 2'}
       />
-      <Text width={'95%'} fontSize={'16px'} textAlign={'center'}>
+      <Text width={'95%'} fontSize={'16px'} textAlign={'center'} margin={'auto'} >
         {element.name}{' '}
       </Text>
       <Link to={`/news/${element.id}`}>
         <Button
-          mt={'10%'}
-          background={'red'}
+          background={'blue'}
           color={'white'}
-          mb={'10px'}
+          margin={'auto'}
+          width={'100%'}
           onClick={() => {
             getNewsById(element.id);
           }}
@@ -51,7 +51,7 @@ const NewsCard = ({ element }) => {
           Ver Detalle
         </Button>
       </Link>
-    </Flex>
+    </Grid>
   );
 };
 
