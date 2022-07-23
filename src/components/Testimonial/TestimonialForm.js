@@ -6,10 +6,14 @@ import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
 function TestimonialForm({ values, setEditing }) {
-  console.log('values', values);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isEditionForm, setIsEditionForm] = useState(false);
+
+  const navigate = useNavigate();
   const { name, image, content, id } = values || {
     name: '',
     content: '',
@@ -20,10 +24,29 @@ function TestimonialForm({ values, setEditing }) {
     image: '',
   };
 
-  const [isEditionForm, setIsEditionForm] = useState(false);
+  var myHeaders = new Headers();
+  myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow',
+  };
+
+  const fetchUser = () => {
+    fetch(process.env.REACT_APP_SERVER_BASE_URL + '/auth/me', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.roleId === 1) {
+          setIsAdmin(true);
+        }
+      })
+      .catch(error => console.log('error', error));
+  };
 
   useEffect(() => {
     setIsEditionForm(!!values);
+    fetchUser();
   }, []);
 
   const FILE_SIZE = 200000; //100000 is 1 mb
@@ -55,7 +78,7 @@ function TestimonialForm({ values, setEditing }) {
   const onSubmit = (values, actions) => {
     AuthorizationService.post(
       'files',
-      { file: values.image },
+      { file: values.image, key: values.image.name },
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -87,10 +110,15 @@ function TestimonialForm({ values, setEditing }) {
               confirmation(`Has creado el testimonio!`);
             })
             .catch(err => {
+              console.log('error', err);
               error('Error', err.response.data.errors[0].msg);
             });
         }
-        setEditing(null);
+        if (!setEditing) {
+          navigate(`${!!isAdmin ? '/backoffice' : ''}/testimonials`);
+        } else {
+          setEditing(null);
+        }
       })
       .catch(err => {
         error('Error', err);

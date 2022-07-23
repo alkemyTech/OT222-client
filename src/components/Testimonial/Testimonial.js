@@ -9,7 +9,9 @@ const Testimonial = () => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
       .then(res => {
-        setTestimonio(res.data.testimonials);
+        const testimonials = res.data.testimonials;
+        const testimonyIndex = testimonials.length - 12;
+        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length));
       })
       .catch(err => console.log(err));
   };
@@ -17,7 +19,6 @@ const Testimonial = () => {
   useEffect(() => {
     getTestimony();
   }, []);
-
   return (
     <Flex
       flexDirection={'column'}
