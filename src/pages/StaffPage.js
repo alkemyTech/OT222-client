@@ -1,10 +1,12 @@
-import React from 'react'
-import MembersTable from '../components/MembersTable/MembersTable'
+import React from 'react';
+import EditOrganizationForm from "../components/EditOrganizationForm";
+
 
 const StaffPage = () => {
   return (
     <>
     <div>StaffPage</div>
+    <EditOrganizationForm></EditOrganizationForm>  
     </>
   )
 }

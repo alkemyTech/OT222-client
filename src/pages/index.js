@@ -20,7 +20,7 @@ import BackofficeCategoriesPage from "./BackofficeCategoriesPage"
 import AddTestimonyPage from "./AddTestimonyPage"
 import TestimonialTable from "../components/TestimonialTable/TestimonialTable"
 import BackOfficeContactsListPage from "./BackofficeContactsList"
-
+import BackofficeStaffPage from './BackofficeStaffPage'
 export const Home = () => {
   return <HomePage />
 }
@@ -92,4 +92,8 @@ export const AddTestimony = () =>{
 
 export const ContactsTable = () =>{
   return <BackOfficeContactsListPage />
+}
+
+export const BackofficeStaff = () => {
+  return <BackofficeStaffPage />
 }

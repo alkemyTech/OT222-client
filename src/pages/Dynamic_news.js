@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Grid, Flex, Text, Image, Icon } from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Grid, Flex, Text, Image, Icon, Button } from '@chakra-ui/react';
 import axios from 'axios';
 import banner from '../assets/newsBanner.png';
 import { TbError404 } from 'react-icons/tb';
@@ -12,17 +12,18 @@ const Dynamic_news = () => {
   const [newsDetail, setNewsDetail] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const navigate = useNavigate()
 
   const fetchData = async () => {
     axios
       .get(`${process.env.REACT_APP_SERVER_BASE_URL}/news/${path}`)
       .then(res => {
+        if (res.data.message === 'Not Found!.') return setNotFound(true)
         setNewsDetail(res.data);
         setLoading(false);
         console.log('res.data', res.data);
       })
       .catch(err => {
-        setNotFound(true);
       });
     setLoading(false);
   };
@@ -54,18 +55,20 @@ const Dynamic_news = () => {
           <Text fontSize={['3xl', '6xl']}>ERROR 404: New Not Founded!.</Text>
         </Grid>
       ) : (
-        <Flex h="auto" w="100vw" flexDir={'column'}>
-          <Image src={newsDetail.img || banner} fit={'cover'} />
-          <Text fontSize={'6xl'} textAlign="center" fontWeight={'500'}>
-            {newsDetail.name}
-          </Text>
-          <Flex w="100vw" justifyContent={'center'} my="15vh">
+        <Flex flexDir={'column'}>
+          <Image src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />
+          <Flex flexDir={'column'} marginY={'10%'} alignItems={'center'} gap={'5rem'} textAlign={'center'} padding={'1rem'} >
+            <Text fontSize={['2rem', '3rem']} textAlign="center" fontWeight={'500'}>
+              {newsDetail.name}
+            </Text>
             <Text
-              w={['70vw', '50vw']}
               fontSize={['xl', '2xl']}
               h="auto"
-              dangerouslySetInnerHTML={{ __html: newsDetail.content }}
-            />
+              maxWidth={['100%', '50%']}
+            >
+              {newsDetail.content}
+            </Text>
+            <Button onClick={() => navigate('/news')}>← Volver</Button>
           </Flex>
         </Flex>
       )}

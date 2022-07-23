@@ -26,6 +26,7 @@ const TestimonialCard = ({ element }) => {
           height={'75px'}
           borderRadius={'50%'}
           src={element.image}
+          //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/testimonial${element.id}`}
           alt={element.name}
         />
       </Flex>
@@ -35,7 +36,7 @@ const TestimonialCard = ({ element }) => {
         fontSize={'16px'}
         fontWeight={'bold'}
         textAlign={'start'}
-        padding={'10px'}
+        ml={'20px'}
       >
         {element.name}
       </Text>

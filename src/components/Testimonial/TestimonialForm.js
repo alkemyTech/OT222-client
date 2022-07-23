@@ -76,6 +76,14 @@ function TestimonialForm({ values, setEditing }) {
   });
 
   const onSubmit = (values, actions) => {
+    // const data = new FormData();
+    //   data.append('file', values.image);
+    //   data.append('key', 'testimonials' + res.data.testimonials.id);
+    //   AuthorizationService.post('files', {
+    //     data,
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     }
     AuthorizationService.post(
       'files',
       { file: values.image, key: values.image.name },
@@ -120,12 +128,7 @@ function TestimonialForm({ values, setEditing }) {
           setEditing(null);
         }
       })
-      .catch(err => {
-        error('Error', err);
-      });
-    {
-      actions.resetForm();
-    }
+      .catch(err => console.log(err));
   };
 
   const formik = useFormik({

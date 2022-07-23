@@ -1,11 +1,11 @@
-import React from 'react';
-import { Formik, Field, Form } from 'formik';
-import { Input, Button, Flex, Heading, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
-import RegisterApi from '../../services/RegisterApi';
+import React from "react";
+import { Formik, Field, Form } from "formik";
+import { Input, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
+import RegisterApi from "../../services/RegisterApi";
 import axios from "axios";
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
 
   if (!values.firstName) {
@@ -27,27 +27,25 @@ const validate = values => {
   }
 
   if (!values.password) {
-    errors.password = 'Obligatorio';
+    errors.password = "Obligatorio";
   } else if (values.password.length < 8) {
-    errors.password = 'Debe tener al menos 8 caracteres';
+    errors.password = "Debe tener al menos 8 caracteres";
   }
 
   return errors;
 };
+
 export default function SignUpForm() {
   const navigate = useNavigate();
   const onSubmit = (values) => {
-    const userSaved = RegisterApi(values, navigate).then(async (res) => {
-      const user = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/auth/me`,
-        {
-          headers: {
-            authorization: res.data.token,
-          },
-        }
-      );
-      window.location.reload();
-    });
+    const userSaved = RegisterApi(values, navigate)
+    .then(res => {
+      const token = res.data.token
+      localStorage.setItem('token', token)
+      window.location.reload()
+    })
+
+
   };
   return (
     <>
@@ -66,8 +64,8 @@ export default function SignUpForm() {
         {({ errors, touched }) => (
           <Flex flexDirection={"column"} gap={"10px"} as={Form} maxWidth="100%">
             <div>
-              <Text variant={'login'}>Bienvenido</Text>
-              <Heading size={['md', 'md', 'lg']} variant={'login'}>
+              <Text variant={"login"}>Bienvenido</Text>
+              <Heading size={["md", "md", "lg"]} variant={"login"}>
                 Registrarse
               </Heading>
             </div>
@@ -129,18 +127,18 @@ export default function SignUpForm() {
             </Text>
 
             <Button
-              fontSize={{ base: '15px', md: '20px', lg: '25px' }}
-              variant={'login'}
+              fontSize={{ base: "15px", md: "20px", lg: "25px" }}
+              variant={"login"}
               type="submit"
             >
               Registrarme
             </Button>
             <Flex justifyContent="center" mt="30px" gap="4px">
-              <Text fontSize={{ base: '15px', md: '15px', lg: '20px' }}>
+              <Text fontSize={{ base: "15px", md: "15px", lg: "20px" }}>
                 ¿Ya tienes una cuenta?
               </Text>
               <Text
-                fontSize={{ base: '15px', md: '15px', lg: '20px' }}
+                fontSize={{ base: "15px", md: "15px", lg: "20px" }}
                 color="primary"
                 _hover={{ cursor: "pointer" }}
                 onClick={() => navigate("/login")}
