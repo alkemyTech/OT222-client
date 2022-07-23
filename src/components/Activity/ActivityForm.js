@@ -111,7 +111,7 @@ function ActivityForm({ values }) {
         className="form"
         flexDirection={'column'}
         gap={'20px'}
-        width={'50%'}
+        width={{ base: '90%', sm: '90%', md: '50%', lg: '50%' }}
         ml={'5%'}
         mt={'3%'}
         mb={'10%'}
@@ -132,7 +132,7 @@ function ActivityForm({ values }) {
           </Text>
         </div>
 
-        <div>
+        <Flex flexDirection={'column'}>
           <label htmlFor="image">Imagen</label>
           <br />
           <input
@@ -144,7 +144,7 @@ function ActivityForm({ values }) {
           <Text color="red">
             <ErrorMessage name="image" />
           </Text>
-        </div>
+        </Flex>
 
         <div>
           <label htmlFor="content">Contenido</label>

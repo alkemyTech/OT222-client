@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
-import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
+import { Flex, Input, Button, Stack, Image, Text } from '@chakra-ui/react';
 import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-function TestimonialForm({ values }) {
-  const { name, content, id } = values || {
+function TestimonialForm({ values, setEditing }) {
+  console.log('values', values);
+  const { name, image, content, id } = values || {
     name: '',
     content: '',
   };
@@ -88,6 +90,7 @@ function TestimonialForm({ values }) {
               error('Error', err.response.data.errors[0].msg);
             });
         }
+        setEditing(null);
       })
       .catch(err => {
         error('Error', err);
@@ -111,14 +114,15 @@ function TestimonialForm({ values }) {
         className="form"
         flexDirection={'column'}
         gap={'20px'}
-        width={'50%'}
-        mb={'20px'}
+        mt="35px"
+        ml={{ base: '30px', sm: '30px', md: '100px', lg: '227px' }}
+        width={{ base: '80%', sm: '80%', md: '50%', lg: '50%' }}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"
         p={'2%'}
       >
-        <Flex fontWeight={'bold'} fontSize={'24px'}>
+        <Flex fontWeight={'bold'} fontSize={['sm', 'md', 'lg', 'xl']}>
           {`¡${editOrCreate} Testimonio!`}
         </Flex>
 
@@ -130,9 +134,18 @@ function TestimonialForm({ values }) {
           </Text>
         </div>
 
-        <div>
+        <Flex flexDirection={'column'}>
           <label htmlFor="image">Imagen</label>
-          <br />
+          {!!values && (
+            <Image
+              width={['20px', '40px', '50px', '50px']}
+              height={['20px', '40px', '50px', '50px']}
+              mb={'10px'}
+              mt={'10px'}
+              borderRadius={'20%'}
+              src={image}
+            />
+          )}
           <input
             type="file"
             onChange={event => {
@@ -142,7 +155,7 @@ function TestimonialForm({ values }) {
           <Text color="red">
             <ErrorMessage name="image" />
           </Text>
-        </div>
+        </Flex>
 
         <div>
           <label htmlFor="content">Contenido</label>
@@ -172,14 +185,48 @@ function TestimonialForm({ values }) {
             mt={5}
             rounded={10}
             background={'yellow'}
-            size={['lg', 'md']}
+            fontSize={['xs', 'xs', 'md', 'md']}
             color={'black'}
-            fontSize={['xs', 'md']}
             type="submit"
           >
             {`${editOrCreate} `}
           </Button>
         </Stack>
+      </Flex>
+
+      <Flex
+        flexDirection={'column'}
+        alignItems={'flex-start'}
+        pr={{ base: '4px', sm: '238px', md: '468px', lg: '807px' }}
+        mt={'5%'}
+        ml={{ base: '15px', sm: '15px', md: '100px', lg: '227px' }}
+        mb="70px"
+      >
+        <Link to={'/testimonials'}>
+          <Button
+            background={'red'}
+            color={'white'}
+            fontWeight={'bold'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            borderRadius={'15px'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            onClick={() => (!!setEditing ? setEditing(null) : null)}
+          >
+            ¡Volver a Testimonios!
+          </Button>
+        </Link>
+        <Link to={'/'}>
+          <Button
+            mt={'20px'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            background={'white'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            borderRadius={'15px'}
+          >
+            {' '}
+            Ir al inicio
+          </Button>
+        </Link>
       </Flex>
     </FormikProvider>
   );
