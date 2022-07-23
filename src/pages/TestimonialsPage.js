@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import TestimonialsUser from '../components/Testimonial/TestimonialUser';
 import TestimonialsAdmin from '../components/Testimonial/TestimonialAdmin';
 import Testimonial from '../components/Testimonial/Testimonial';
+import { useNavigate } from 'react-router';
 
 const TestimonialsPage = () => {
   const [status, setStatus] = useState(false);
+  const navigate = useNavigate();
 
   const authAdmin = () => {
     var myHeaders = new Headers();
@@ -36,7 +38,7 @@ const TestimonialsPage = () => {
   } else if (status === false) {
     return <TestimonialsUser />;
   } else {
-    return <TestimonialsAdmin />;
+    navigate('/backoffice/testimonials');
   }
 };
 
