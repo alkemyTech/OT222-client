@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import "./App.css"
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
 import {
-<<<<<<< HEAD
   Home,
   Login,
   Staff,
@@ -24,28 +23,6 @@ import {
   AddTestimony,
   ContactsTable,
   BackofficeStaff
-=======
-	Home,
-	Login,
-	Staff,
-	News,
-	Testimonials,
-	Contribute,
-	Contact,
-	Backoffice,
-	LayoutBackoffice,
-	Profile,
-	EditOrganization,
-	UsersList,
-	BackofficeNews,
-	BackofficeActivities,
-	BackofficeTestimonials,
-	Activities,
-	BackofficeCategories,
-	SignUp,
-	AddTestimony,
-	ContactsTable
->>>>>>> 0fb9990abf1e75c0a6b54596f7440cdeece315d0
 } from "./pages/index"
 import Footer from "./layouts/Footer"
 import Header from "./layouts/Header"
@@ -75,7 +52,6 @@ function App() {
 			.catch((err) => { if (location.includes("/backoffice") || location.includes("/profile")) navigate("/") })
 	}, [])
 
-<<<<<<< HEAD
   return (
     <>
       <Header />
@@ -116,47 +92,6 @@ function App() {
           element={<BackofficeCategories />}
         />
       </Routes>
-=======
-	return (
-		<>
-			<Header />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<SignUp />} />
-				<Route path="/staff" element={<Staff />} />
-				<Route path="/news" element={<News />} />
-				<Route path="/news/:id" element={<DynamicNews />} />
-				<Route path="/testimonials" element={<Testimonials />} />
-				<Route path="/add-testimony" element={<AddTestimony />} />
-				<Route path="/contribute" element={<Contribute />} />
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
-				<Route path="/backoffice" element={<LayoutBackoffice />} />
-				<Route
-					path="/backoffice/edit-organization"
-					element={<EditOrganization />}
-				/>
-				<Route path="/profile" element={<Profile />} />
-				<Route path="/backoffice/contacts-list" element={<ContactsTable />} />
-				<Route path="/backoffice/users-list" element={<UsersList />} />
-				<Route path="/backoffice/news" element={<BackofficeNews />} />
-				<Route
-					path="/backoffice/activities"
-					element={<BackofficeActivities />}
-				/>
-				<Route
-					path="/backoffice/testimonials"
-					element={<BackofficeTestimonials />}
-				/>
-				<Route path="/activities" element={<Activities />} />
-				<Route path="/activities/:activityId" element={<Activities />} />
-				<Route
-					path="/backoffice/categories"
-					element={<BackofficeCategories />}
-				/>
-			</Routes>
->>>>>>> 0fb9990abf1e75c0a6b54596f7440cdeece315d0
 
 			{location !== "/login" && location !== "/register" ? <Footer /> : null}
 		</>
