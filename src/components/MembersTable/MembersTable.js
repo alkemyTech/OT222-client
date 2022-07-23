@@ -43,6 +43,7 @@ const MembersTable = () => {
       ></MemberDeleteConfirmation>
     ) 
   return (
+    
     <Flex  flexDirection={"column"} m={"20px"} alignItems={"center"}>
       <Text
       fontSize={"30px"}
@@ -65,6 +66,7 @@ const MembersTable = () => {
           </Thead>
          <Tbody>
             {members.map((member) => (
+              
               <Tr key={member.id}>
                 <Td fontSize={["8px", "10px", "12px", "16px"]}>
                 <Image 

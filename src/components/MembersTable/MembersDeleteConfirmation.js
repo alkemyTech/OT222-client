@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { Flex, Button, Text, Heading } from "@chakra-ui/react"
+import { Flex, Button, Text, Heading, Box } from "@chakra-ui/react"
 import axios from "../../services/authorization/index"
 import { confirmation } from "../../services/alerts/index"
 import LoaderSpinner from "../LoaderSpinner"
 
 function MemberDeleteConfirmation({ member, setDeleting }) {
   const [loading, setLoading] = useState(false)
-
+  console.log(member)
   const deleteMember = () => {
     setLoading(true)
     axios
@@ -22,13 +22,21 @@ function MemberDeleteConfirmation({ member, setDeleting }) {
   if (loading) return <LoaderSpinner></LoaderSpinner>
 
   return (
-    <Flex
+    <Box
+      display='flex'
+      justifyContent={'center'}
+      w='100vw'
+      h='100vh'
+    >
+      <Flex
+      alignSelf='center'
       flexDirection={"column"}
       gap={"20px"}
       width={"520px"}
       maxWidth={"90%"}
       mt={"3%"}
       mb={"10%"}
+      h='20%'
       boxShadow="dark-lg"
       rounded="ms"
       bg="white"
@@ -50,6 +58,7 @@ function MemberDeleteConfirmation({ member, setDeleting }) {
         </Button>
       </Flex>
     </Flex>
+    </Box>
   )
 }
 export default MemberDeleteConfirmation
