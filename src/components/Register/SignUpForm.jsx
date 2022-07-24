@@ -3,7 +3,6 @@ import { Formik, Field, Form } from "formik";
 import { Input, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import RegisterApi from "../../services/RegisterApi";
-import axios from "axios";
 
 const validate = (values) => {
   const errors = {};
