@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
-import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
+import { Flex, Input, Button, Stack, Text, Image } from '@chakra-ui/react';
 import { confirmation, error } from '../../services/alerts';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router';
 
-function NewsForm({ values }) {
-  const { name, content, category, id } = values || {
+function NewsForm({ values, setEditingNews }) {
+  console.log('values', values);
+  const { name, content, category, id, image } = values || {
     name: '',
     category: '',
     content: '',
@@ -17,10 +20,11 @@ function NewsForm({ values }) {
     name,
     content,
     category,
-    image: '',
+    image,
   };
 
   const [isEditionForm, setIsEditionForm] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsEditionForm(!!values);
@@ -56,7 +60,7 @@ function NewsForm({ values }) {
   const onSubmit = (values, actions) => {
     AuthorizationService.post(
       'files',
-      { file: values.image },
+      { file: values.image, key: values.image.name },
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -75,6 +79,7 @@ function NewsForm({ values }) {
           })
             .then(res => {
               confirmation('Has editado la Novedad!');
+              setEditingNews(false);
             })
             .catch(err => {
               error('Error', err.response.data.errors[0].msg);
@@ -88,6 +93,7 @@ function NewsForm({ values }) {
           })
             .then(res => {
               confirmation(`Has creado una Novedad!`);
+              navigate('/backoffice/news');
             })
             .catch(err => {
               error('Error', err.response.data.errors[0].msg);
@@ -117,16 +123,15 @@ function NewsForm({ values }) {
         className="form"
         flexDirection={'column'}
         gap={'20px'}
-        width={'50%'}
-        ml={'5%'}
-        mt={'3%'}
-        mb={'10%'}
+        ml={{ base: '30px', sm: '30px', md: '100px', lg: '227px' }}
+        width={{ base: '80%', sm: '80%', md: '50%', lg: '50%' }}
+        mt={'5%'}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"
         p={'2%'}
       >
-        <Flex fontWeight={'bold'} fontSize={'24px'}>
+        <Flex fontWeight={'bold'} fontSize={['sm', 'md', 'lg', 'xl']}>
           {`¡${editOrCreate} Novedad!`}
         </Flex>
 
@@ -139,18 +144,30 @@ function NewsForm({ values }) {
         </div>
 
         <div>
-          <label htmlFor="image">Imagen</label>
-          <br />
-          <input
-            type="file"
-            accept="image/x-png,image/gif,image/jpeg"
-            onChange={event => {
-              formik.setFieldValue('image', event.target.files[0]);
-            }}
-          />
-          <Text color="red">
-            <ErrorMessage name="image" />
-          </Text>
+          <Flex flexDirection={'column'}>
+            <label htmlFor="image">Imagen</label>
+            {!!isEditionForm && (
+              <Image
+                width={['20px', '40px', '50px', '50px']}
+                height={['20px', '40px', '50px', '50px']}
+                mt={'10px'}
+                borderRadius={'70%'}
+                src={values.image}
+                alt={values.name}
+              />
+            )}
+            <br />
+            <input
+              type="file"
+              accept="image/x-png,image/gif,image/jpeg"
+              onChange={event => {
+                formik.setFieldValue('image', event.target.files[0]);
+              }}
+            />
+            <Text color="red">
+              <ErrorMessage name="image" />
+            </Text>
+          </Flex>
         </div>
 
         <div>
@@ -191,12 +208,46 @@ function NewsForm({ values }) {
             background={'blue'}
             size={['lg', 'md']}
             color={'white'}
-            fontSize={['xs', 'md']}
+            fontSize={['xs', 'xs', 'md', 'md']}
             type="submit"
           >
             {`${editOrCreate}`}
           </Button>
         </Stack>
+      </Flex>
+      <Flex
+        flexDirection={'column'}
+        alignItems={'flex-start'}
+        pr={{ base: '4px', sm: '238px', md: '468px', lg: '807px' }}
+        mt={'5%'}
+        ml={{ base: '15px', sm: '15px', md: '100px', lg: '227px' }}
+        mb="70px"
+      >
+        <Link to={'/backoffice/news'}>
+          <Button
+            background={'red'}
+            color={'white'}
+            fontWeight={'bold'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            borderRadius={'15px'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            onClick={() => (!!setEditingNews ? setEditingNews(null) : null)}
+          >
+            ¡Volver a Novedad!
+          </Button>
+        </Link>
+        <Link to={'/'}>
+          <Button
+            mt={'20px'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            background={'white'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            borderRadius={'15px'}
+          >
+            {' '}
+            Ir al inicio
+          </Button>
+        </Link>
       </Flex>
     </FormikProvider>
   );

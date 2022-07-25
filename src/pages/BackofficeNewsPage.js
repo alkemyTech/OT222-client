@@ -1,114 +1,89 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import NewsForm from '../components/News/NewsForm';
+import AuthorizationService from '../services/authorization';
 // Components
-import TableComponent from "../components/TableComponent"
-import LoaderSpinner from "../components/LoaderSpinner"
-import NewsForm from "../components/NewsForm/NewsForm"
+import TableComponent from '../components/TableComponent';
+import LoaderSpinner from '../components/LoaderSpinner';
+import NewsDeleteConfirmation from '../components/News/NewsDeleteConfirmation';
+
 // Modals
-import Warning from "../modals/Warning"
-import Fields from "../modals/Fields"
+import Warning from '../modals/Warning';
+
 // Services: alerts
-import { confirmation, error } from "../services/alerts"
+import { confirmation, error } from '../services/alerts';
 // Utils: newsData
-import newsData from "../utils/newsData"
-const tableHeaders = ["Title", "Date", "Image", "Actions"]
+
+const tableHeaders = ['Titulo', 'Fecha', 'Imagen', 'Acciones'];
 const BackofficeNewsPage = () => {
   // arrs
-  const [news, setNews] = useState([...newsData])
-  const [toEeditNews, setToEditNews] = useState(Array)
-  const [editingNews, setEditingNews] = useState([...news])
+  const [news, setNews] = useState([]);
+  const [toEditNew, setToEditNew] = useState(null);
+  const [editingNews, setEditingNews] = useState(false);
+  const [deleting, setDeleting] = useState(null);
 
   // strs
-  const [idDelete, setIdDelete] = useState(String)
-  const [idEdit, setIdEdit] = useState(String)
+  const [idDelete, setIdDelete] = useState(String);
+  const [idEdit, setIdEdit] = useState(String);
 
   // bools
-  const [spinner, setSpinner] = useState(Boolean)
-  const [warning, setWarning] = useState(Boolean)
-  const [fields, setFields] = useState(Boolean)
+  const [spinner, setSpinner] = useState(Boolean);
+  const [warning, setWarning] = useState(Boolean);
+  const [fields, setFields] = useState(Boolean);
 
-  const editNews = () => {
-    try {
-      setFields(true)
-      setNews(editingNews)
-      confirmation("Success", "News edited successfully")
-      setFields(false)
-    } catch (err) {
-      error("Error at editing news", err)
-      setSpinner(false)
-    }
-  }
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_SERVER_BASE_URL + '/news')
+      .then(res => setNews(res.data))
+      .catch(err => console.log(err));
+  }, [editingNews, deleting]);
 
-  const deleteNews = () => {
-    try {
-      setSpinner(true)
-      setWarning(true)
-      setNews(news.filter(({ _id }) => _id !== idDelete))
-      confirmation("Success", "News deleted successfully")
-      setSpinner(false)
-      setWarning(false)
-    } catch (err) {
-      error("Error at deleting news", err)
-      setSpinner(false)
-    }
-  }
+  if (deleting)
+    return (
+      <NewsDeleteConfirmation
+        news={deleting}
+        setDeleting={setDeleting}
+      ></NewsDeleteConfirmation>
+    );
 
-  const onDelete = (_id) => {
-    setWarning(!warning)
-    if (!_id) return
-    setIdDelete(_id)
-  }
-
-  const onEdit = (_id) => {
-    setFields(!fields)
-    if (!_id) return
-    setIdEdit(_id)
-    const getNews = news.filter(({ _id: id }) => id === _id)
-    setToEditNews(getNews)
-    setEditingNews(news)
-  }
-
-  const handleInput = (e) => {
-    const { name, value } = e.target
-    setEditingNews(
-      editingNews.map((news) => {
-        if (news._id === idEdit) {
-          return {
-            ...news,
-            [name]: value,
-          }
-        }
-        return news
-      })
+  const onDelete = _id => {
+    AuthorizationService.delete(
+      process.env.REACT_APP_SERVER_BASE_URL + '/news/' + _id
     )
-  }
+      .then(res => {
+        const newsCopy = [...news];
+        newsCopy.splice(
+          newsCopy.findIndex(function (i) {
+            return i.id === _id;
+          }),
+          1
+        );
+        setNews(newsCopy);
+        confirmation('Ha sido borrado con éxito.');
+      })
+      .catch(err => console.log(err));
+  };
+
+  const onEdit = data => {
+    setEditingNews(true);
+    setToEditNew(data);
+  };
 
   return (
     <>
       {spinner && <LoaderSpinner />}
-      {warning && (
-        <Warning
-          modalWarning={onDelete}
-          cancel={onDelete}
-          pursue={deleteNews}
+      {warning && <Warning modalWarning={onDelete} cancel={onDelete} />}
+      {editingNews ? (
+        <NewsForm values={toEditNew} setEditingNews={setEditingNews} />
+      ) : (
+        <TableComponent
+          data={news}
+          tableHeaders={tableHeaders}
+          onEdit={onEdit}
+          onDelete={onDelete}
         />
       )}
-      {fields && (
-        <Fields
-          modalField={onEdit}
-          cancel={onEdit}
-          pursue={editNews}
-          editFields={toEeditNews}
-          onChange={handleInput}
-        />
-      )}
-      <TableComponent
-        data={news}
-        tableHeaders={tableHeaders}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-      <NewsForm />
     </>
-  )
-}
-export default BackofficeNewsPage
+  );
+};
+export default BackofficeNewsPage;
