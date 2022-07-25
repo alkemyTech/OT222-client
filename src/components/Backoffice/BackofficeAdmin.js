@@ -83,7 +83,7 @@ const BackofficeAdmin = () => {
         gridTemplateColumns={['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr 1fr']}
         gridGap={'10px'}
         width={'80%'}
-        textAlign={'center'} //alinea los titulos
+        textAlign={'center'}
         justifySelf={'center'}
       >
         {data.map(dato => {
