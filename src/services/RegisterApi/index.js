@@ -1,26 +1,15 @@
-import AuthorizationService from "../authorization/index";
-import { confirmation, error } from "../alerts";
-
-const RegisterApi = (values, navigate) => {
-  const { firstName, lastName, email, password } = values;
-  const auth = AuthorizationService.post("auth/register", {
-    firstName,
-    lastName,
-    email,
-    password,
-  })
-    .then(response => {
-      confirmation('Has sido registrado, por favor inicia sesión.!!');
-      navigate('/');
-      return response
-    })
-    .catch(errorPost => {
-      const errorMsg = errorPost.response.data[0].errors[0].email
-        ? errorPost.response.data[0].errors[0].email
-        : errorPost.response.data[0].errors[0].msg;
-      error('Error', errorMsg);
-    });
-    return auth
-};
-
-export default RegisterApi;
+// API
+import API from "../../API"
+// alerts
+import { confirmation, error } from "../alerts"
+// Signing up
+const RegisterApi = async (values, navigate) => {
+  const response = await API.signUp(values)
+  if (response.data) {
+    confirmation("Has sido registrado, por favor inicia sesión!")
+    navigate("/")
+    return response
+  }
+  return error(response)
+}
+export default RegisterApi

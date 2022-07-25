@@ -12,19 +12,18 @@ const Dynamic_news = () => {
   const [newsDetail, setNewsDetail] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     axios
       .get(`${process.env.REACT_APP_SERVER_BASE_URL}/news/${path}`)
       .then(res => {
-        if (res.data.message === 'Not Found!.') return setNotFound(true)
+        if (res.data.message === 'Not Found!.') return setNotFound(true);
         setNewsDetail(res.data);
         setLoading(false);
         console.log('res.data', res.data);
       })
-      .catch(err => {
-      });
+      .catch(err => {});
     setLoading(false);
   };
 
@@ -56,16 +55,30 @@ const Dynamic_news = () => {
         </Grid>
       ) : (
         <Flex flexDir={'column'}>
-          <Image src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />
-          <Flex flexDir={'column'} marginY={'10%'} alignItems={'center'} gap={'5rem'} textAlign={'center'} padding={'1rem'} >
-            <Text fontSize={['2rem', '3rem']} textAlign="center" fontWeight={'500'}>
+          <Image
+            src={newsDetail.image}
+            objectFit={'cover'}
+            height={'50vh'}
+            width={'100%'}
+          />
+
+          {/*<Image src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />*/}
+          <Flex
+            flexDir={'column'}
+            marginY={'10%'}
+            alignItems={'center'}
+            gap={'5rem'}
+            textAlign={'center'}
+            padding={'1rem'}
+          >
+            <Text
+              fontSize={['2rem', '3rem']}
+              textAlign="center"
+              fontWeight={'500'}
+            >
               {newsDetail.name}
             </Text>
-            <Text
-              fontSize={['xl', '2xl']}
-              h="auto"
-              maxWidth={['100%', '50%']}
-            >
+            <Text fontSize={['xl', '2xl']} h="auto" maxWidth={['100%', '50%']}>
               {newsDetail.content}
             </Text>
             <Button onClick={() => navigate('/news')}>← Volver</Button>
