@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { FaFacebookSquare } from "react-icons/fa"
-import { AiFillLinkedin } from "react-icons/ai"
-import { BsInstagram } from "react-icons/bs"
+// API
+import API from "../../API"
 import {
   Box,
   Text,
@@ -13,31 +11,22 @@ import {
   Container,
   Stack,
 } from "@chakra-ui/react"
-// Utils: footerContent: logo data and itemsPages
-import { logoData, itemsPages } from "../../utils/footerContent"
+// Utils: footerContent: logo data, itemsPages, icons
+import { logoData, itemsPages, icons } from "../../utils/footerContent"
 const Footer = () => {
   const [urlMedia, seturlMedia] = useState([])
-  const icons = [
-    { name: "Facebook", icon: <FaFacebookSquare /> },
-    { name: "Linkedin", icon: <AiFillLinkedin /> },
-    { name: "Instagram", icon: <BsInstagram /> },
-  ]
-
-  const fetchUrlMedia = () => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/organizations/public`)
-      .then(function (response) {
-        seturlMedia(response.data.slice(0, 3))
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-
   useEffect(() => {
-    fetchUrlMedia()
+    const getSocialMedia = async () => {
+      try {
+        const socialMedia = await API.getSocialMedia()
+        if (!socialMedia) return
+        seturlMedia(socialMedia)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getSocialMedia()
   }, [])
-
   return (
     <Box
       bg={useColorModeValue("gray.400", "gray.400")}
@@ -83,11 +72,9 @@ const Footer = () => {
             spacing={6}
           >
             {urlMedia.map(({ SocialMedium }, index) => (
-              <>
-                <Link key={index} href={SocialMedium.url}>
-                  {icons[index].icon}
-                </Link>
-              </>
+              <Link key={index} href={SocialMedium.url}>
+                {icons[index].icon}
+              </Link>
             ))}
           </HStack>
           <Text fontSize={"15px"}>2022 by Alkemy. All rights reserved</Text>
@@ -96,5 +83,4 @@ const Footer = () => {
     </Box>
   )
 }
-
 export default Footer
