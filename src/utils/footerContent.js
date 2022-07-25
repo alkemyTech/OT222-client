@@ -1,5 +1,11 @@
+import React from "react"
 // Assets: logo
 import logo from "../assets/logoSomosMas.png"
+// social media icons
+import { FaFacebookSquare } from "react-icons/fa"
+import { AiFillLinkedin } from "react-icons/ai"
+import { BsInstagram } from "react-icons/bs"
+
 export const logoData = {
   logo,
   url: "https://somosmas.com",
@@ -36,6 +42,12 @@ export const itemsPages = [
     name: "Contribuye",
     link: "/contribute",
   },
+]
+
+export const icons = [
+  { name: "Facebook", icon: <FaFacebookSquare /> },
+  { name: "Linkedin", icon: <AiFillLinkedin /> },
+  { name: "Instagram", icon: <BsInstagram /> },
 ]
 
 export const footerContent = [
