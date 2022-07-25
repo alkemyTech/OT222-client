@@ -31,11 +31,17 @@ const NewsCard = ({ element }) => {
         objectFit={'cover'}
         borderRadius={'20px'}
         height={'100%'}
-        src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
+        //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
+        src={element.image}
         alt={element.name}
         gridArea={'1 / 1 / 3 / 2'}
       />
-      <Text width={'95%'} fontSize={'16px'} textAlign={'center'} margin={'auto'} >
+      <Text
+        width={'95%'}
+        fontSize={'16px'}
+        textAlign={'center'}
+        margin={'auto'}
+      >
         {element.name}{' '}
       </Text>
       <Link to={`/news/${element.id}`}>
