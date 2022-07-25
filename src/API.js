@@ -2,7 +2,11 @@ import axios from "axios"
 // services
 import AuthorizationService from "./services/authorization"
 // config
-import { SIGN_UP_URL, BACKOFFICE_CATEGORIES_URL } from "./config"
+import {
+  SIGN_UP_URL,
+  ORGANIZATIONS_PUBLIC_URL,
+  BACKOFFICE_CATEGORIES_URL,
+} from "./config"
 // API
 const apiConfig = {
   signUp: async (values) => {
@@ -20,6 +24,10 @@ const apiConfig = {
       if (errors[0].email) return errors[0].email
       if (errors[0].msg) return errors[0].msg
     }
+  },
+  getSocialMedia: async () => {
+    const { data } = await axios.get(ORGANIZATIONS_PUBLIC_URL)
+    return await data.slice(0, 3)
   },
   getCategories: async () => {
     const { data } = await axios.get(BACKOFFICE_CATEGORIES_URL)
