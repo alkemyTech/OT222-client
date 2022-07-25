@@ -1,154 +1,142 @@
-import React from "react";
-import { Formik, Field, Form } from "formik";
-import { Input, Button, Flex, Heading, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
-import RegisterApi from "../../services/RegisterApi";
-import axios from "axios";
-
+import React from "react"
+import { Formik, Field, Form } from "formik"
+import { Box, Input, Button, Flex, Heading, Text } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
+// Services: Sign Up
+import RegisterApi from "../../services/RegisterApi"
+// inputs validations
 const validate = (values) => {
-  const errors = {};
-
+  const errors = {}
   if (!values.firstName) {
-    errors.firstName = "Obligatorio";
+    errors.firstName = "Obligatorio"
   } else if (values.firstName.length < 3) {
-    errors.firstName = "Debe tener al menos 3 caracteres";
+    errors.firstName = "Debe tener al menos 3 caracteres"
   }
-
   if (!values.lastName) {
-    errors.lastName = "Obligatorio";
+    errors.lastName = "Obligatorio"
   } else if (values.lastName.length < 3) {
-    errors.lastName = "Debe tener al menos 3 caracteres";
+    errors.lastName = "Debe tener al menos 3 caracteres"
   }
-
   if (!values.email) {
-    errors.email = "Obligatorio";
+    errors.email = "Obligatorio"
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Direccción de correo inválida";
+    errors.email = "Direccción de correo inválida"
   }
-
   if (!values.password) {
-    errors.password = "Obligatorio";
+    errors.password = "Obligatorio"
   } else if (values.password.length < 8) {
-    errors.password = "Debe tener al menos 8 caracteres";
+    errors.password = "Debe tener al menos 8 caracteres"
   }
-
-  return errors;
-};
-
-export default function SignUpForm() {
-  const navigate = useNavigate();
-  const onSubmit = (values) => {
-    const userSaved = RegisterApi(values, navigate)
-    .then(res => {
-      const token = res.data.token
-      localStorage.setItem('token', token)
-      window.location.reload()
-    })
-
-
-  };
-  return (
-    <>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-        }}
-        validate={validate}
-        onSubmit={(values) => {
-          onSubmit(values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Flex flexDirection={"column"} gap={"10px"} as={Form} maxWidth="100%">
-            <div>
-              <Text variant={"login"}>Bienvenido</Text>
-              <Heading size={["md", "md", "lg"]} variant={"login"}>
-                Registrarse
-              </Heading>
-            </div>
-            <Input
-              as={Field}
-              variant="login"
-              id="firstName"
-              name="firstName"
-              type="text"
-              placeholder="Nombre"
-            />
-            <Text color="blue">
-              {errors.firstName && touched.firstName && (
-                <label htmlFor="firstName">{errors.firstName}</label>
-              )}
-            </Text>
-
-            <Input
-              as={Field}
-              variant="login"
-              id="lastName"
-              name="lastName"
-              type="text"
-              placeholder="Apellido"
-            />
-            <Text color="blue">
-              {errors.lastName && touched.lastName && (
-                <label htmlFor="lastName">{errors.lastName}</label>
-              )}
-            </Text>
-
-            <Input
-              as={Field}
-              variant="login"
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-            />
-            <Text color="blue">
-              {errors.email && touched.email && (
-                <label htmlFor="email">{errors.email}</label>
-              )}
-            </Text>
-
-            <Input
-              as={Field}
-              variant="login"
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Contraseña"
-              autoComplete="new-password"
-            />
-            <Text color="blue">
-              {errors.password && touched.password && (
-                <label htmlFor="password">{errors.password}</label>
-              )}
-            </Text>
-
-            <Button
-              fontSize={{ base: "15px", md: "20px", lg: "25px" }}
-              variant={"login"}
-              type="submit"
-            >
-              Registrarme
-            </Button>
-            <Flex justifyContent="center" mt="30px" gap="4px">
-              <Text fontSize={{ base: "15px", md: "15px", lg: "20px" }}>
-                ¿Ya tienes una cuenta?
-              </Text>
-              <Text
-                fontSize={{ base: "15px", md: "15px", lg: "20px" }}
-                color="primary"
-                _hover={{ cursor: "pointer" }}
-                onClick={() => navigate("/login")}
-              >
-                Iniciar Sesión
-              </Text>
-            </Flex>
-          </Flex>
-        )}
-      </Formik>
-    </>
-  );
+  return errors
 }
+const SignUpForm = () => {
+  const navigate = useNavigate()
+  // on submit signing up
+  const onSubmit = async (values) => {
+    const { data } = await RegisterApi(values, navigate)
+    if (data) {
+      const token = data.token
+      localStorage.setItem("token", token)
+      window.location.reload()
+    }
+  }
+  return (
+    <Formik
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      }}
+      validate={validate}
+      onSubmit={(values) => {
+        onSubmit(values);
+      }}
+    >
+      {({ errors, touched }) => (
+        <Flex flexDirection={"column"} gap={"10px"} as={Form} maxWidth="100%">
+          <Box>
+            <Text variant={"login"}>Bienvenido</Text>
+            <Heading size={["md", "md", "lg"]} variant={"login"}>
+              Registrarse
+            </Heading>
+          </Box>
+          <Input
+            as={Field}
+            variant="login"
+            id="firstName"
+            name="firstName"
+            type="text"
+            placeholder="Nombre"
+          />
+          <Text color="blue">
+            {errors.firstName && touched.firstName && (
+              <label htmlFor="firstName">{errors.firstName}</label>
+            )}
+          </Text>
+          <Input
+            as={Field}
+            variant="login"
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder="Apellido"
+          />
+          <Text color="blue">
+            {errors.lastName && touched.lastName && (
+              <label htmlFor="lastName">{errors.lastName}</label>
+            )}
+          </Text>
+          <Input
+            as={Field}
+            variant="login"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+          />
+          <Text color="blue">
+            {errors.email && touched.email && (
+              <label htmlFor="email">{errors.email}</label>
+            )}
+          </Text>
+          <Input
+            as={Field}
+            variant="login"
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Contraseña"
+            autoComplete="new-password"
+          />
+          <Text color="blue">
+            {errors.password && touched.password && (
+              <label htmlFor="password">{errors.password}</label>
+            )}
+          </Text>
+          <Button
+            fontSize={{ base: "15px", md: "20px", lg: "25px" }}
+            variant={"login"}
+            type="submit"
+          >
+            Registrarme
+          </Button>
+          <Flex justifyContent="center" mt="30px" gap="4px">
+            <Text fontSize={{ base: "15px", md: "15px", lg: "20px" }}>
+              ¿Ya tienes una cuenta?
+            </Text>
+            <Text
+              fontSize={{ base: "15px", md: "15px", lg: "20px" }}
+              color="primary"
+              _hover={{ cursor: "pointer" }}
+              onClick={() => navigate("/login")}
+            >
+              Iniciar Sesión
+            </Text>
+          </Flex>
+        </Flex>
+      )}
+    </Formik>
+  )
+}
+export default SignUpForm
