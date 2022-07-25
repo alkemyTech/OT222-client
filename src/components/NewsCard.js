@@ -31,8 +31,8 @@ const NewsCard = ({ element }) => {
         objectFit={'cover'}
         borderRadius={'20px'}
         height={'100%'}
-        //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
-        src={element.image}
+        src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
+        // src={element.image}
         alt={element.name}
         gridArea={'1 / 1 / 3 / 2'}
       />
