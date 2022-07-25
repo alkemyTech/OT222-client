@@ -99,7 +99,7 @@ const ContactForm = () => {
               <div>
                 <label htmlFor="name"></label>
                 <Field
-                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+                  boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
                   as={Input}
                   id="name"
                   type="text"
@@ -116,7 +116,7 @@ const ContactForm = () => {
               <div>
                 <label htmlFor="email"></label>
                 <Field
-                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+                  boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
                   as={Input}
                   type="email"
                   name="email"
@@ -133,7 +133,7 @@ const ContactForm = () => {
               <div>
                 <Field
                   as={Textarea}
-                  boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+                  boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
                   name="messageText"
                   placeholder="Escribe tu consulta..."
                 />
@@ -149,9 +149,9 @@ const ContactForm = () => {
                   mt={5}
                   rounded={10}
                   background={'#0038FF'}
-                  size={["xs","xs",'lg', 'md']}
+                  size={['xs', 'xs', 'lg', 'md']}
                   color={'white'}
-                  fontSize={['xs','xs','md', 'md']}
+                  fontSize={['xs', 'xs', 'md', 'md']}
                   type="submit"
                 >
                   Enviar consulta

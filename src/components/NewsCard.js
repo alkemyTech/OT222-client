@@ -15,7 +15,6 @@ const NewsCard = ({ element }) => {
       })
       .catch(err => console.log(err));
   };
-
   return (
     <Grid
       gridTemplate={'3fr 1fr / 1fr 1fr'}
