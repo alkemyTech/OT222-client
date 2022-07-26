@@ -50,21 +50,6 @@ const BackofficeNewsPage = () => {
 
   const onDelete = _id => {
       setDeleting(_id)
-    /* AuthorizationService.delete(
-      process.env.REACT_APP_SERVER_BASE_URL + '/news/' + _id
-    )
-      .then(res => {
-        const newsCopy = [...news];
-        newsCopy.splice(
-          newsCopy.findIndex(function (i) {
-            return i.id === _id;
-          }),
-          1
-        );
-        setNews(newsCopy);
-        confirmation('Ha sido borrado con éxito.');
-      })
-      .catch(err => console.log(err)); */
   };
 
   const onEdit = data => {

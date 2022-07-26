@@ -31,14 +31,14 @@ const BackofficeAdmin = () => {
       img: categoriasIcon,
       alt: 'categorias-icon',
       title: 'Categorias',
-      route: '',
+      route: '/backoffice/categories',
     },
     {
       id: 4,
       img: miembrosIcon,
       alt: 'miembros-icon',
       title: 'Miembros',
-      route: '',
+      route: '/backoffice/staff',
     },
     {
       id: 5,
