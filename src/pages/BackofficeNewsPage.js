@@ -45,6 +45,7 @@ const BackofficeNewsPage = () => {
         setDeleting={setDeleting}
         data={news}
         setNews={setNews}
+        url='/news'
       ></NewsDeleteConfirmation>
     );
 
