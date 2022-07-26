@@ -28,8 +28,7 @@ const TestimonialCard = ({ element }) => {
               width={"75px"}
               height={"75px"}
               borderRadius={"50%"}
-              src={element.image}
-              //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/testimonial${element.id}`}
+              src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/testimonial${element.image}`}
               alt={element.name}
             />
           </Flex>

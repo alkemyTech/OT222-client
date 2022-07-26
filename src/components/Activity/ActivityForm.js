@@ -8,6 +8,9 @@ import * as Yup from 'yup';
 import { confirmation, error } from '../../services/alerts';
 
 function ActivityForm({ values }) {
+  const[file, setFile] = useState();
+  const[fileName, setFileName] = useState();
+
   const { name, content, id } = values || {
     name: '',
     content: '',
@@ -27,9 +30,26 @@ function ActivityForm({ values }) {
   const inputHandler = (event, editor) => {
     formik.setFieldValue('content', editor.getData());
   };
-
+  
   const FILE_SIZE = 200000; //100000 is 1 mb
-  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg'];
+  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg','png', 'image/png'];
+
+  const postImage = ()=>{
+    var formdata = new FormData();
+    formdata.append("file", file, fileName);
+    formdata.append("key", fileName);
+
+    var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch(process.env.REACT_APP_SERVER_BASE_URL +"/files", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }  
 
   const validationSchema = Yup.object({
     name: Yup.string().required('Por favor escribe un nombre'),
@@ -51,23 +71,13 @@ function ActivityForm({ values }) {
   });
 
   const onSubmit = (values, actions) => {
-    AuthorizationService.post(
-      'files',
-      { file: values.image },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
-
+    console.log(values)
+    postImage();
         if (isEditionForm) {
           AuthorizationService.put(`/activities/${id}`, {
             name: values.name,
             content: values.content,
-            image: values.image,
+            image: fileName,
           })
             .then(res => {
               confirmation('Has editado la Actividad!');
@@ -79,7 +89,7 @@ function ActivityForm({ values }) {
           AuthorizationService.post('/activities', {
             name: values.name,
             content: values.content,
-            image: values.image,
+            image: fileName,
           })
             .then(res => {
               confirmation(`Has creado una Actividad!`);
@@ -88,10 +98,6 @@ function ActivityForm({ values }) {
               error('Error', err.response.data.errors[0].msg);
             });
         }
-      })
-      .catch(err => {
-        error('Error', err);
-      });
     {
       actions.resetForm();
     }
@@ -139,6 +145,8 @@ function ActivityForm({ values }) {
             type="file"
             onChange={event => {
               formik.setFieldValue('image', event.target.files[0]);
+              setFile(event.currentTarget.files[0]);
+              setFileName(event.currentTarget.files[0].name);
             }}
           />
           <Text color="red">

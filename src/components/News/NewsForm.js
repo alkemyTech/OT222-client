@@ -10,6 +10,10 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router';
 
 function NewsForm({ values, setEditingNews }) {
+
+  const[file, setFile] = useState();
+  const[fileName, setFileName] = useState();
+
   console.log('values', values);
   const { name, content, category, id, image } = values || {
     name: '',
@@ -31,12 +35,12 @@ function NewsForm({ values, setEditingNews }) {
   }, []);
 
   const FILE_SIZE = 200000; //100000 is 1 mb
-  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg'];
+  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg','png', 'image/png'];
 
   const inputHandler = (event, editor) => {
     formik.setFieldValue('content', editor.getData());
   };
-
+ 
   const validationSchema = Yup.object({
     name: Yup.string().required('Por favor escribe un titulo'),
     image: Yup.mixed()
@@ -57,55 +61,57 @@ function NewsForm({ values, setEditingNews }) {
     category: Yup.string().required('Por favor escribe una categoria'),
   });
 
-  const onSubmit = (values, actions) => {
-    AuthorizationService.post(
-      'files',
-      { file: values.image, key: values.image.name },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
+  const postImage = ()=>{
+    var formdata = new FormData();
+    formdata.append("file", file, fileName);
+    formdata.append("key", fileName);
 
-        if (isEditionForm) {
-          AuthorizationService.put(`/news/${id}`, {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-            category: values.category,
-          })
-            .then(res => {
-              confirmation('Has editado la Novedad!');
-              setEditingNews(false);
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        } else {
-          AuthorizationService.post('/news', {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-            category: values.category,
-          })
-            .then(res => {
-              confirmation(`Has creado una Novedad!`);
-              navigate('/backoffice/news');
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        }
+    var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch(process.env.REACT_APP_SERVER_BASE_URL +"/files", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }  
+  const postEdit = (values) =>{
+    if (isEditionForm) {
+      AuthorizationService.put(`/news/${id}`, {
+        name: values.name,
+        content: values.content,
+        image: fileName,
+        category: values.category,
       })
-      .catch(err => {
-        error('Error', err);
-      });
-    {
-      actions.resetForm();
+        .then(res => {
+          confirmation('Has editado la Novedad!');
+          setEditingNews(false);
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
+    } else {
+      AuthorizationService.post('/news', {
+        name: values.name,
+        content: values.content,
+        image: fileName,
+        category: values.category,
+      })
+        .then(res => {
+          confirmation(`Has creado una Novedad!`);
+          navigate('/backoffice/news');
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
     }
+  }
+  const onSubmit = (values, actions) => {
+    postImage()
+    postEdit(values)
+   actions.resetForm();
   };
 
   const formik = useFormik({
@@ -162,6 +168,8 @@ function NewsForm({ values, setEditingNews }) {
               accept="image/x-png,image/gif,image/jpeg"
               onChange={event => {
                 formik.setFieldValue('image', event.target.files[0]);
+                setFile(event.currentTarget.files[0]);
+                setFileName(event.currentTarget.files[0].name);
               }}
             />
             <Text color="red">

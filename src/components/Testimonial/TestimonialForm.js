@@ -12,6 +12,8 @@ import * as Yup from 'yup';
 function TestimonialForm({ values, setEditing }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isEditionForm, setIsEditionForm] = useState(false);
+  const[file, setFile] = useState();
+  const[fileName, setFileName] = useState();
 
   const navigate = useNavigate();
   const { name, image, content, id } = values || {
@@ -50,7 +52,7 @@ function TestimonialForm({ values, setEditing }) {
   }, []);
 
   const FILE_SIZE = 200000; //100000 is 1 mb
-  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg'];
+  const SUPPORTED_FORMATS = ['jpg', 'image/jpeg', 'jpeg', 'image/jpg','png', 'image/png'];
 
   const inputHandler = (event, editor) => {
     formik.setFieldValue('content', editor.getData());
@@ -74,33 +76,32 @@ function TestimonialForm({ values, setEditing }) {
       ),
     content: Yup.string().required('Por favor escribe un contenido'),
   });
+  const postImage = ()=>{
+    var formdata = new FormData();
+    formdata.append("file", file, fileName);
+    formdata.append("key", fileName);
+
+    var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch(process.env.REACT_APP_SERVER_BASE_URL +"/files", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }  
 
   const onSubmit = (values, actions) => {
-    // const data = new FormData();
-    //   data.append('file', values.image);
-    //   data.append('key', 'testimonials' + res.data.testimonials.id);
-    //   AuthorizationService.post('files', {
-    //     data,
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     }
-    AuthorizationService.post(
-      'files',
-      { file: values.image, key: values.image.name },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
+    
+  postImage()
 
         if (isEditionForm) {
           AuthorizationService.put(`/testimonials/${id}`, {
             name: values.name,
             content: values.content,
-            image: values.image,
+            image: fileName,
           })
             .then(res => {
               confirmation('Has editado el testimonio!');
@@ -112,7 +113,7 @@ function TestimonialForm({ values, setEditing }) {
           AuthorizationService.post('/testimonials', {
             name: values.name,
             content: values.content,
-            image: values.image,
+            image: fileName,
           })
             .then(res => {
               confirmation(`Has creado el testimonio!`);
@@ -127,8 +128,8 @@ function TestimonialForm({ values, setEditing }) {
         } else {
           setEditing(null);
         }
-      })
-      .catch(err => console.log(err));
+  
+      
   };
 
   const formik = useFormik({
@@ -181,6 +182,8 @@ function TestimonialForm({ values, setEditing }) {
             type="file"
             onChange={event => {
               formik.setFieldValue('image', event.target.files[0]);
+              setFile(event.currentTarget.files[0]);
+              setFileName(event.currentTarget.files[0].name);
             }}
           />
           <Text color="red">

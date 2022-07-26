@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import TestimonialCard from './TestimonialCard';
 import axios from 'axios';
-import { Flex, Text, Grid } from '@chakra-ui/react';
+import { Flex, Text, Grid , Image} from '@chakra-ui/react';
 
 const Testimonial = () => {
   const [testimonio, setTestimonio] = useState([]);
+
   const getTestimony = () => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
+      .get(process.env.REACT_APP_SERVER_BASE_URL + "/testimonials")
       .then(res => {
         const testimonials = res.data.testimonials;
-        const testimonyIndex = testimonials.length - 12;
-        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length));
+        setTestimonio(testimonials);
+        /* const testimonyIndex = testimonials.length - 12;
+        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length)); */
       })
       .catch(err => console.log(err));
-  };
+  }; 
+
+
 
   useEffect(() => {
-    getTestimony();
-  }, []);
+   getTestimony(); 
+}, []);
+
+
   return (
     <Flex
       flexDirection={'column'}
@@ -52,6 +58,7 @@ const Testimonial = () => {
           return <TestimonialCard element={dato} key={dato.id} />;
         })}
       </Grid>
+      
     </Flex>
   );
 };
