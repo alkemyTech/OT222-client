@@ -5,7 +5,7 @@ import { confirmation } from "../../services/alerts/index";
 import LoaderSpinner from "../LoaderSpinner";
 import AuthorizationService from "../../services/authorization/index";
 
-function NewsDeleteConfirmation({ _id, setDeleting, setNews, data }) {
+function NewsDeleteConfirmation({ _id, setDeleting, setNews, data, url }) {
   const [loading, setLoading] = useState(false);
 
   const deleteNews = () => {
@@ -19,7 +19,7 @@ function NewsDeleteConfirmation({ _id, setDeleting, setNews, data }) {
       })
       .catch((err) => console.log(err)); */
     AuthorizationService.delete(
-      process.env.REACT_APP_SERVER_BASE_URL + "/news/" + _id
+      process.env.REACT_APP_SERVER_BASE_URL + url +"/" + _id
     )
       .then((res) => {
         const newsCopy = [...data];

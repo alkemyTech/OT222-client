@@ -19,6 +19,7 @@ const BackofficesCategoriesPage = () => {
   const [editing, setEditing] = useState(false)
   const [editingData, setEditingData] = useState(null)
   const [id, setId] = useState()
+  const [deleting , setDeleting] = useState(false)
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -42,8 +43,9 @@ const BackofficesCategoriesPage = () => {
     setId(data)
   }
 
-  const onDelete = () => {
-    
+  const onDelete = (data) => {
+    setDeleting(true)
+    setId(data)
   }
 
   if (editing)
@@ -53,6 +55,12 @@ const BackofficesCategoriesPage = () => {
       </>
     )
 
+  if (deleting)
+      return(
+        <>
+          <NewsDeleteConfirmation _id={id} setDeleting={setDeleting} data={categoriesName} setNews={setCategoriesName} url='/categories'/>
+        </>
+      )
   return (
     <>
       {spinner && <LoaderSpinner />}
