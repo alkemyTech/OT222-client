@@ -34,12 +34,13 @@ const TableComponent = ({ data, onEdit, onDelete, tableHeaders }) => {
                   createdAt,
                   image,
                   alt,
-                  briefDescription,
+                  description,
                   id,
                   content,
                 }) => (
                   <Tr key={_id}>
                     {name && <Td>{name}</Td>}
+                    {description && <Td>{description}</Td>}
                     {createdAt && <Td>{createdAt}</Td>}
                     {image && (
                       <Td>

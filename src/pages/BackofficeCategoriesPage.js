@@ -66,7 +66,7 @@ const BackofficesCategoriesPage = () => {
       {spinner && <LoaderSpinner />}
       {error && <p>{errorMessage}</p>}
       <TableComponent
-        tableHeaders={["Categories"]}
+        tableHeaders={["Categories", "Description"]}
         data={categoriesName}
         onEdit={onEdit}
         onDelete={onDelete}
