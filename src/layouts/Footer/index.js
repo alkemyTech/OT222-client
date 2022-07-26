@@ -72,7 +72,7 @@ const Footer = () => {
             spacing={6}
           >
             {urlMedia.map(({ SocialMedium }, index) => (
-              <Link key={index} href={SocialMedium.url}>
+              <Link key={index} href={SocialMedium?.url}>
                 {icons[index].icon}
               </Link>
             ))}
