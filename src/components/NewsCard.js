@@ -20,7 +20,7 @@ const NewsCard = ({ element }) => {
       gap={'1rem'}
       border={'1px solid #0038FF'}
       //width={["90vw", '350px','400px','448px']}
-      w={['25vw']}
+      w={['90vw','25vw']}
       minWidth='256px'
       borderRadius={'20px'}
       padding={'1rem'}
