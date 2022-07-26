@@ -10,7 +10,6 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router';
 
 function NewsForm({ values, setEditingNews }) {
-  console.log('values', values);
   const { name, content, category, id, image } = values || {
     name: '',
     category: '',

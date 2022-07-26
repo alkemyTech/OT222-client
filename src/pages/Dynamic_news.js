@@ -21,9 +21,8 @@ const Dynamic_news = () => {
         if (res.data.message === 'Not Found!.') return setNotFound(true);
         setNewsDetail(res.data);
         setLoading(false);
-        console.log('res.data', res.data);
       })
-      .catch(err => {});
+      .catch(err => { });
     setLoading(false);
   };
 

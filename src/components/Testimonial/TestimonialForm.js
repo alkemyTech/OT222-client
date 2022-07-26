@@ -118,7 +118,6 @@ function TestimonialForm({ values, setEditing }) {
               confirmation(`Has creado el testimonio!`);
             })
             .catch(err => {
-              console.log('error', err);
               error('Error', err.response.data.errors[0].msg);
             });
         }

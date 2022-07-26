@@ -21,7 +21,6 @@ const TestimonialsUser = () => {
     getTestimony();
   }, []);
 
-  console.log(testimonio);
   return (
     <Flex
       flexDirection={'column'}

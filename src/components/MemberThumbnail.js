@@ -3,7 +3,6 @@ import React from "react";
 import { Grid } from "@chakra-ui/react";
 
 const MemberThumbnail = (props) => {
-  //console.log(props)
   return (
     <>
       <Box
@@ -19,12 +18,12 @@ const MemberThumbnail = (props) => {
           fit='cover'
         />
         <Grid
-            w='100%'
-            h='100%'
-            position='absolute'
-            top='0'
+          w='100%'
+          h='100%'
+          position='absolute'
+          top='0'
         >
-            <Text fontSize='3xl' mt='auto' mb='1rem' textAlign={'center'} fontWeight='bold' color='#fff' textShadow={'2px 2px 2px black'}>{props.member.name}</Text>
+          <Text fontSize='3xl' mt='auto' mb='1rem' textAlign={'center'} fontWeight='bold' color='#fff' textShadow={'2px 2px 2px black'}>{props.member.name}</Text>
         </Grid>
       </Box>
     </>
