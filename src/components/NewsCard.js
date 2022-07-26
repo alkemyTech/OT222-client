@@ -6,7 +6,6 @@ import axios from '../services/authorization/index';
 
 const NewsCard = ({ element }) => {
   const [newsId, setNewsId] = useState('');
-
   const getNewsById = id => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + `/news/${id}`)
@@ -20,8 +19,9 @@ const NewsCard = ({ element }) => {
       gridTemplate={'3fr 1fr / 1fr 1fr'}
       gap={'1rem'}
       border={'1px solid #0038FF'}
-      width={'448px'}
-      maxWidth={'100%'}
+      //width={["90vw", '350px','400px','448px']}
+      w={['25vw']}
+      minWidth='256px'
       borderRadius={'20px'}
       padding={'1rem'}
       backgroundColor={'#7E9AFD'}
@@ -30,8 +30,8 @@ const NewsCard = ({ element }) => {
         objectFit={'cover'}
         borderRadius={'20px'}
         height={'100%'}
-        src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
-        // src={element.image}
+        //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
+        src={element.image}
         alt={element.name}
         gridArea={'1 / 1 / 3 / 2'}
       />
@@ -41,7 +41,7 @@ const NewsCard = ({ element }) => {
         textAlign={'center'}
         margin={'auto'}
       >
-        {element.name}{' '}
+        {element.content}{' '}
       </Text>
       <Link to={`/news/${element.id}`}>
         <Button

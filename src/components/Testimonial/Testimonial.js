@@ -24,8 +24,9 @@ const Testimonial = () => {
       flexDirection={'column'}
       width={'100%'}
       textAlign={'center'}
-      height={{ base: '425vh', sm: '235vh', md: '165vh', lg: '1022px' }}
+      height={'auto'}
       align={'center'}
+      mb='5vh'
     >
       <Text
         mt={'30px'}
