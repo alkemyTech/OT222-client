@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../../services/authorization';
+
 import {
   TableContainer,
   Table,
@@ -41,45 +42,47 @@ function UsersTable() {
       ></DeleteConfirmation>
     );
   return (
-    <TableContainer width={'90%'}>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Nombre</Th>
-            <Th>Apellido</Th>
-            <Th>Email</Th>
-            <Th>Editar</Th>
-            <Th>Eliminar</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {users.map(user => (
-            <Tr key={user.id}>
-              <Td>{user.firstName}</Td>
-              <Td>{user.lastName}</Td>
-              <Td>{user.email}</Td>
-              <Td>
-                <Button size="sm" onClick={() => setEditing(user)}>
-                  Editar
-                </Button>
-              </Td>
-              <Td>
-                {loggedUser.id !== user.id && (
-                  <Button
-                    colorScheme="red"
-                    variant="solid"
-                    size="sm"
-                    onClick={() => setDeleting(user)}
-                  >
-                    Eliminar
-                  </Button>
-                )}
-              </Td>
+    <>
+      <TableContainer width={'90%'}>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Nombre</Th>
+              <Th>Apellido</Th>
+              <Th>Email</Th>
+              <Th>Editar</Th>
+              <Th>Eliminar</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody>
+            {users.map(user => (
+              <Tr key={user.id}>
+                <Td>{user.firstName}</Td>
+                <Td>{user.lastName}</Td>
+                <Td>{user.email}</Td>
+                <Td>
+                  <Button size="sm" onClick={() => setEditing(user)}>
+                    Editar
+                  </Button>
+                </Td>
+                <Td>
+                  {loggedUser.id !== user.id && (
+                    <Button
+                      colorScheme="red"
+                      variant="solid"
+                      size="sm"
+                      onClick={() => setDeleting(user)}
+                    >
+                      Eliminar
+                    </Button>
+                  )}
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 export default UsersTable;

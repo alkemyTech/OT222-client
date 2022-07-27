@@ -1,45 +1,51 @@
-import React, {useState } from "react";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import BackButton from '../components/Buttons/BackButton';
 import {
   Grid,
   Input,
   Text,
+  Flex,
   Button,
   FormLabel,
   Box,
   useTheme,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 const ProfilePage = () => {
-
   const user = {
-    firstName: "firstname",
-    lastName: "lastname",
-    email: "user@gmail.com",
+    firstName: 'firstname',
+    lastName: 'lastname',
+    email: 'user@gmail.com',
   };
   const [edit, setEdit] = useState(true);
   const theme = useTheme();
   return (
     <>
+      <Flex pt="10px" pr={'10px'} justify={'flex-end'}>
+        <Link to={'/backoffice'}>
+          <BackButton />
+        </Link>
+      </Flex>
       <Grid
         w="100vw"
-        justifyContent={"center"}
+        justifyContent={'center'}
         alignContent="center"
-        h={"85vh"}
+        h={'85vh'}
       >
         <Grid
-          w={["100vw", "70vw", "60vw","40vw"]}
+          w={['100vw', '70vw', '60vw', '40vw']}
           bg="#f7f7f7"
           mt="auto"
           mb="auto"
           gap="3vh"
           pb="5vh"
-          
         >
-          <Text justifySelf="center" fontSize={"4xl"}>
-            {" "}
+          <Text justifySelf="center" fontSize={'4xl'}>
+            {' '}
             Mis datos
           </Text>
 
-          <Box w={["50vw", "30vw", "20vw"]} ml="5vw">
+          <Box w={['50vw', '30vw', '20vw']} ml="5vw">
             <FormLabel>Nombre</FormLabel>
             <Input
               bg="#fff"
@@ -48,7 +54,7 @@ const ProfilePage = () => {
               isDisabled={edit}
             />
           </Box>
-          <Box w={["50vw", "30vw", "20vw"]} ml="5vw">
+          <Box w={['50vw', '30vw', '20vw']} ml="5vw">
             <FormLabel>Apellido</FormLabel>
             <Input
               bg="#fff"
@@ -57,7 +63,7 @@ const ProfilePage = () => {
               isDisabled={edit}
             />
           </Box>
-          <Box w={["50vw", "30vw", "20vw"]} ml="5vw">
+          <Box w={['50vw', '30vw', '20vw']} ml="5vw">
             <FormLabel>Correo</FormLabel>
             <Input
               bg="#fff"
@@ -69,7 +75,7 @@ const ProfilePage = () => {
 
           <Button
             onClick={() => setEdit(!edit)}
-            w={["40vw", "20vw"]}
+            w={['40vw', '20vw']}
             bg={theme.colors.secondary}
             ml="5vw"
           >
@@ -77,7 +83,7 @@ const ProfilePage = () => {
           </Button>
           <Button
             //onClick={} save changes
-            w={["40vw", "20vw"]}
+            w={['40vw', '20vw']}
             bg={theme.colors.tertiary}
             ml="5vw"
           >
@@ -85,7 +91,7 @@ const ProfilePage = () => {
           </Button>
           <Button
             //onClick={} delete account
-            w={["40vw", "20vw"]}
+            w={['40vw', '20vw']}
             bg={theme.colors.primary}
             ml="5vw"
           >

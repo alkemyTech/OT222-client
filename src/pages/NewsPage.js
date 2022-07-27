@@ -29,12 +29,12 @@ const NewsPage = () => {
       <Text fontSize={['36px']} fontWeight={'bold'} textAlign={'center'}>
         Novedades
       </Text>
-      <Flex
-        justifyContent={'center'}
-        wrap={'wrap'}
-        gap={'1rem'}
-      >
-        {data.length === 0 && <Text fontSize={'26px'} textAlign={'center'} >No se han encontrado novedades</Text>}
+      <Flex justifyContent={'center'} wrap={'wrap'} gap={'1rem'}>
+        {data.length === 0 && (
+          <Text fontSize={'26px'} textAlign={'center'}>
+            No se han encontrado novedades
+          </Text>
+        )}
         {data.map(dato => {
           return <NewsCard element={dato} key={dato.id} />;
         })}

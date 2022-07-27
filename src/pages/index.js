@@ -22,6 +22,7 @@ import TestimonialTable from '../components/TestimonialTable/TestimonialTable';
 import BackOfficeContactsListPage from './BackofficeContactsList';
 import BackofficeStaffPage from './BackofficeStaffPage';
 import AddNewPage from './AddNewPage';
+import AddActivityPage from './AddActivityPage';
 export const Home = () => {
   return <HomePage />;
 };
@@ -89,6 +90,9 @@ export const BackofficeCategories = () => {
 };
 export const AddTestimony = () => {
   return <AddTestimonyPage />;
+};
+export const AddActivity = () => {
+  return <AddActivityPage />;
 };
 
 export const AddNew = () => {

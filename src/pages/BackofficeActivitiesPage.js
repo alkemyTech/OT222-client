@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 // Components
 import TableComponent from '../components/TableComponent';
 import LoaderSpinner from '../components/LoaderSpinner';
-import ActivityForm from '../components/Activity/ActivityForm';
+import ActivityTable from '../components/Activity/ActivityTable';
+
 // Modals
 import Warning from '../modals/Warning';
 import Fields from '../modals/Fields';
@@ -10,7 +11,7 @@ import Fields from '../modals/Fields';
 import { confirmation, error } from '../services/alerts';
 // Utils: newsData
 import activitiesData from '../utils/activitiesData';
-const tableHeaders = ['Name', 'Actions'];
+const tableHeaders = ['Imagen', 'Nombre', 'Contenido', 'Editar', 'Eliminar'];
 const BackofficeActivitiesPage = () => {
   // arrs
   const [activities, setActivities] = useState([...activitiesData]);
@@ -100,13 +101,7 @@ const BackofficeActivitiesPage = () => {
           onChange={handleInput}
         />
       )}
-      <TableComponent
-        tableHeaders={tableHeaders}
-        data={activities}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-      <ActivityForm />
+      <ActivityTable />
     </>
   );
 };
