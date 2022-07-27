@@ -21,6 +21,7 @@ import {
   BackofficeCategories,
   SignUp,
   AddNew,
+  AddActivity,
   AddTestimony,
   ContactsTable,
   BackofficeStaff,
@@ -69,6 +70,7 @@ function App() {
         <Route path="/news/:id" element={<DynamicNews />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/add-testimony" element={<AddTestimony />} />
+        <Route path="/add-activity" element={<AddActivity />} />
         <Route path="/add-new" element={<AddNew />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path="/contact" element={<Contact />} />

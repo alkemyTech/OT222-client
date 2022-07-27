@@ -5,9 +5,10 @@ import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import { confirmation, error } from '../../services/alerts';
 
-function ActivityForm({ values }) {
+function ActivityForm({ values, setEditing }) {
   const { name, content, id } = values || {
     name: '',
     content: '',
@@ -88,6 +89,8 @@ function ActivityForm({ values }) {
               error('Error', err.response.data.errors[0].msg);
             });
         }
+
+        setEditing(null);
       })
       .catch(err => {
         error('Error', err);
@@ -182,6 +185,41 @@ function ActivityForm({ values }) {
             {`${editOrCreate}`}
           </Button>
         </Stack>
+      </Flex>
+
+      <Flex
+        flexDirection={'column'}
+        alignItems={'flex-start'}
+        pr={{ base: '4px', sm: '238px', md: '468px', lg: '807px' }}
+        mt={'5%'}
+        ml={{ base: '15px', sm: '15px', md: '100px', lg: '227px' }}
+        mb="70px"
+      >
+        <Link to={'/backoffice/activities'}>
+          <Button
+            background={'red'}
+            color={'white'}
+            fontWeight={'bold'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            borderRadius={'15px'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            onClick={() => (!!setEditing ? setEditing(null) : null)}
+          >
+            ¡Volver a Actividades!
+          </Button>
+        </Link>
+        <Link to={'/'}>
+          <Button
+            mt={'20px'}
+            fontSize={['xs', 'xs', 'md', 'md']}
+            background={'white'}
+            boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+            borderRadius={'15px'}
+          >
+            {' '}
+            Ir al inicio
+          </Button>
+        </Link>
       </Flex>
     </FormikProvider>
   );

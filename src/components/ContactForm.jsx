@@ -72,16 +72,16 @@ const ContactForm = () => {
               });
             //changeForm(true);
             //  setTimeout(()=>changeForm(false,500000))
-              try {
-                axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/contacts`, {
-                  headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                  },
-                  messageObject
-                })
-              } catch (error) {
-                console.log(error)
-              }
+            try {
+              axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/contacts`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                messageObject,
+              });
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           {({ errors }) => (
@@ -90,9 +90,12 @@ const ContactForm = () => {
               className="form"
               flexDirection={'column'}
               gap={'20px'}
-              width={'80%'}
+              width={'70%'}
             >
-              <Flex fontWeight={'bold'} fontSize={'24px'}>
+              <Flex
+                fontWeight={'bold'}
+                fontSize={['9px', '20px', '20px', '25px']}
+              >
                 ¡Contactate con nosotros!
               </Flex>
 
@@ -131,8 +134,8 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <Field
-                  as={Textarea}
+                <Textarea
+                  height={'20vh'}
                   boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
                   name="messageText"
                   placeholder="Escribe tu consulta..."
@@ -144,10 +147,11 @@ const ContactForm = () => {
                   )}
                 />
               </div>
-              <Stack width={['40%']}>
+              <Flex>
                 <Button
                   mt={5}
                   rounded={10}
+                  width={['140%', '80%', '50%']}
                   background={'#0038FF'}
                   size={['xs', 'xs', 'lg', 'md']}
                   color={'white'}
@@ -156,7 +160,7 @@ const ContactForm = () => {
                 >
                   Enviar consulta
                 </Button>
-              </Stack>
+              </Flex>
             </Flex>
           )}
         </Formik>

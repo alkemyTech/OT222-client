@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { Box, Flex, Text } from "@chakra-ui/react"
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Box, Flex, Text } from '@chakra-ui/react';
 // Utils: activies
-import activitiesData from "../utils/activitiesData"
+import activitiesData from '../utils/activitiesData';
 const ActivitiesPage = () => {
-  const [activityDeatils, setActivityDetails] = useState(Array)
-  const [error, setError] = useState(Boolean)
+  const [activityDeatils, setActivityDetails] = useState(Array);
+  const [error, setError] = useState(Boolean);
 
-  const { activityId } = useParams()
+  const { activityId } = useParams();
 
-  const getActivityDetails = (id) => {
-    setError(false)
-    const response = activitiesData.find(({ _id }) => _id === id)
+  const getActivityDetails = id => {
+    setError(false);
+    const response = activitiesData.find(({ _id }) => _id === id);
     if (!response) {
-      setError(true)
-      return
+      setError(true);
+      return;
     }
-    return response
-  }
+    return response;
+  };
 
   useEffect(() => {
-    setActivityDetails(getActivityDetails(activityId))
-  }, [activityId])
+    setActivityDetails(getActivityDetails(activityId));
+  }, [activityId]);
 
-  if (!activityId) return <div>This is the activities page</div>
+  if (!activityId) return <div>This is the activities page</div>;
 
   return (
     <Flex
@@ -50,7 +50,7 @@ const ActivitiesPage = () => {
         </Box>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default ActivitiesPage
+export default ActivitiesPage;

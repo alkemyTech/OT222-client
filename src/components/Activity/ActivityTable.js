@@ -16,31 +16,30 @@ import {
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from '../../services/authorization';
-import TestimonyDeleteConfirmation from './TestimonyDeleteConfirmation';
-import TestimonialForm from '../Testimonial/TestimonialForm';
+import ActivityDeleteConfirmation from './ActivityDeleteConfirmation';
+import ActivityForm from './ActivityForm';
 import { Link } from 'react-router-dom';
 
-const TestimonialTable = () => {
-  const [testimonial, setTestimonial] = useState([]);
+function ActivityTable() {
+  const [Activities, setActivities] = useState([]);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
-      .then(res => setTestimonial(res.data.testimonials))
+      .get(process.env.REACT_APP_SERVER_BASE_URL + '/activities')
+      .then(res => setActivities(res.data))
       .catch(err => console.log(err));
   }, [editing, deleting]);
 
-  if (editing)
-    return <TestimonialForm values={editing} setEditing={setEditing} />;
+  if (editing) return <ActivityForm values={editing} setEditing={setEditing} />;
 
   if (deleting)
     return (
-      <TestimonyDeleteConfirmation
-        testimonio={deleting}
+      <ActivityDeleteConfirmation
+        activity={deleting}
         setDeleting={setDeleting}
-      ></TestimonyDeleteConfirmation>
+      ></ActivityDeleteConfirmation>
     );
   return (
     <>
@@ -57,7 +56,7 @@ const TestimonialTable = () => {
           fontWeight={'bold'}
           textAlign={'center'}
         >
-          Testimonios
+          Actividades
         </Text>
       </Flex>
       <Flex justifyContent={'center'} flexDirection={'column'} align="center">
@@ -71,33 +70,35 @@ const TestimonialTable = () => {
               <Tr>
                 <Th fontSize={['8px', '10px', '12px', '16px']}>Imagen</Th>
                 <Th fontSize={['8px', '10px', '12px', '16px']}>Nombre</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Testimonio</Th>
+                <Th fontSize={['8px', '10px', '12px', '16px']}>Actividad</Th>
                 <Th fontSize={['8px', '10px', '12px', '16px']}>Editar</Th>
                 <Th fontSize={['8px', '10px', '12px', '16px']}>Eliminar</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {testimonial.map(testimonio => (
-                <Tr key={testimonio.id}>
+              {Activities.map(activity => (
+                <Tr key={activity.id}>
                   <Td fontSize={['8px', '10px', '12px', '16px']}>
                     <Image
                       width={['20px', '40px', '50px', '50px']}
                       height={['20px', '40px', '50px', '50px']}
                       borderRadius={'50%'}
-                      src={testimonio.image}
+                      src={activity.image}
                     />
                   </Td>
                   <Td fontSize={['8px', '10px', '12px', '16px']}>
-                    {testimonio.name}
+                    {activity.name}
                   </Td>
                   <Td
                     fontSize={['8px', '10px', '12px', '16px']}
-                    dangerouslySetInnerHTML={{ __html: testimonio.content }}
+                    dangerouslySetInnerHTML={{
+                      __html: `${activity.content.substring(0, 40)}...`,
+                    }}
                   ></Td>
                   <Td>
                     <Button
                       size={['20px', 'xs', 'sm']}
-                      onClick={() => setEditing(testimonio)}
+                      onClick={() => setEditing(activity)}
                     >
                       <EditIcon />
                     </Button>
@@ -108,7 +109,7 @@ const TestimonialTable = () => {
                         colorScheme="red"
                         variant="solid"
                         size={['20px', 'xs', 'sm']}
-                        onClick={() => setDeleting(testimonio)}
+                        onClick={() => setDeleting(activity)}
                       >
                         <DeleteIcon />
                       </Button>
@@ -132,7 +133,7 @@ const TestimonialTable = () => {
             '2xl': '1510',
           }}
         >
-          <Link to={'/add-testimony'}>
+          <Link to={'/add-activity'}>
             <Button
               background={'red'}
               color={'white'}
@@ -141,7 +142,7 @@ const TestimonialTable = () => {
               borderRadius={'15px'}
               boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
             >
-              ¡Agregar mi Testimonio!
+              ¡Agregar Actividad!
             </Button>
           </Link>
           <Link to={'/'}>
@@ -160,5 +161,6 @@ const TestimonialTable = () => {
       </Flex>
     </>
   );
-};
-export default TestimonialTable;
+}
+
+export default ActivityTable;
