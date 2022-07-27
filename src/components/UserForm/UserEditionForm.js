@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
 import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
 import * as Yup from 'yup';
+import axios from '../../services/authorization/index';
+import { confirmation } from '../../services/alerts/index';
 
 function UserEditionForm({ user, setEditing }) {
   const { firstName, lastName, roleId, isAdmin } = user;
@@ -28,7 +30,15 @@ function UserEditionForm({ user, setEditing }) {
   });
 
   const onSubmit = (values, actions) => {
-    actions.resetForm();
+    console.log(values);
+    axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.id}`, values)
+      .then((res) => {
+        setEditing(false);
+        confirmation('Usuario editado con éxito');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const formik = useFormik({
