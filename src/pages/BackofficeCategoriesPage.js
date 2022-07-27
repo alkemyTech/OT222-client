@@ -19,7 +19,7 @@ const BackofficesCategoriesPage = () => {
   const [editing, setEditing] = useState(false)
   const [editingData, setEditingData] = useState(null)
   const [id, setId] = useState()
-  const [deleting , setDeleting] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -51,22 +51,22 @@ const BackofficesCategoriesPage = () => {
   if (editing)
     return (
       <>
-        <CategoriesEditing setEditingData={setEditingData} setEditing={setEditing} _id={id} data={categoriesName} setCategoriesName={setCategoriesName}/>
+        <CategoriesEditing setEditingData={setEditingData} setEditing={setEditing} _id={id} data={categoriesName} setCategoriesName={setCategoriesName} />
       </>
     )
 
   if (deleting)
-      return(
-        <>
-          <NewsDeleteConfirmation _id={id} setDeleting={setDeleting} data={categoriesName} setNews={setCategoriesName} url='/categories'/>
-        </>
-      )
+    return (
+      <>
+        <NewsDeleteConfirmation _id={id} setDeleting={setDeleting} data={categoriesName} setNews={setCategoriesName} url='/categories' />
+      </>
+    )
   return (
     <>
       {spinner && <LoaderSpinner />}
       {error && <p>{errorMessage}</p>}
       <TableComponent
-        tableHeaders={["Categories", "Description"]}
+        tableHeaders={["Categories", "Actions"]}
         data={categoriesName}
         onEdit={onEdit}
         onDelete={onDelete}
