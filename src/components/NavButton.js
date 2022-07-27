@@ -6,7 +6,7 @@ const NavButton = ({ name, path, color, mobile, setMobile }) => {
   const navigate = useNavigate();
 
   const onClick = () => {
-    if(mobile) setMobile(false)
+    setMobile(false)
     navigate(path);
   };
 
@@ -25,7 +25,6 @@ const NavButton = ({ name, path, color, mobile, setMobile }) => {
       px={['4vw', '4vw', '2vw', '2vw']}
       py="2vh"
       display={'flex'}
-
     >
       <Text alignSelf={"center"}>{name}</Text>
     </Flex>

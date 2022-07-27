@@ -114,12 +114,13 @@ const Navbar = ({ mobile, setMobile }) => {
           </Button>
         ) : (
           <>
-            <NavButton name="Log In" path="/login" mobile={false} />
+            <NavButton name="Log In" path="/login" mobile={false} setMobile={setMobile}/>
             <NavButton
               name="Registrarse"
               path="/register"
               color="red"
               mobile={false}
+              setMobile={setMobile}
             />
           </>
         )}

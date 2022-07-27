@@ -16,7 +16,7 @@ import StaffThumbnail from '../components/StaffThumbnail';
 import TestimonialCard from '../components/Testimonial/TestimonialCard';
 import NewsCard from '../components/NewsCard';
 import VerTodos from '../components/VerTodos';
-
+import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
   const [staff, setStaff] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
@@ -48,6 +48,8 @@ const HomePage = () => {
     getNewsData();
   }, []);
 
+  const navigate = useNavigate()
+
   return (
     <Grid ml="5vw" mr="5vw" mt="5vh" mb="5vh" gap="15vh">
       {/* <Carousel /> */}
@@ -77,6 +79,10 @@ const HomePage = () => {
             justifyContent="center"
             borderRadius="30px"
             mt="5vh"
+            onClick={() => {
+              navigate('/contact')
+            }}
+            cursor='pointer'
           >
             <Text
               fontSize="2xl"
