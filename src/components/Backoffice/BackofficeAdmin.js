@@ -73,11 +73,12 @@ const BackofficeAdmin = () => {
   return (
     <Flex justifyContent={'center'}>
       <Grid
-        gridTemplateColumns={['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr 1fr']}
+        gridTemplateColumns={['1fr', '1fr', '1fr 1fr 1fr 1fr']}
         gridGap={'10px'}
         width={'80%'}
         textAlign={'center'}
         justifySelf={'center'}
+        marginY={'2rem'}
       >
         {data.map(dato => {
           return <BackofficeCard key={dato.id} element={dato} />;
