@@ -48,13 +48,6 @@ const BackofficeAdmin = () => {
       route: '/backoffice/edit-organization',
     },
     {
-      id: 6,
-      img: slidesIcon,
-      alt: 'slides-icon',
-      title: 'Slides',
-      route: '',
-    },
-    {
       id: 7,
       img: testimoniosIcon,
       alt: 'testimonios-icon',

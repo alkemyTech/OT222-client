@@ -9,13 +9,14 @@ const Testimonial = () => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
       .then(res => {
-        const testimonials = res.data;
+        /* const testimonials = res.data;
         const testimonyIndex = testimonials.length - 12;
-        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length));
+        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length)); */
+        setTestimonio(res.data)
       })
       .catch(err => console.log(err));
   };
-
+  console.log(testimonio)
   useEffect(() => {
     getTestimony();
   }, []);

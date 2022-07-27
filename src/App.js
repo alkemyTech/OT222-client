@@ -71,7 +71,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/add-testimony" element={<AddTestimony />} />
         <Route path="/add-activity" element={<AddActivity />} />
-        <Route path="/add-new" element={<AddNew />} />
+        <Route path="/backoffice/add-new" element={<AddNew />} />
         <Route path="/contribute" element={<Contribute />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/backoffice/changeHomeForm" element={<Backoffice />} />
