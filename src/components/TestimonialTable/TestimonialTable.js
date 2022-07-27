@@ -7,8 +7,8 @@ import {
   Thead,
   Tr,
   Th,
-  Text,
   Tbody,
+  Text,
   Td,
   Button,
   Flex,
@@ -24,6 +24,7 @@ const TestimonialTable = () => {
   const [testimonial, setTestimonial] = useState([]);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  console.log(testimonial);
 
   useEffect(() => {
     axios

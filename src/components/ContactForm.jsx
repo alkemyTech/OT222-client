@@ -9,6 +9,17 @@ const ContactForm = () => {
   const messageArray = [];
   const [loading, setLoading] = useState(false);
 
+  const editForm = id => {
+    axios
+      .put(process.env.REACT_APP_SERVER_BASE_URL + `/contacts/${id}`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   if (loading) return <LoaderSpinner></LoaderSpinner>;
 
   return (
@@ -45,6 +56,7 @@ const ContactForm = () => {
             return error;
           }}
           onSubmit={async (values, { resetForm }) => {
+            editForm();
             setLoading(true);
             let messageObject = {
               name: values.name,
