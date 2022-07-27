@@ -41,27 +41,16 @@ const BackofficeNewsPage = () => {
   if (deleting)
     return (
       <NewsDeleteConfirmation
-        news={deleting}
+        _id={deleting}
         setDeleting={setDeleting}
+        data={news}
+        setNews={setNews}
+        url='/news'
       ></NewsDeleteConfirmation>
     );
 
   const onDelete = _id => {
-    AuthorizationService.delete(
-      process.env.REACT_APP_SERVER_BASE_URL + '/news/' + _id
-    )
-      .then(res => {
-        const newsCopy = [...news];
-        newsCopy.splice(
-          newsCopy.findIndex(function (i) {
-            return i.id === _id;
-          }),
-          1
-        );
-        setNews(newsCopy);
-        confirmation('Ha sido borrado con éxito.');
-      })
-      .catch(err => console.log(err));
+      setDeleting(_id)
   };
 
   const onEdit = data => {
