@@ -18,12 +18,14 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from '../../services/authorization';
 import ActivityDeleteConfirmation from './ActivityDeleteConfirmation';
 import ActivityForm from './ActivityForm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ActivityTable() {
   const [Activities, setActivities] = useState([]);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -64,37 +66,33 @@ function ActivityTable() {
           <Table
             variant="striped"
             align="center"
-            size={['400px', '600px', 'md', 'md']}
           >
             <Thead>
               <Tr>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Imagen</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Nombre</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Actividad</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Editar</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Eliminar</Th>
+                <Th>Imagen</Th>
+                <Th>Nombre</Th>
+                <Th>Actividad</Th>
+                <Th>Editar</Th>
+                <Th>Eliminar</Th>
               </Tr>
             </Thead>
             <Tbody>
               {Activities.map(activity => (
                 <Tr key={activity.id}>
-                  <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  <Td>
                     <Image
-                      width={['20px', '40px', '50px', '50px']}
-                      height={['20px', '40px', '50px', '50px']}
+                      width={'50px'}
+                      height={'50px'}
+                      objectFit={'cover'}
                       borderRadius={'50%'}
                       src={activity.image}
                     />
                   </Td>
-                  <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  <Td>
                     {activity.name}
                   </Td>
                   <Td
-                    fontSize={['8px', '10px', '12px', '16px']}
-                    dangerouslySetInnerHTML={{
-                      __html: `${activity.content.substring(0, 40)}...`,
-                    }}
-                  ></Td>
+                  >`${activity.content.substring(0, 40)}...`</Td>
                   <Td>
                     <Button
                       size={['20px', 'xs', 'sm']}
@@ -108,7 +106,6 @@ function ActivityTable() {
                       <Button
                         colorScheme="red"
                         variant="solid"
-                        size={['20px', 'xs', 'sm']}
                         onClick={() => setDeleting(activity)}
                       >
                         <DeleteIcon />
@@ -122,41 +119,26 @@ function ActivityTable() {
         </TableContainer>
         <Flex
           flexDirection={'column'}
-          alignItems={'flex-start'}
-          mt="20px"
+          alignItems={'center'}
           mb="30px"
-          mr={{
-            base: '4px',
-            sm: '495px',
-            md: '700px',
-            xl: '1110px',
-            '2xl': '1510',
-          }}
+          gap={'20px'}
         >
-          <Link to={'/add-activity'}>
-            <Button
-              background={'red'}
-              color={'white'}
-              fontWeight={'bold'}
-              fontSize={['xs', 'xs', 'ms', 'ms']}
-              borderRadius={'15px'}
-              boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-            >
-              ¡Agregar Actividad!
-            </Button>
-          </Link>
-          <Link to={'/'}>
-            <Button
-              mt={'20px'}
-              fontSize={['xs', 'xs', 'ms', 'ms']}
-              background={'white'}
-              boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-              borderRadius={'15px'}
-            >
-              {' '}
-              Ir al inicio
-            </Button>
-          </Link>
+          <Button
+            variant='login'
+            onClick={() => navigate('/add-activity')}
+            maxWidth={'90%'}
+          >
+            ¡Agregar Actividad!
+          </Button>
+          <Button
+            variant='login'
+            maxWidth={'90%'}
+            backgroundColor={'#f5f5f5'}
+            color={'#000'}
+            onClick={() => navigate('/')}
+          >
+            Ir al inicio
+          </Button>
         </Flex>
       </Flex>
     </>
