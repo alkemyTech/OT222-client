@@ -56,7 +56,7 @@ const Header = () => {
         zIndex='2'
       >
         <Image src={publicAssets.img} />
-        <Navbar mobile={false} />
+        <Navbar mobile={false} setMobile={setMobile}/>
 
         <Icon
           as={CgMenu}
