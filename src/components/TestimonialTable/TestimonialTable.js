@@ -28,7 +28,7 @@ const TestimonialTable = () => {
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
-      .then(res => setTestimonial(res.data.testimonials))
+      .then(res => setTestimonial(res.data))
       .catch(err => console.log(err));
   }, [editing, deleting]);
 
