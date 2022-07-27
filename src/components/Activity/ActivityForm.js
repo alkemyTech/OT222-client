@@ -117,7 +117,6 @@ function ActivityForm({ values, setEditing }) {
         width={{ base: '90%', sm: '90%', md: '50%', lg: '50%' }}
         ml={'5%'}
         mt={'3%'}
-        mb={'10%'}
         boxShadow="dark-lg"
         rounded="ms"
         bg="white"
@@ -192,7 +191,7 @@ function ActivityForm({ values, setEditing }) {
         alignItems={'flex-start'}
         pr={{ base: '4px', sm: '238px', md: '468px', lg: '807px' }}
         mt={'5%'}
-        ml={{ base: '15px', sm: '15px', md: '100px', lg: '227px' }}
+        ml={{ base: '15px', sm: '15px', md: '100px', lg: '80px' }}
         mb="70px"
       >
         <Link to={'/backoffice/activities'}>

@@ -10,7 +10,7 @@ const TestimonialsUser = () => {
     axios
       .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
       .then(res => {
-        const testimonials = res.data.testimonials;
+        const testimonials = res.data;
         const testimonyIndex = testimonials.length - 12;
         setTestimonio(testimonials.slice(testimonyIndex, testimonials.length));
       })

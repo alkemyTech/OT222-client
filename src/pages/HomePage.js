@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import Carousel from "../components/Carousel";
-import hands from "../assets/hands.png";
+import Carousel from '../components/Carousel';
+import hands from '../assets/hands.png';
 import {
   Box,
   Flex,
@@ -10,12 +10,12 @@ import {
   Text,
   Icon,
   SimpleGrid,
-} from "@chakra-ui/react";
-import axios from "axios";
-import StaffThumbnail from "../components/StaffThumbnail";
-import TestimonialCard from "../components/Testimonial/TestimonialCard";
-import NewsCard from "../components/NewsCard";
-import VerTodos from "../components/VerTodos";
+} from '@chakra-ui/react';
+import axios from 'axios';
+import StaffThumbnail from '../components/StaffThumbnail';
+import TestimonialCard from '../components/Testimonial/TestimonialCard';
+import NewsCard from '../components/NewsCard';
+import VerTodos from '../components/VerTodos';
 
 const HomePage = () => {
   const [staff, setStaff] = useState([]);
@@ -25,20 +25,22 @@ const HomePage = () => {
     const getStaffData = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVER_BASE_URL}/members`)
-        .then((res) => {
+        .then(res => {
           setStaff(res.data.slice(0, 5));
         });
     };
     const getTestimonialData = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVER_BASE_URL}/testimonials`)
-        .then((res) => setTestimonials(res.data.testimonials.slice(0, 5)));
+        .then(res => {
+          setTestimonials(res.data.slice(0, 5));
+        });
     };
 
     const getNewsData = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVER_BASE_URL}/news`)
-        .then((res) => setNews(res.data.slice(0, 3)));
+        .then(res => setNews(res.data.slice(0, 3)));
     };
 
     getStaffData();
@@ -49,14 +51,14 @@ const HomePage = () => {
   return (
     <Grid ml="5vw" mr="5vw" mt="5vh" mb="5vh" gap="15vh">
       {/* <Carousel /> */}
-      <Grid autoFlow={["row", "row", "row", "column", "column"]} w="90vw">
+      <Grid autoFlow={['row', 'row', 'row', 'column', 'column']} w="90vw">
         <Box
-          w={["90vw", "90vw", "90vw", "35vw", "35vw"]}
+          w={['90vw', '90vw', '90vw', '35vw', '35vw']}
           h="auto"
           mr="15vw"
           mt="15vh"
         >
-          <Text fontSize={["4xl", "5xl"]} fontWeight="bold">
+          <Text fontSize={['4xl', '5xl']} fontWeight="bold">
             ¡Hola! Bienvenidxs.
           </Text>
           <Text fontSize="2xl" mt="5vh">
@@ -69,7 +71,7 @@ const HomePage = () => {
             nisi ad officia voluptate cillum commodo.
           </Text>
           <Flex
-            w={["90vw", "30vw", "30vw", "15vw"]}
+            w={['90vw', '30vw', '30vw', '15vw']}
             h="5rem"
             bg="red"
             justifyContent="center"
@@ -87,11 +89,11 @@ const HomePage = () => {
           </Flex>
         </Box>
         <Flex
-          w={["90vw", "90vw", "90vw", "40vw", "40vw"]}
-          h={"80vh"}
+          w={['90vw', '90vw', '90vw', '40vw', '40vw']}
+          h={'80vh'}
           justifyContent="center"
           alignSelf="center"
-          display={["none", "none", "none", "flex", "flex"]}
+          display={['none', 'none', 'none', 'flex', 'flex']}
         >
           <Image
             src={hands}
@@ -106,16 +108,16 @@ const HomePage = () => {
 
       <Grid w="90vw" h="auto">
         <Flex mb="5vh">
-          <Text fontSize={["xl", "3xl", "5xl"]} fontWeight="semibold">
+          <Text fontSize={['xl', '3xl', '5xl']} fontWeight="semibold">
             Nuestro Staff!
           </Text>
 
           <VerTodos path="/staff" />
         </Flex>
         <Flex
-          wrap={"wrap"}
-          justifyContent={["center", "center", "space-between"]}
-          gap={["3vh", "3vh", "0", "0"]}
+          wrap={'wrap'}
+          justifyContent={['center', 'center', 'space-between']}
+          gap={['3vh', '3vh', '0', '0']}
           h="auto"
         >
           {staff.map(({ image, name }, index) => (
@@ -127,15 +129,15 @@ const HomePage = () => {
       </Grid>
       <Grid>
         <Flex mb="5vh" w="90vw">
-          <Text fontSize={["xl", "3xl", "5xl"]} fontWeight="semibold">
+          <Text fontSize={['xl', '3xl', '5xl']} fontWeight="semibold">
             Testimonios
           </Text>
           <VerTodos path="/testimonials" />
         </Flex>
         <Flex
           wrap="wrap"
-          justifyContent={["center", "center", "space-between"]}
-          gap={["3vh", "3vh", "3vh"]}
+          justifyContent={['center', 'center', 'space-between']}
+          gap={['3vh', '3vh', '3vh']}
         >
           {testimonials.map((props, index) => (
             <>
@@ -146,15 +148,15 @@ const HomePage = () => {
       </Grid>
       <Grid mb="10vh" w="90vw">
         <Flex mb="5vh" w="90vw">
-          <Text fontSize={["xl", "3xl", "5xl"]} fontWeight="semibold">
+          <Text fontSize={['xl', '3xl', '5xl']} fontWeight="semibold">
             Novedades
           </Text>
           <VerTodos path="/news" />
         </Flex>
         <Flex
           wrap="wrap"
-          justifyContent={["center", "center", "space-between"]}
-          gap={["3vh", "3vh", "3vh"]}
+          justifyContent={['center', 'center', 'space-between']}
+          gap={['3vh', '3vh', '3vh']}
         >
           {news.map((props, index) => (
             <>
