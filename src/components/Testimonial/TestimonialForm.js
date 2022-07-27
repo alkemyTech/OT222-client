@@ -10,10 +10,6 @@ import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
 function TestimonialForm({ values, setEditing }) {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isEditionForm, setIsEditionForm] = useState(false);
-
-  const navigate = useNavigate();
   const { name, image, content, id } = values || {
     name: '',
     content: '',
@@ -23,6 +19,13 @@ function TestimonialForm({ values, setEditing }) {
     content,
     image: '',
   };
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isEditionForm, setIsEditionForm] = useState(false);
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState();
+
+  const navigate = useNavigate();
 
   var myHeaders = new Headers();
   myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
@@ -75,60 +78,60 @@ function TestimonialForm({ values, setEditing }) {
     content: Yup.string().required('Por favor escribe un contenido'),
   });
 
-  const onSubmit = (values, actions) => {
-    // const data = new FormData();
-    //   data.append('file', values.image);
-    //   data.append('key', 'testimonials' + res.data.testimonials.id);
-    //   AuthorizationService.post('files', {
-    //     data,
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     }
-    AuthorizationService.post(
-      'files',
-      { file: values.image, key: values.image.name },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
+  const postImage = () => {
+    var formdata = new FormData();
+    formdata.append('file', file, fileName);
+    formdata.append('key', fileName);
 
-        if (isEditionForm) {
-          AuthorizationService.put(`/testimonials/${id}`, {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation('Has editado el testimonio!');
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        } else {
-          AuthorizationService.post('/testimonials', {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation(`Has creado el testimonio!`);
-            })
-            .catch(err => {
-              console.log('error', err);
-              error('Error', err.response.data.errors[0].msg);
-            });
-        }
-        if (!setEditing) {
-          navigate(`${!!isAdmin ? '/backoffice' : ''}/testimonials`);
-        } else {
-          setEditing(null);
-        }
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    };
+
+    fetch(process.env.REACT_APP_SERVER_BASE_URL + '/files', requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  };
+
+  const postEdit = values => {
+    if (isEditionForm) {
+      AuthorizationService.put(`/testimonials/${id}`, {
+        name: values.name,
+        content: values.content,
+        image: fileName,
       })
-      .catch(err => console.log(err));
+        .then(res => {
+          confirmation('Has editado el testimonio!');
+          setEditing(false);
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
+    } else {
+      AuthorizationService.post('/testimonials', {
+        name: values.name,
+        content: values.content,
+        image: fileName,
+      })
+        .then(res => {
+          confirmation(`Has creado el testimonio!`);
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
+    }
+    if (!setEditing) {
+      navigate(`${!!isAdmin ? '/backoffice' : ''}/testimonials`);
+    } else {
+      setEditing(null);
+    }
+  };
+  const onSubmit = (values, actions) => {
+    postImage();
+    postEdit(values);
+    actions.resetForm();
   };
 
   const formik = useFormik({
@@ -181,6 +184,8 @@ function TestimonialForm({ values, setEditing }) {
             type="file"
             onChange={event => {
               formik.setFieldValue('image', event.target.files[0]);
+              setFile(event.currentTarget.files[0]);
+              setFileName(event.currentTarget.files[0].name);
             }}
           />
           <Text color="red">

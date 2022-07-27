@@ -6,6 +6,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { confirmation, error } from '../../services/alerts';
 
 function ActivityForm({ values, setEditing }) {
@@ -20,6 +21,10 @@ function ActivityForm({ values, setEditing }) {
   };
 
   const [isEditionForm, setIsEditionForm] = useState(false);
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsEditionForm(!!values);
@@ -51,53 +56,56 @@ function ActivityForm({ values, setEditing }) {
     content: Yup.string().required('Por favor escribe un contenido'),
   });
 
-  const onSubmit = (values, actions) => {
-    AuthorizationService.post(
-      'files',
-      { file: values.image },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-      .then(res => {
-        values.image = res.data.data.Location;
+  const postImage = () => {
+    var formdata = new FormData();
+    formdata.append('file', file, fileName);
+    formdata.append('key', fileName);
 
-        if (isEditionForm) {
-          AuthorizationService.put(`/activities/${id}`, {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation('Has editado la Actividad!');
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        } else {
-          AuthorizationService.post('/activities', {
-            name: values.name,
-            content: values.content,
-            image: values.image,
-          })
-            .then(res => {
-              confirmation(`Has creado una Actividad!`);
-            })
-            .catch(err => {
-              error('Error', err.response.data.errors[0].msg);
-            });
-        }
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    };
+    fetch(process.env.REACT_APP_SERVER_BASE_URL + '/files', requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  };
 
-        setEditing(null);
+  const postEdit = values => {
+    if (isEditionForm) {
+      AuthorizationService.put(`/activities/${id}`, {
+        name: values.name,
+        content: values.content,
+        image: fileName,
       })
-      .catch(err => {
-        error('Error', err);
-      });
-    {
-      actions.resetForm();
+        .then(res => {
+          confirmation('Has editado la Actividad!');
+          setEditing(false);
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
+    } else {
+      AuthorizationService.post('/activities', {
+        name: values.name,
+        content: values.content,
+        image: fileName,
+      })
+        .then(res => {
+          confirmation(`Has creado una Actividad!`);
+          navigate('/backoffice/activities');
+        })
+        .catch(err => {
+          error('Error', err.response.data.errors[0].msg);
+        });
     }
+    setEditing(null);
+  };
+  const onSubmit = (values, actions) => {
+    postImage();
+    postEdit(values);
+    actions.resetForm();
   };
 
   const formik = useFormik({
@@ -141,6 +149,8 @@ function ActivityForm({ values, setEditing }) {
             type="file"
             onChange={event => {
               formik.setFieldValue('image', event.target.files[0]);
+              setFile(event.currentTarget.files[0]);
+              setFileName(event.currentTarget.files[0].name);
             }}
           />
           <Text color="red">
