@@ -18,12 +18,13 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from '../../services/authorization';
 import TestimonyDeleteConfirmation from './TestimonyDeleteConfirmation';
 import TestimonialForm from '../Testimonial/TestimonialForm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const TestimonialTable = () => {
   const [testimonial, setTestimonial] = useState([]);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  const navigate = useNavigate()
   console.log(testimonial);
 
   useEffect(() => {
@@ -66,38 +67,36 @@ const TestimonialTable = () => {
           <Table
             variant="striped"
             align="center"
-            size={['400px', '600px', 'md', 'md']}
+          // size={['400px', '600px', 'md', 'md']}
           >
             <Thead>
               <Tr>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Imagen</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Nombre</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Testimonio</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Editar</Th>
-                <Th fontSize={['8px', '10px', '12px', '16px']}>Eliminar</Th>
+                <Th>Imagen</Th>
+                <Th>Nombre</Th>
+                <Th>Testimonio</Th>
+                <Th>Editar</Th>
+                <Th>Eliminar</Th>
               </Tr>
             </Thead>
             <Tbody>
               {testimonial.map(testimonio => (
                 <Tr key={testimonio.id}>
-                  <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  <Td>
                     <Image
-                      width={['20px', '40px', '50px', '50px']}
-                      height={['20px', '40px', '50px', '50px']}
+                      width={'50px'}
+                      height={'50px'}
                       borderRadius={'50%'}
-                      src={testimonio.image}
+                      src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${testimonio.image}`}
+                      objectFit={'cover'}
                     />
                   </Td>
-                  <Td fontSize={['8px', '10px', '12px', '16px']}>
+                  <Td>
                     {testimonio.name}
                   </Td>
                   <Td
-                    fontSize={['8px', '10px', '12px', '16px']}
-                    dangerouslySetInnerHTML={{ __html: testimonio.content }}
-                  ></Td>
+                  >{testimonio.content}</Td>
                   <Td>
                     <Button
-                      size={['20px', 'xs', 'sm']}
                       onClick={() => setEditing(testimonio)}
                     >
                       <EditIcon />
@@ -108,7 +107,6 @@ const TestimonialTable = () => {
                       <Button
                         colorScheme="red"
                         variant="solid"
-                        size={['20px', 'xs', 'sm']}
                         onClick={() => setDeleting(testimonio)}
                       >
                         <DeleteIcon />
@@ -122,41 +120,27 @@ const TestimonialTable = () => {
         </TableContainer>
         <Flex
           flexDirection={'column'}
-          alignItems={'flex-start'}
-          mt="20px"
-          mb="30px"
-          mr={{
-            base: '4px',
-            sm: '495px',
-            md: '700px',
-            xl: '1110px',
-            '2xl': '1510',
-          }}
+          alignItems={'center'}
+          justifyContent={'center'}
+          gap={'20px'}
+          marginBottom={'70px'}
         >
-          <Link to={'/add-testimony'}>
-            <Button
-              background={'red'}
-              color={'white'}
-              fontWeight={'bold'}
-              fontSize={['xs', 'xs', 'ms', 'ms']}
-              borderRadius={'15px'}
-              boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-            >
-              ¡Agregar mi Testimonio!
-            </Button>
-          </Link>
-          <Link to={'/'}>
-            <Button
-              mt={'20px'}
-              fontSize={['xs', 'xs', 'ms', 'ms']}
-              background={'white'}
-              boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-              borderRadius={'15px'}
-            >
-              {' '}
-              Ir al inicio
-            </Button>
-          </Link>
+          <Button
+            variant={'login'}
+            onClick={() => navigate('/add-testimony')}
+            maxWidth={'90%'}
+          >
+            ¡Agregar mi Testimonio!
+          </Button>
+          <Button
+            variant={'login'}
+            backgroundColor={'#f5f5f5'}
+            color={'#000'}
+            onClick={() => { navigate('/') }}
+            maxWidth={'90%'}
+          >
+            Ir al inicio
+          </Button>
         </Flex>
       </Flex>
     </>

@@ -1,8 +1,11 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from '@chakra-ui/react';
 
 const TestimonialCard = ({ element }) => {
+  useEffect(() => {
+    console.log(element);
+  }, [])
   return (
     <>
       <Grid
@@ -28,8 +31,9 @@ const TestimonialCard = ({ element }) => {
               width={'75px'}
               height={'75px'}
               borderRadius={'50%'}
-              src={element.image}
-              //src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/testimonial${element.id}`}
+              objectFit={'cover'}
+              // src={element.image}
+              src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
               alt={element.name}
             />
           </Flex>
