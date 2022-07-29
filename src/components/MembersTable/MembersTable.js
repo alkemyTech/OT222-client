@@ -26,7 +26,7 @@ const MembersTable = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + '/members')
+      .get(process.env.REACT_APP_SERVER_BASE_URL + process.env.REACT_APP_MEMBERS_GET)
       .then(res => setMembers(res.data))
       .catch(err => console.log(err));
   }, [editing, deleting]);
