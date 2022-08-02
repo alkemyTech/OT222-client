@@ -97,11 +97,14 @@ function TestimonialForm({ values, setEditing }) {
 
   const postEdit = values => {
     if (isEditionForm) {
-      AuthorizationService.put(`/testimonials/${id}`, {
-        name: values.name,
-        content: values.content,
-        image: fileName,
-      })
+      AuthorizationService.put(
+        process.env.REACT_APP_TESTIMONIALS_EDIT + `${id}`,
+        {
+          name: values.name,
+          content: values.content,
+          image: fileName,
+        }
+      )
         .then(res => {
           confirmation('Has editado el testimonio!');
           setEditing(false);
@@ -110,7 +113,7 @@ function TestimonialForm({ values, setEditing }) {
           error('Error', err.response.data.errors[0].msg);
         });
     } else {
-      AuthorizationService.post('/testimonials', {
+      AuthorizationService.post(process.env.REACT_APP_TESTIMONIALS_ADD, {
         name: values.name,
         content: values.content,
         image: fileName,
@@ -177,7 +180,7 @@ function TestimonialForm({ values, setEditing }) {
               mb={'10px'}
               mt={'10px'}
               borderRadius={'20%'}
-              src={image}
+              src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${image}`}
             />
           )}
           <input

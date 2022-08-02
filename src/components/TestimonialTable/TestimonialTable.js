@@ -25,11 +25,13 @@ const TestimonialTable = () => {
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
   const navigate = useNavigate();
-  console.log(testimonial);
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
+      .get(
+        process.env.REACT_APP_SERVER_BASE_URL +
+          process.env.REACT_APP_TESTIMONIALS_GET
+      )
       .then(res => setTestimonial(res.data))
       .catch(err => console.log(err));
   }, [editing, deleting]);

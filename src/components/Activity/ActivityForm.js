@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AuthorizationService from '../../services/authorization';
 import { ErrorMessage, Field, Form, FormikProvider, useFormik } from 'formik';
-import { Flex, Input, Button, Stack, Text } from '@chakra-ui/react';
+import { Flex, Input, Button, Stack, Image, Text } from '@chakra-ui/react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 import { confirmation, error } from '../../services/alerts';
 
 function ActivityForm({ values, setEditing }) {
-  const { name, content, id } = values || {
+  const { name, image, content, id } = values || {
     name: '',
     content: '',
   };
@@ -144,7 +144,16 @@ function ActivityForm({ values, setEditing }) {
 
         <Flex flexDirection={'column'}>
           <label htmlFor="image">Imagen</label>
-          <br />
+          {!!values && (
+            <Image
+              width={['20px', '40px', '50px', '50px']}
+              height={['20px', '40px', '50px', '50px']}
+              mb={'10px'}
+              mt={'10px'}
+              borderRadius={'20%'}
+              src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${image}`}
+            />
+          )}
           <input
             type="file"
             onChange={event => {

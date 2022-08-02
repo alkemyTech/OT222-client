@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Image } from '@chakra-ui/react';
 
 const TestimonialCard = ({ element }) => {
-  useEffect(() => {
-    console.log(element);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <Grid
