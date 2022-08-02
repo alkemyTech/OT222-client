@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../components/Buttons/BackButton';
 import {
@@ -11,14 +11,39 @@ import {
   Box,
   useTheme,
 } from '@chakra-ui/react';
+import axios from '../services/authorization/index'
+import { useSelector, useDispatch } from 'react-redux';
+import { confirmation } from '../services/alerts';
+
+
 const ProfilePage = () => {
-  const user = {
-    firstName: 'firstname',
-    lastName: 'lastname',
-    email: 'user@gmail.com',
-  };
+
+  const [user, setUser] = useState({ firstName: '', lastName: '' });
   const [edit, setEdit] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
   const theme = useTheme();
+
+  useEffect(() => {
+
+    axios.get(process.env.REACT_APP_SERVER_BASE_URL + '/auth/me')
+      .then(res => {
+        setCurrentUser(res.data.id)
+        setUser(res.data)
+      })
+      .catch(err => console.log(err));
+
+  }, [])
+
+  const handleSubmit = e => {
+
+    axios.post(process.env.REACT_APP_SERVER_BASE_URL + '/auth/edit/' + currentUser, user)
+      .then(res => {
+        console.log("success")
+      })
+      .catch(err => console.log(err));
+
+  }
+
   return (
     <>
       <Flex pt="10px" pr={'10px'} justify={'flex-end'}>
@@ -41,7 +66,6 @@ const ProfilePage = () => {
           pb="5vh"
         >
           <Text justifySelf="center" fontSize={'4xl'}>
-            {' '}
             Mis datos
           </Text>
 
@@ -50,7 +74,9 @@ const ProfilePage = () => {
             <Input
               bg="#fff"
               id="text"
-              placeholder={user.firstName}
+              placeholder='Nombre'
+              value={user.firstName}
+              onChange={e => setUser({ ...user, firstName: e.target.value })}
               isDisabled={edit}
             />
           </Box>
@@ -59,16 +85,9 @@ const ProfilePage = () => {
             <Input
               bg="#fff"
               id="text"
-              placeholder={user.lastName}
-              isDisabled={edit}
-            />
-          </Box>
-          <Box w={['50vw', '30vw', '20vw']} ml="5vw">
-            <FormLabel>Correo</FormLabel>
-            <Input
-              bg="#fff"
-              id="text"
-              placeholder={user.email}
+              placeholder='Apellido'
+              value={user.lastName}
+              onChange={e => setUser({ ...user, lastName: e.target.value })}
               isDisabled={edit}
             />
           </Box>
@@ -82,20 +101,16 @@ const ProfilePage = () => {
             Modificar datos
           </Button>
           <Button
-            //onClick={} save changes
+            onClick={() => {
+              handleSubmit();
+              confirmation("Datos modificados correctamente");
+              setEdit(!edit);
+            }}
             w={['40vw', '20vw']}
             bg={theme.colors.tertiary}
             ml="5vw"
           >
             Guardar cambios
-          </Button>
-          <Button
-            //onClick={} delete account
-            w={['40vw', '20vw']}
-            bg={theme.colors.primary}
-            ml="5vw"
-          >
-            Eliminar cuenta
           </Button>
         </Grid>
       </Grid>
