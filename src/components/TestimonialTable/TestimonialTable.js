@@ -87,9 +87,11 @@ const TestimonialTable = () => {
                     />
                   </Td>
                   <Td>{testimonio.name}</Td>
-                  <Td
-                    dangerouslySetInnerHTML={{ __html: testimonio.content }}
-                  ></Td>
+                  <Td>
+                    <Text
+                      dangerouslySetInnerHTML={{ __html: testimonio.content }}
+                    />
+                  </Td>
                   <Td>
                     <Button onClick={() => setEditing(testimonio)}>
                       <EditIcon />

@@ -54,7 +54,13 @@ const TestimonialCard = ({ element }) => {
           textAlign={'start'}
           padding={'10px'}
           overflow="hidden"
-        />
+        >
+          <div
+            dangerouslySetInnerHTML={{
+              __html: element.content,
+            }}
+          />
+        </Text>
       </Grid>
     </>
   );

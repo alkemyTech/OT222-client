@@ -56,13 +56,14 @@ const Dynamic_news = () => {
       ) : (
         <Flex flexDir={'column'}>
           <Image
-            src={newsDetail.image}
+            src={
+              `${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` ||
+              banner
+            }
             objectFit={'cover'}
             height={'50vh'}
             width={'100%'}
           />
-
-          {/*<Image src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${newsDetail.image}` || banner} objectFit={'cover'} height={"50vh"} width={"100%"} />*/}
           <Flex
             flexDir={'column'}
             marginY={'10%'}
@@ -78,9 +79,14 @@ const Dynamic_news = () => {
             >
               {newsDetail.name}
             </Text>
-            <Text fontSize={['xl', '2xl']} h="auto" maxWidth={['100%', '50%']}>
-              {newsDetail.content}
-            </Text>
+            <Text
+              fontSize={['xl', '2xl']}
+              h="auto"
+              maxWidth={['100%', '50%']}
+              dangerouslySetInnerHTML={{
+                __html: newsDetail.content,
+              }}
+            />
             <Button onClick={() => navigate('/news')}>← Volver</Button>
           </Flex>
         </Flex>
