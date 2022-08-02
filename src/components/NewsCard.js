@@ -40,7 +40,11 @@ const NewsCard = ({ element }) => {
         textAlign={'center'}
         margin={'auto'}
       >
-        {element.content}{' '}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: element.content,
+          }}
+        />
       </Text>
       <Link to={`/news/${element.id}`}>
         <Button
