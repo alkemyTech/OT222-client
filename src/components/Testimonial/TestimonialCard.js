@@ -5,7 +5,7 @@ import { Image } from '@chakra-ui/react';
 const TestimonialCard = ({ element }) => {
   useEffect(() => {
     console.log(element);
-  }, [])
+  }, []);
   return (
     <>
       <Grid
@@ -32,7 +32,6 @@ const TestimonialCard = ({ element }) => {
               height={'75px'}
               borderRadius={'50%'}
               objectFit={'cover'}
-              // src={element.image}
               src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${element.image}`}
               alt={element.name}
             />
@@ -53,7 +52,6 @@ const TestimonialCard = ({ element }) => {
           width={'95%'}
           fontSize={'16px'}
           textAlign={'start'}
-          dangerouslySetInnerHTML={{ __html: element.content }}
           padding={'10px'}
           overflow="hidden"
         />

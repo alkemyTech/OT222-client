@@ -25,7 +25,7 @@ function ActivityTable() {
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -63,10 +63,7 @@ function ActivityTable() {
       </Flex>
       <Flex justifyContent={'center'} flexDirection={'column'} align="center">
         <TableContainer mt="70px" mb="70px" width={'90%'}>
-          <Table
-            variant="striped"
-            align="center"
-          >
+          <Table variant="striped" align="center">
             <Thead>
               <Tr>
                 <Th>Imagen</Th>
@@ -85,14 +82,15 @@ function ActivityTable() {
                       height={'50px'}
                       objectFit={'cover'}
                       borderRadius={'50%'}
-                      src={activity.image}
+                      src={`${process.env.REACT_APP_SERVER_BASE_URL}/files/single/${activity.image}`}
                     />
                   </Td>
-                  <Td>
-                    {activity.name}
-                  </Td>
+                  <Td>{activity.name}</Td>
                   <Td
-                  >`${activity.content.substring(0, 40)}...`</Td>
+                    dangerouslySetInnerHTML={{
+                      __html: `${activity.content.substring(0, 40)}...`,
+                    }}
+                  ></Td>
                   <Td>
                     <Button
                       size={['20px', 'xs', 'sm']}
@@ -124,14 +122,14 @@ function ActivityTable() {
           gap={'20px'}
         >
           <Button
-            variant='login'
+            variant="login"
             onClick={() => navigate('/add-activity')}
             maxWidth={'90%'}
           >
             ¡Agregar Actividad!
           </Button>
           <Button
-            variant='login'
+            variant="login"
             maxWidth={'90%'}
             backgroundColor={'#f5f5f5'}
             color={'#000'}
