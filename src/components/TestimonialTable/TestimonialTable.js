@@ -24,7 +24,7 @@ const TestimonialTable = () => {
   const [testimonial, setTestimonial] = useState([]);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   console.log(testimonial);
 
   useEffect(() => {
@@ -64,11 +64,7 @@ const TestimonialTable = () => {
       </Flex>
       <Flex justifyContent={'center'} flexDirection={'column'} align="center">
         <TableContainer mt="70px" mb="70px" width={'90%'}>
-          <Table
-            variant="striped"
-            align="center"
-          // size={['400px', '600px', 'md', 'md']}
-          >
+          <Table variant="striped" align="center">
             <Thead>
               <Tr>
                 <Th>Imagen</Th>
@@ -90,15 +86,12 @@ const TestimonialTable = () => {
                       objectFit={'cover'}
                     />
                   </Td>
-                  <Td>
-                    {testimonio.name}
-                  </Td>
+                  <Td>{testimonio.name}</Td>
                   <Td
-                  >{testimonio.content}</Td>
+                    dangerouslySetInnerHTML={{ __html: testimonio.content }}
+                  ></Td>
                   <Td>
-                    <Button
-                      onClick={() => setEditing(testimonio)}
-                    >
+                    <Button onClick={() => setEditing(testimonio)}>
                       <EditIcon />
                     </Button>
                   </Td>
@@ -136,7 +129,9 @@ const TestimonialTable = () => {
             variant={'login'}
             backgroundColor={'#f5f5f5'}
             color={'#000'}
-            onClick={() => { navigate('/') }}
+            onClick={() => {
+              navigate('/');
+            }}
             maxWidth={'90%'}
           >
             Ir al inicio
