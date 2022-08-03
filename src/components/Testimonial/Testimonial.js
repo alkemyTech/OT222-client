@@ -7,16 +7,16 @@ const Testimonial = () => {
   const [testimonio, setTestimonio] = useState([]);
   const getTestimony = () => {
     axios
-      .get(process.env.REACT_APP_SERVER_BASE_URL + '/testimonials')
+      .get(
+        process.env.REACT_APP_SERVER_BASE_URL +
+          process.env.REACT_APP_TESTIMONIALS_GET
+      )
       .then(res => {
-        /* const testimonials = res.data;
-        const testimonyIndex = testimonials.length - 12;
-        setTestimonio(testimonials.slice(testimonyIndex, testimonials.length)); */
-        setTestimonio(res.data)
+        setTestimonio(res.data);
       })
       .catch(err => console.log(err));
   };
-  console.log(testimonio)
+
   useEffect(() => {
     getTestimony();
   }, []);
